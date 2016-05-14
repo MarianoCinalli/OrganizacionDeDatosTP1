@@ -5,6 +5,7 @@ class ArbolBiselado{
 
 	// Atributos
 
+
 	private:
 	int numeroDeBloqueHijoIzquierdo;
 	int numeroDeBloqueHijoDerecho;

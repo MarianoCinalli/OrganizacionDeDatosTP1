@@ -2,6 +2,7 @@
 
 class ArbolBiselado{
 
+
 	// Atributos
 
 	private:
