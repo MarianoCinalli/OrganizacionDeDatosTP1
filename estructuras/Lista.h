@@ -25,7 +25,7 @@ class Lista{
         	T obtenerCursor();
 
 	private:
-        	NodoDoblementeEnlasado<T>* obtenerNodo(unsigned int posicion);
+        	NodoSimplementeEnlasado<T>* obtenerNodo(unsigned int posicion);
 
 };
 #endif // LISTA_H
