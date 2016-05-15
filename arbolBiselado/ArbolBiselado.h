@@ -7,33 +7,17 @@ class ArbolBiselado{
 
 
 	private:
-	int numeroDeBloqueHijoIzquierdo;
-	int numeroDeBloqueHijoDerecho;
-	Nodo* hijoIzquierdo;
-	Nodo* hijoDerecho;
-	Lista* registros;
+		Nodo* raiz;
 
 	// Metodos
 	public:
-	ArbolBiselado();
-
-	void setNumeroDeBloqueHijoIzquierdo(int numero);
-	int getNumeroDeBloqueHijoIzquierdo();
-
-	void setNumeroDeBloqueHijoDerecho(int numero);
-	int getNumeroDeBloqueHijoDerecho();
-
-	void setHijoIzquierdo(Nodo* hijoIzquierdo);
-	Nodo* getHijoIzquierdo();
-
-	void setHijoDerecho(Nodo* hijoDerecho);
-	Nodo* getHijoDerecho();
+		ArbolBiselado();
 	
-	void insertar(Registro* registro);
-	void modificar(Registro* registro);
-	void eliminar(int identificador);
+		void insertar(Registro* registro);
+		void modificar(Registro* registro);
+		void eliminar(int identificador);
 
-	~ArbolBiselado();
+		~ArbolBiselado();
 };
 
 #endif // ARBOLBISELADO_H
