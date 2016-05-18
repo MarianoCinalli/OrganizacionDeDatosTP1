@@ -1,29 +1,17 @@
 #include "Lista.h"
 #include "NodoSimplementeEnlasado.h"
 
-template <class T>
-class Lista{
 
-	// Atributos
-	private:
-		unsigned int tamanio;
-		NodoSimplementeEnlasado<T>* primerElemento;
-		NodoSimplementeEnlasado<T>* cursor;
+        	template <class T> Lista<T>::Lista(){};
+        	template <class T> unsigned int Lista<T>::getTamanio(){};
+            template <class T> bool Lista<T>::estaVacia(){};
 
-	// Metodos
-	public:
-        	Lista();
-        	unsigned int getTamanio();
-        	bool estaVacia();
+        	template <class T> void Lista<T>::agregar(T elemento){};
+        	template <class T> void Lista<T>::remover(unsigned int posicion){};
 
-        	void agregar(T elemento);
-        	void remover(unsigned int posicion);
+        	template <class T> void Lista<T>::iniciarCursor(){};
+        	template <class T> bool Lista<T> ::avanzarCursor(){};
 
-        	void iniciarCursor();
-        	bool avanzarCursor();
+        	template <class T> T Lista<T>::obtenerCursor(){};
 
-        	T obtenerCursor();
-
-	private:
-        	NodoSimplementeEnlasado<T>* obtenerNodo(unsigned int posicion);
-};
+        	template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned int posicion){};

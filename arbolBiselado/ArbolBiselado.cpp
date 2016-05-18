@@ -1,21 +1,13 @@
 #include "ArbolBiselado.h"
-#include "../funciones/biselado.h"
-#include "../funciones/capaFisica.h"
-
-class ArbolBiselado{
-
-	// Atributos
-	private:
-		Nodo* raiz;
-		// Faltan cosas aca, supongo que mientras programemos van a surgir.		
+#include "../funciones/funcionesDeBiselado.h"
+		// Faltan cosas aca, supongo que mientras programemos van a surgir.
 
 	// Metodos
-	public:
-		ArbolBiselado();
-	
-		void insertar(Registro* registro);
-		void modificar(Registro* registro);
-		void eliminar(int identificador);
+		ArbolBiselado::ArbolBiselado() {};
 
-		~ArbolBiselado();
-};
+		void ArbolBiselado::insertar(Registro* registro){};
+		void ArbolBiselado::modificar(Registro* registro){};
+		void ArbolBiselado::eliminar(int identificador){};
+
+		ArbolBiselado::~ArbolBiselado(){};
+

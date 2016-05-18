@@ -1,6 +1,6 @@
 #ifndef _LISTA_H
 #define _LISTA_H
-
+#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/estructuras/NodoSimplementeEnlasado.h"
 template <class T>
 class Lista{
 

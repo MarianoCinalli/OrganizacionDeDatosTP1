@@ -1,6 +1,6 @@
 #ifndef _PILA_H
 #define _PILA_H
-
+#include "NodoSimplementeEnlasado.h"
 template <class T>
 class Pila{
 

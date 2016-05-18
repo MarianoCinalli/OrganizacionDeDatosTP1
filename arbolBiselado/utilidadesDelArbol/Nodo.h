@@ -1,6 +1,7 @@
 #ifndef _NODO_H
 #define _NODO_H
-
+#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/estructuras/Lista.h"
+#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/arbolBiselado/utilidadesDelArbol/Registro.h"
 class Nodo{
 
 	// Atributos
@@ -26,12 +27,12 @@ class Nodo{
 
 		void setHijoDerecho(Nodo* hijoDerecho);
 		Nodo* getHijoDerecho();
-		
+
 		int getMenorClave();
 		int getMayorClave();
-		
+
 		Lista<Registro>* getListaDeRegistros();
-		
+
 		~Nodo();
 };
 

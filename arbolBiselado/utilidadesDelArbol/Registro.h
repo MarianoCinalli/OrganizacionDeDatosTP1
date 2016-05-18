@@ -1,29 +1,31 @@
 #ifndef _REGISTRO_H
 #define _REGISTRO_H
-
+#include <iostream>
+#include <string>
+using namespace std;
 class Registro{
 
 	// Atributos
 	private:
 
-		unsigned int id; 
+		unsigned int id;
 		int codigo;
-		string descripcion; 
+		string descripcion;
 		static int* campoIndexante;
 
 	// Metodos
 	public:
 		Registro();
 		Registro(string campoIndexante);
-		
+
 		unsigned int getID();
 		void setID(unsigned int nuevoID);
 
 		int getCodigo();
-		void setCodigo(int nuevoCodigo);	
-	
+		void setCodigo(int nuevoCodigo);
+
 		string getDescripcion();
-		void setDescripcion(String nuevaDescripcion);
+		void setDescripcion(string nuevaDescripcion);
 
 		int getCampoIndexante();
 

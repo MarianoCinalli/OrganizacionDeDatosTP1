@@ -1,6 +1,6 @@
 #ifndef _ARBOLBISELADO_H
 #define _ARBOLBISELADO_H
-
+#include "utilidadesDelArbol/Nodo.h"
 class ArbolBiselado{
 
 	// Atributos
@@ -12,7 +12,7 @@ class ArbolBiselado{
 	// Metodos
 	public:
 		ArbolBiselado();
-	
+
 		void insertar(Registro* registro);
 		void modificar(Registro* registro);
 		void eliminar(int identificador);

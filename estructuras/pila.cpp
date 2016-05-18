@@ -1,22 +1,12 @@
 #include "Pila.h"
 
-template <class T>
-class Pila{
-
-	// Atributos
-	private:
-		unsigned int tamanio;
-		NodoSimplementeEnlasado<T>* tope;
-
 	// Metodos
-	public:
-		Pila();
+		template <class T> Pila<T>::Pila(){};
 
-		unsigned int getTamanio();
-		bool estaVacia();
+		template <class T> unsigned int Pila<T>::getTamanio(){};
+		template <class T> bool Pila<T>::estaVacia(){};
 		// Devuelve un registro
-		T desapilar();
-		void apilar(T elemento);
+		template <class T> T Pila<T>::desapilar(){};
+		template <class T> void Pila<T>::apilar(T elemento){};
 
-		~Pila();
-};
+		template <class T> Pila<T>::~Pila(){};
