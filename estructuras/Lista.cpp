@@ -10,8 +10,9 @@
         	template <class T> void Lista<T>::remover(unsigned int posicion){};
 
         	template <class T> void Lista<T>::iniciarCursor(){};
-        	template <class T> bool Lista<T> ::avanzarCursor(){};
+        	template <class T> bool Lista<T>::avanzarCursor(){return true;};
 
         	template <class T> T Lista<T>::obtenerCursor(){};
 
-        	template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned int posicion){};
+            template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned int posicion){};
+
