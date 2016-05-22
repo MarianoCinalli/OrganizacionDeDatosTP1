@@ -1,7 +1,9 @@
+#include "Lista.h"
+#include "Registro.h"
+
 #ifndef _NODO_H
 #define _NODO_H
-#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/estructuras/Lista.h"
-#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/arbolBiselado/utilidadesDelArbol/Registro.h"
+
 class Nodo{
 
 	// Atributos

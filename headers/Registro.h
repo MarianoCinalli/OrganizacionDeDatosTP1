@@ -1,8 +1,11 @@
-#ifndef _REGISTRO_H
-#define _REGISTRO_H
 #include <iostream>
 #include <string>
+
 using namespace std;
+
+#ifndef _REGISTRO_H
+#define _REGISTRO_H
+
 class Registro{
 
 	// Atributos

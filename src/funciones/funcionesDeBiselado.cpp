@@ -1,5 +1,5 @@
-#include "../estructuras/Pila.h"
-#include "../arbolBiselado/utilidadesDelArbol/Nodo.h"
+#include "Pila.h"
+#include "Nodo.h"
 #include "funcionesDeBiselado.h"
 
 // La pila que entra como parametro se vacia en la funcion.

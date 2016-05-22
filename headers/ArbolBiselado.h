@@ -1,6 +1,11 @@
+#include "Nodo.h"
+#include "funcionesDeBiselado.h"
+#include "Lista.h"
+#include "Registro.h"
+
 #ifndef _ARBOLBISELADO_H
 #define _ARBOLBISELADO_H
-#include "utilidadesDelArbol/Nodo.h"
+
 class ArbolBiselado{
 
 	// Atributos
@@ -8,8 +13,7 @@ class ArbolBiselado{
 
 	private:
 		Nodo* raiz;
-        bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
-        bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
+
 	// Metodos
 	public:
 		ArbolBiselado();
@@ -19,6 +23,10 @@ class ArbolBiselado{
 		void eliminar(int identificador);
 
 		~ArbolBiselado();
+
+	private:
+		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
+        	bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
 };
 
 #endif // ARBOLBISELADO_H
