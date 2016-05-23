@@ -6,13 +6,41 @@
 	};
 
 	void ArbolBiselado::insertar(Registro* registro){
+		
+		insertarRecursivo( registro, this->raiz );
+		
 	};
 
 	bool ArbolBiselado::modificar(Registro* registroAModificar){
+		
 		return modificarRecursivo(raiz,registroAModificar);
+		
 	}
-	void ArbolBiselado::eliminar(int identificador){};
+	
+	void ArbolBiselado::eliminar(int identificador){
+	
+	};
 
+	bool ArbolBiselado::encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro){
+		
+		nodoActual->getListaDeRegistros()->iniciarCursor();
+		
+		while(nodoActual->getListaDeRegistros()->avanzarCursor()){
+			
+			if(nodoActual->getListaDeRegistros()->obtenerCursor().getID() == registroModificado->getID()){
+				return true;
+			}
+			posicionDeRegistro++;
+       }
+       
+       return false;
+     }
+	
+	ArbolBiselado::~ArbolBiselado(){
+	};
+	
+	// Metodos privados ------------------------------------------------
+	
 	bool ArbolBiselado::modificarRecursivo(Nodo* nodoActual, Registro* registroAModificar){
 		
 		int posicionRegistro = 0;
@@ -43,22 +71,33 @@
                 */
             }
         }
-
-	bool ArbolBiselado::encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro){
+        
+	// Mariano -----------------------------------------------------
+        
+	void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo ){
 		
-		nodoActual->getListaDeRegistros()->iniciarCursor();
-		
-		while(nodoActual->getListaDeRegistros()->avanzarCursor()){
+		if (nodo -> estaIncluido(registro)){
 			
-			if(nodoActual->getListaDeRegistros()->obtenerCursor().getID() == registroModificado->getID()){
-				return true;
-			}
-			posicionDeRegistro++;
-       }
-       
-       return false;
-     }
-	
-	ArbolBiselado::~ArbolBiselado(){
-	};
-
+			// Excepcion
+			
+		} else if (nodo -> esHoja()){
+			
+				//insertarEnHoja(registro, nodo);
+				
+			} else if ( nodo -> esElMenor(registro) ){
+			
+					Nodo* hijoDerecho = nodo -> getHijoDerecho();
+					insertarRecursivo(registro ,hijoDerecho);
+				
+				} else if (nodo -> esElMayor(registro)){
+			
+						Nodo* hijoIzquierdo = nodo -> getHijoIzquierdo();
+						insertarRecursivo(registro ,hijoIzquierdo);
+						
+					} else {
+						
+							//insetarDentro(nodo, registro);
+						
+						}
+		
+	}

@@ -25,8 +25,13 @@ class ArbolBiselado{
 		~ArbolBiselado();
 
 	private:
+		
 		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
-        	bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
+        
+        bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
+        
+        void insertarRecursivo(Registro* registro, Nodo* nodo);
+        
 };
 
 #endif // ARBOLBISELADO_H

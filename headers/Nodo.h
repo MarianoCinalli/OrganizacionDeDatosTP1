@@ -13,6 +13,7 @@ class Nodo{
 		Nodo* hijoIzquierdo;
 		Nodo* hijoDerecho;
 		Lista<Registro>* registros;
+		bool esNodoHoja;
 
 	// Metodos
 	public:
@@ -32,6 +33,11 @@ class Nodo{
 
 		int getMenorClave();
 		int getMayorClave();
+		
+		bool esElMenor(Registro* registro);
+		bool esElMayor(Registro* registro);
+		bool estaIncluido(Registro* registro);
+		bool esHoja();
 
 		Lista<Registro>* getListaDeRegistros();
 
