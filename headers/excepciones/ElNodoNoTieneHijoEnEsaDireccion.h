@@ -1,0 +1,8 @@
+#ifndef _ELNODONOTIENEHIJOENESADIRECCION_H
+#define _ELNODONOTIENEHIJOENESADIRECCION_H
+
+class ElNodoNoTieneHijoEnEsaDireccion: public exception{
+
+};
+
+#endif // ELNODONOTIENEHIJOENESADIRECCION_H

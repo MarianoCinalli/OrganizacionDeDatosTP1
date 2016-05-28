@@ -3,6 +3,8 @@
 #include "Lista.h"
 #include "Registro.h"
 #include "Pila.h"
+#include "excepciones/ElNodoExcedeElTamanioMaximo.h"
+#include "excepciones/ElNodoNoTieneHijoEnEsaDireccion.h"
 
 #ifndef _ARBOLBISELADO_H
 #define _ARBOLBISELADO_H

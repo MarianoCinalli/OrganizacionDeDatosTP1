@@ -121,7 +121,7 @@
 		
 			hijoDerecho = nodo -> getHijoDerecho();
 			
-		} catch ( int e) {
+		} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
 			
 			// Creo el nuevo nodo.
 			hijoDerecho = new Nodo();
@@ -145,7 +145,7 @@
 		
 			hijoIzquierdo = nodo -> getHijoIzquierdo();
 			
-		} catch ( int e) {
+		} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
 			
 			// Creo el nuevo nodo.
 			hijoIzquierdo = new Nodo();
@@ -168,7 +168,7 @@
 			nodo -> agregarRegistro(registro);
 			
 			
-		} catch ( int e) {
+		} catch ( ElNodoExcedeElTamanioMaximo e) {
 			
 			// Variables temporales.
 			Nodo* hijoIzquierdo;

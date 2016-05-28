@@ -1,0 +1,8 @@
+#ifndef _ELNODOEXCEDEELTAMANIOMAXIMO_H
+#define _ELNODOEXCEDEELTAMANIOMAXIMO_H
+
+class ElNodoExcedeElTamanioMaximo: public exception{
+
+};
+
+#endif // ELNODOEXCEDEELTAMANIOMAXIMO_H
