@@ -1,5 +1,6 @@
 #include "Nodo.h"
 #include "funcionesDeBiselado.h"
+#include "funcionesDePersistencia.h"
 #include "Lista.h"
 #include "Registro.h"
 #include "Pila.h"
@@ -33,9 +34,9 @@ class ArbolBiselado{
 		
 		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
         
-        	//bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
+        //bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
         
-        	void insertarRecursivo(Registro* registro, Nodo* nodo);
+        void insertarRecursivo(Registro* registro, Nodo* nodo);
 		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
 		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);

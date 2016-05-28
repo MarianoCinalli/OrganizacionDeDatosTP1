@@ -128,8 +128,8 @@
 			// Actualizo el numero de bloque.
 			nodo -> setNumeroDeBloqueHijoDerecho( hijoDerecho -> getNumeroDeBloque() );
 			// Persisto los cambios.
-			//persistir(nodo);
-			//persistir(hijoIzquierdo);
+			persistir(nodo);
+			persistir(hijoDerecho);
 			
 		}
 		
@@ -152,8 +152,8 @@
 			// Actualizo el numero de bloque.
 			nodo -> setNumeroDeBloqueHijoIzquierdo( hijoIzquierdo -> getNumeroDeBloque() );
 			// Persisto los cambios.
-			//persistir(nodo);
-			//persistir(hijoIzquierdo);
+			persistir(nodo);
+			persistir(hijoIzquierdo);
 			
 		}
 		
@@ -187,9 +187,9 @@
 			nodo -> setNumeroDeBloqueHijoIzquierdo ( hijoIzquierdo -> getNumeroDeBloque() );
 			nodo -> setNumeroDeBloqueHijoDerecho ( hijoDerecho -> getNumeroDeBloque() );
 			// Persisto los cambios.
-			//persistir(nodo);
-			//persistir(hijoIzquierdo);
-			//persistir(hijoDerecho);
+			persistir(nodo);
+			persistir(hijoIzquierdo);
+			persistir(hijoDerecho);
 			
 		}
 		
