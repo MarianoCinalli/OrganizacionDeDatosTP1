@@ -3,6 +3,8 @@
 #ifndef _LISTA_H
 #define _LISTA_H
 
+
+// La lista va a tener que dejar de ser generica, para que el agregar pueda ser un agregar ordenado.
 template <class T>
 class Lista{
 
@@ -25,6 +27,7 @@ class Lista{
         	bool avanzarCursor();
 
         	T obtenerCursor();
+
 	private:
             NodoSimplementeEnlasado<T>* obtenerNodo(unsigned int posicion);
 

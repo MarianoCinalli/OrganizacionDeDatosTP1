@@ -2,6 +2,7 @@
 #include "funcionesDeBiselado.h"
 #include "Lista.h"
 #include "Registro.h"
+#include "Pila.h"
 
 #ifndef _ARBOLBISELADO_H
 #define _ARBOLBISELADO_H
@@ -13,6 +14,8 @@ class ArbolBiselado{
 
 	private:
 		Nodo* raiz;
+		//Pila<Nodo*>* nodosProcesados;
+		//Pila<char>* movimientos;
 
 	// Metodos
 	public:
@@ -28,9 +31,12 @@ class ArbolBiselado{
 		
 		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
         
-        bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
+        	//bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
         
-        void insertarRecursivo(Registro* registro, Nodo* nodo);
+        	void insertarRecursivo(Registro* registro, Nodo* nodo);
+		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
+		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
+		void insertarEnHoja(Registro* registro ,Nodo* nodo);
         
 };
 

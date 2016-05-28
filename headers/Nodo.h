@@ -10,14 +10,13 @@ class Nodo{
 	private:
 		int numeroDeBloqueHijoIzquierdo;
 		int numeroDeBloqueHijoDerecho;
-		Nodo* hijoIzquierdo;
-		Nodo* hijoDerecho;
-		Lista<Registro>* registros;
+		Lista<Registro*>* registros;
 		bool esNodoHoja;
 
 	// Metodos
 	public:
 		Nodo();
+		Nodo(Lista<Registro*>* registros);
 
 		void setNumeroDeBloqueHijoIzquierdo(int numero);
 		int getNumeroDeBloqueHijoIzquierdo();
@@ -25,22 +24,21 @@ class Nodo{
 		void setNumeroDeBloqueHijoDerecho(int numero);
 		int getNumeroDeBloqueHijoDerecho();
 
-		void setHijoIzquierdo(Nodo* hijoIzquierdo);
 		Nodo* getHijoIzquierdo();
-
-		void setHijoDerecho(Nodo* hijoDerecho);
 		Nodo* getHijoDerecho();
 
-		int getMenorClave();
-		int getMayorClave();
+		int getNumeroDeBloque();
 		
 		bool esElMenor(Registro* registro);
 		bool esElMayor(Registro* registro);
 		bool estaIncluido(Registro* registro);
 		bool esHoja();
 
-		Lista<Registro>* getListaDeRegistros();
-
+		Lista<Registro*>* getListaDeRegistros();
+		Lista<Registro*>* obtenerRegistrosMayoresA(Registro* registro);
+		Lista<Registro*>* obtenerRegistrosMenoresA(Registro* registro);
+		void agregarRegistro(Registro* nuevoRegistro);
+		
 		~Nodo();
 };
 

@@ -1,50 +1,61 @@
 #include "Nodo.h"
 	// Metodos
+	
+	// Constructores
 	Nodo::Nodo(){
 		
+		// Invocar a la capa fisica para que le asigne el numero de bloque.
 		this -> numeroDeBloqueHijoIzquierdo = 0;
 		this -> numeroDeBloqueHijoDerecho = 0;
-		this -> hijoIzquierdo = NULL;
-		this -> hijoDerecho = NULL;
-		this -> registros = new Lista<Registro>;
+		this -> registros = new Lista<Registro*>;
+		this -> esNodoHoja = true;
+		
+	};
+	
+	Nodo::Nodo(Lista<Registro*>* registros){
+		
+		// Invocar a la capa fisica para que le asigne el numero de bloque.
+		this -> numeroDeBloqueHijoIzquierdo = 0;
+		this -> numeroDeBloqueHijoDerecho = 0;
+		this -> registros = registros;
 		this -> esNodoHoja = true;
 		
 	};
 
+	// Operaciones con los hijos
 	void Nodo::setNumeroDeBloqueHijoIzquierdo(int numero){
+		
+		this -> esNodoHoja = false;
+		
 	};
 	
 	int Nodo::getNumeroDeBloqueHijoIzquierdo(){
 	};
 
 	void Nodo::setNumeroDeBloqueHijoDerecho(int numero){
+		
+		this -> esNodoHoja = false;
+		
 	};
 	
 	int Nodo::getNumeroDeBloqueHijoDerecho(){
 	};
-
-	void Nodo::setHijoIzquierdo(Nodo* hijoIzquierdo){
-	};
 	
 	Nodo* Nodo::getHijoIzquierdo(){
-	};
-
-	void Nodo::setHijoDerecho(Nodo* hijoDerecho){
 	};
 	
 	Nodo* Nodo::getHijoDerecho(){
 	};
 	
-	// Esto vuela
-	int Nodo::getMenorClave(){ 
-		return 1; 
+	// Operaciones de informacion del nodo
+	
+	int Nodo::getNumeroDeBloque(){		
+	};
+		
+	bool Nodo::esHoja(){
 	};
 	
-	int Nodo::getMayorClave(){ 
-		return 1; 
-	};
-	
-	// Y se reemplaza por
+	// Operaciones con registros
 	bool Nodo::esElMenor(Registro* registro){
 	};
 	
@@ -53,13 +64,27 @@
 	
 	bool Nodo::estaIncluido(Registro* registro){
 	};
-	
-	bool Nodo::esHoja(){
-	};
 
-	Lista<Registro>* Nodo::getListaDeRegistros(){
+	void Nodo::agregarRegistro(Registro* nuevoRegistro){
 		
 	};
+	
+	Lista<Registro*>* Nodo::getListaDeRegistros(){
+		
+	};
+	
+	// Devuelve una lista de registros que son menores, en clave, 
+	// al registro pasado por parametro. Los elimina de la lista.
+	Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
+		
+	};
+	
+	// Devuelve una lista de registros que son mayores, en clave, 
+	// al registro pasado por parametro. Los elimina de la lista.
+	Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
+		
+	};
+	
 
 	Nodo::~Nodo(){
 	};
