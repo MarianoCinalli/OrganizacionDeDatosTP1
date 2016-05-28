@@ -9,4 +9,4 @@
 
 ###Integrantes:
 - Mariano Cinalli [@MarianoCinalli](https://github.com/MarianoCinalli)
-- Marcelo Zanella 
+- Marcelo Zanella [@rayoazul](https://github.com/rayoazul)
