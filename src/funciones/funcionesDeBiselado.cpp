@@ -10,18 +10,34 @@ void biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
 		
 		if (movimientos -> getTamanio() >= 3){
 		
-			//rotacionDoble();
+			rotacionDoble(nodos, movimientos);
 		
 		} else {
 		
-			//rotacionTriple();
+			rotacionTriple(nodos, movimientos);
 		
 		}
 	
 	}
 	
+}
+
+// Funciones internas privadas.
+
+void rotacionDoble(Pila<Nodo*>* nodos, Pila<char>* movimientos){
+	
+	// Tres nodos a rotar.
+	//Nodo* hijo;
+	//Nodo* padre;
+	//Nodo* abuelo;
+	// Movimientos.
+	// Vuelvo a poner a la raiz;
 	
 }
+
+void rotacionTriple(Pila<Nodo*>* nodos, Pila<char>* movimientos){
+
+};
 	// Hijo izquierdo de un hijo izquierdo
 	// Hijo derecho de un hijo derecho
 	// Hijo izquierdo de un hijo derecho

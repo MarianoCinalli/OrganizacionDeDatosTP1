@@ -8,8 +8,10 @@
 	void ArbolBiselado::insertar(Registro* registro){
 		
 		insertarRecursivo( registro, this->raiz);
+		
+		Pila<Nodo*>* nodosAliberar = this -> nodosARotar; // Auxiliar.
 		biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-		// liberarMemoria(this -> registrosProcesados);
+		// liberarMemoria(nodosAliberar);
 
 	};
 
