@@ -1,5 +1,6 @@
 #include <string>
 #include "Registro.h"
+//#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Registro.h"
 using namespace std;
 	// Metodos
 		Registro::Registro(){};

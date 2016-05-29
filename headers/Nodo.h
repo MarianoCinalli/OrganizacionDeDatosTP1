@@ -28,7 +28,7 @@ class Nodo{
 		Nodo* getHijoDerecho();
 
 		int getNumeroDeBloque();
-		
+
 		bool esElMenor(Registro* registro);
 		bool esElMayor(Registro* registro);
 		bool estaIncluido(Registro* registro);
@@ -38,7 +38,8 @@ class Nodo{
 		Lista<Registro*>* obtenerRegistrosMayoresA(Registro* registro);
 		Lista<Registro*>* obtenerRegistrosMenoresA(Registro* registro);
 		void agregarRegistro(Registro* nuevoRegistro);
-		
+		void eliminarRegistro(Registro* registroEliminable);
+		bool encontrarRegistro(Registro* registroModificado,int& posicionDeRegistro);
 		~Nodo();
 };
 
