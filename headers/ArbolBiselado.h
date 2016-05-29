@@ -43,7 +43,7 @@ class ArbolBiselado{
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);
         void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
         void insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo);
-        void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo );
+        void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar );
 };
 
 #endif // ARBOLBISELADO_H

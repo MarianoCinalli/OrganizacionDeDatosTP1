@@ -8,7 +8,7 @@
 	void ArbolBiselado::insertar(Registro* registro){
 		
 		insertarRecursivo( registro, this->raiz);
-		biselar(this -> nodosARotar ,this -> movimientos);
+		biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		// liberarMemoria(this -> registrosProcesados);
 
 	};
@@ -20,7 +20,7 @@
 	};
 	
 	void ArbolBiselado::eliminar(Registro* registroAEliminar){
-	
+		
 	};
 	/*
 	bool ArbolBiselado::encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro){
@@ -40,6 +40,10 @@
      */
 	
 	ArbolBiselado::~ArbolBiselado(){
+		
+		delete nodosARotar;
+		delete movimientos;
+		
 	};
 	
 	// Metodos privados ------------------------------------------------
@@ -232,15 +236,22 @@
 	
 	void ArbolBiselado::insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo){
 		
+		Pila<Nodo*>* nodosALiberar = new Pila<Nodo*>;
+		
 		while (registros -> avanzarCursor()){
 		
-			insetarSinBiselarRecursivo(registros -> obtenerCursor(), nodo);
+			insetarSinBiselarRecursivo(registros -> obtenerCursor(), nodo, nodosALiberar);
 		
 		}
 		
+		//liberarMemoria(nodosALiberar);
+		delete nodosALiberar;
+		
 	};
 
-	void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo ){
+	void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar ){
+		
+		nodosALiberar -> apilar(nodo);
 		
 		if (nodo -> esHoja()){
 			

@@ -2,6 +2,6 @@
 #include "Nodo.h"
 #include "funcionesDeBiselado.h"
 
-void biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos ){
+void biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
 
 }
