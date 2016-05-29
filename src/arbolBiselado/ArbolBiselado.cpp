@@ -96,12 +96,12 @@
 			
 					insertarEnHoja(registro, nodo);
 				
-				} else if ( nodo -> esElMenor(registro) ){
+				} else if ( nodo -> esElMayor(registro) ){
 
 						this -> movimientos -> apilar('d');
 						avanzarAlHijoDerecho(registro ,nodo);
 				
-					} else if (nodo -> esElMayor(registro)){
+					} else if ( nodo -> esElMenor(registro) ){
 
 							this -> movimientos -> apilar('i');
 							avanzarAlHijoIzquierdo(registro ,nodo);
@@ -257,11 +257,11 @@
 			
 			insertarEnHoja(registro, nodo);
 				
-		} else if ( nodo -> esElMenor(registro) ){
+		} else if ( nodo -> esElMayor(registro) ){
 
 				avanzarAlHijoDerecho(registro ,nodo);
 				
-			} else if (nodo -> esElMayor(registro)){
+			} else if ( nodo -> esElMenor(registro)){
 
 					avanzarAlHijoIzquierdo(registro ,nodo);
 						
