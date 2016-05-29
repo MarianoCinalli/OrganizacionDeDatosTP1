@@ -1,8 +1,9 @@
 #include "Pila.h"
+#include "Nodo.h"
 
-#ifndef BISELAR_INCLUDED
-#define BISELAR_INCLUDED
+#ifndef FUNCIONESDEBISELADO_INCLUDED
+#define FUNCIONESDEBISELADO_INCLUDED
 
 void biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos );
 
-#endif // BISELAR_INCLUDED
+#endif // FUNCIONESDEBISELADO_INCLUDED

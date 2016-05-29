@@ -1,9 +1,9 @@
-#include "Nodo.h"
 #include "funcionesDeBiselado.h"
 #include "funcionesDePersistencia.h"
-#include "Lista.h"
+#include "Nodo.h"
 #include "Registro.h"
 #include "Pila.h"
+#include "Lista.h"
 #include "excepciones/ElNodoExcedeElTamanioMaximo.h"
 #include "excepciones/ElNodoNoTieneHijoEnEsaDireccion.h"
 
@@ -17,8 +17,8 @@ class ArbolBiselado{
 
 	private:
 		Nodo* raiz;
-		//Pila<Nodo*>* nodosProcesados;
-		//Pila<char>* movimientos;
+		Pila<Nodo*>* nodosARotar;
+		Pila<char>* movimientos;
 
 	// Metodos
 	public:
@@ -26,7 +26,7 @@ class ArbolBiselado{
 
 		void insertar(Registro* registro);
 		bool modificar(Registro* registroAModificar);
-		void eliminar(int identificador);
+		void eliminar(Registro* registroAEliminar);
 
 		~ArbolBiselado();
 
@@ -39,8 +39,11 @@ class ArbolBiselado{
         void insertarRecursivo(Registro* registro, Nodo* nodo);
 		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
 		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
+		
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);
-        
+        void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
+        void insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo);
+        void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo );
 };
 
 #endif // ARBOLBISELADO_H

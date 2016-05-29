@@ -7,8 +7,8 @@
 
 	void ArbolBiselado::insertar(Registro* registro){
 		
-		insertarRecursivo( registro, this->raiz );
-		// biselar(this -> registrosProcesados ,this -> movimientos);
+		insertarRecursivo( registro, this->raiz);
+		biselar(this -> nodosARotar ,this -> movimientos);
 		// liberarMemoria(this -> registrosProcesados);
 
 	};
@@ -19,7 +19,7 @@
 		
 	};
 	
-	void ArbolBiselado::eliminar(int identificador){
+	void ArbolBiselado::eliminar(Registro* registroAEliminar){
 	
 	};
 	/*
@@ -75,44 +75,41 @@
                 
             }
            */
-        }
+        };
         
+	// Funciones de insertar ---------------------------------------------------
         
-	// Mariano -----------------------------------------------------
-        
-	void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo ){
+	void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
 		
-		// this -> registrosProcesados -> apilar(nodo);
+			this -> nodosARotar -> apilar(nodo);
 		
-		if (nodo -> estaIncluido(registro)){
+			if (nodo -> estaIncluido(registro)){
 			
-			// Excepcion
-			// throw elRegistroYaPerteneceAlArbol
+				// Excepcion
+				// throw elRegistroYaPerteneceAlArbol
 			
-		} else if (nodo -> esHoja()){
+			} else if (nodo -> esHoja()){
 			
-				insertarEnHoja(registro, nodo);
+					insertarEnHoja(registro, nodo);
 				
-			} else if ( nodo -> esElMenor(registro) ){
-					
-					//No se si va a quedar asi.
-					//this -> movimientos -> apilar('d');
-					avanzarAlHijoDerecho(registro ,nodo);
+				} else if ( nodo -> esElMenor(registro) ){
+
+						this -> movimientos -> apilar('d');
+						avanzarAlHijoDerecho(registro ,nodo);
 				
-				} else if (nodo -> esElMayor(registro)){
+					} else if (nodo -> esElMayor(registro)){
+
+							this -> movimientos -> apilar('i');
+							avanzarAlHijoIzquierdo(registro ,nodo);
 						
-						//No se si va a quedar asi.
-						//this -> movimientos -> apilar('i');
-						avanzarAlHijoIzquierdo(registro ,nodo);
+						} else {
 						
-					} else {
+								this -> insetarEnNodoInterno(registro, nodo);
 						
-							//insetarDentro(nodo, registro);
-						
-						}
+							}
 		
-	}
-	
+		};
+		
 	void ArbolBiselado::avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo){
 		
 		Nodo* hijoDerecho;
@@ -133,7 +130,7 @@
 			
 		}
 		
-		insertarRecursivo(registro ,hijoDerecho);
+			insertarRecursivo(registro ,hijoDerecho);
 		
 	};
 	
@@ -180,17 +177,86 @@
 			// Parto la lista.
 			registrosHijoIzquierdo = nodo -> obtenerRegistrosMenoresA(registro);
 			registrosHijoDerecho = nodo -> obtenerRegistrosMayoresA(registro);
+			
 			// Creo dos nodos nuevos con los registros.
 			hijoIzquierdo = new Nodo(registrosHijoIzquierdo);
 			hijoDerecho = new Nodo(registrosHijoDerecho);
+			
 			// Actualizo numeros de bloque.
 			nodo -> setNumeroDeBloqueHijoIzquierdo ( hijoIzquierdo -> getNumeroDeBloque() );
 			nodo -> setNumeroDeBloqueHijoDerecho ( hijoDerecho -> getNumeroDeBloque() );
+			
 			// Persisto los cambios.
 			persistir(nodo);
 			persistir(hijoIzquierdo);
 			persistir(hijoDerecho);
 			
 		}
+	};
 		
+	void ArbolBiselado::insetarEnNodoInterno(Registro* registro ,Nodo* nodo){
+		
+		try { 
+		
+			nodo -> agregarRegistro(registro);
+			
+			
+		} catch ( ElNodoExcedeElTamanioMaximo e) {
+			
+			// Variables temporales.
+			Nodo* hijoIzquierdo;
+			Nodo* hijoDerecho;
+			
+			Lista<Registro*>* registrosHijoIzquierdo;
+			Lista<Registro*>* registrosHijoDerecho;
+			
+			// Parto la lista.
+			registrosHijoIzquierdo = nodo -> obtenerRegistrosMenoresA(registro);
+			registrosHijoDerecho = nodo -> obtenerRegistrosMayoresA(registro);
+			
+			// Obtengo los hijos
+			hijoIzquierdo = nodo -> getHijoIzquierdo();
+			hijoDerecho = nodo -> getHijoDerecho();
+			
+			// Persisto los cambios.
+			persistir(nodo);
+			
+			// Inserto los registros menores al nuevo.
+			insertarSinBiselar(registrosHijoIzquierdo, hijoIzquierdo);
+			// Inserto los registros mayores al nuevo.
+			insertarSinBiselar(registrosHijoDerecho, hijoDerecho);
+			
+		}
+			
+	};
+	
+	void ArbolBiselado::insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo){
+		
+		while (registros -> avanzarCursor()){
+		
+			insetarSinBiselarRecursivo(registros -> obtenerCursor(), nodo);
+		
+		}
+		
+	};
+
+	void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo ){
+		
+		if (nodo -> esHoja()){
+			
+			insertarEnHoja(registro, nodo);
+				
+		} else if ( nodo -> esElMenor(registro) ){
+
+				avanzarAlHijoDerecho(registro ,nodo);
+				
+			} else if (nodo -> esElMayor(registro)){
+
+					avanzarAlHijoIzquierdo(registro ,nodo);
+						
+				} else {
+						
+						insetarEnNodoInterno(registro, nodo);
+						
+					}
 	};
