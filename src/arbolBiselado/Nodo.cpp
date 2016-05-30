@@ -89,19 +89,19 @@
 
 	};
 
-    bool Nodo::encontrarRegistro(Registro* registroModificado,
-                           int& posicionDeRegistro)
-    {
+    bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegistro){
+		
        this->getListaDeRegistros()->iniciarCursor();
-       while(this->getListaDeRegistros()->avanzarCursor())
-       {
-            if(this->getListaDeRegistros()->obtenerCursor()->getID() == registroModificado->getID())
-            {
+      
+       while(this->getListaDeRegistros()->avanzarCursor()){
+		   
+            if(this->getListaDeRegistros()->obtenerCursor()->getID() == registroModificado->getID()) {
                 return true;
             }
             posicionDeRegistro++;
        }
        return false;
     }
+    
 	Nodo::~Nodo(){
 	};
