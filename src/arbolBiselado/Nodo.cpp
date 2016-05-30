@@ -53,55 +53,98 @@
 	int Nodo::getNumeroDeBloque(){
 	};
 
-	bool Nodo::esHoja(){
+	bool Nodo::esHoja()
+	{
+	    return esNodoHoja;
 	};
 
 	// Operaciones con registros
-	bool Nodo::esElMenor(Registro* registro){
+	bool Nodo::esElMenor(Registro* registro)
+	{
+	    //asumiendo que los registros se encuentran ordenados
+	    getListaDeRegistros()->iniciarCursor();
+	    getListaDeRegistros()->avanzarCursor();
+	    return registro->getID() < getListaDeRegistros()->obtenerCursor()->getID();
 	};
 
-	bool Nodo::esElMayor(Registro* registro){
+	bool Nodo::esElMayor(Registro* registro)
+	{
+	    return registro->getID() > getListaDeRegistros()->obtenerUltimo()->getID();
 	};
 
 	bool Nodo::estaIncluido(Registro* registro){
 	};
 
-	void Nodo::agregarRegistro(Registro* nuevoRegistro){
-
+	void Nodo::agregarRegistro(Registro* nuevoRegistro)
+	{
+        registros->agregar(nuevoRegistro);
+        //persistir(this); ¿Esto habia que incluir? Es funcion del ArbolBiselado
 	};
     void Nodo::eliminarRegistro(Registro* registroEliminable)
     {
-
+        registros->iniciarCursor();
+        int posicion = 1;
+        while(registros->avanzarCursor())
+        {
+            if(registroEliminable->getID() == registros->obtenerCursor()->getID())
+            {
+                break;
+            }
+            posicion++;
+        }
+        registros->remover(posicion);
+        //persistir(this); ¿Esto habia que incluir? Es funcion del ArbolBiselado
     };
-	Lista<Registro*>* Nodo::getListaDeRegistros(){
-
+	Lista<Registro*>* Nodo::getListaDeRegistros()
+	{
+        return registros;
 	};
 
 	// Devuelve una lista de registros que son menores, en clave,
-	// al registro pasado por parametro. Los elimina de la lista.
-	Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
-
+	// al registro pasado por parametro. Los elimina de la lista. ¿Cuáles elimina?
+	Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro)
+	{
+        //asumiendo que los registros estan ordenados
+        Lista<Registro*>* registrosMenores = new Lista<Registro*>;
+        registros->iniciarCursor();
+        while(registros->avanzarCursor() &&
+              registros->obtenerCursor()->getID() < registro->getID())
+        {
+            registrosMenores->agregar(registros->obtenerCursor());
+        }
+        return registrosMenores;
 	};
 
 	// Devuelve una lista de registros que son mayores, en clave,
-	// al registro pasado por parametro. Los elimina de la lista.
-	Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
-
+	// al registro pasado por parametro. Los elimina de la lista. ¿Cuáles registros?
+	Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro)
+	{
+	    //asumiendo que los registros estan ordenados
+        Lista<Registro*>* registrosMayores = new Lista<Registro*>;
+        registros->iniciarCursor();
+        while(registros->avanzarCursor())
+        {
+            if(registros->obtenerCursor()->getID() > registro->getID())
+            {
+                registrosMayores->agregar(registros->obtenerCursor());
+            }
+        }
+        return registrosMayores;
 	};
 
-    bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegistro){
-		
+    bool Nodo::encontrarRegistro(Registro* registroModificado,
+                           int& posicionDeRegistro)
+    {
        this->getListaDeRegistros()->iniciarCursor();
-      
-       while(this->getListaDeRegistros()->avanzarCursor()){
-		   
-            if(this->getListaDeRegistros()->obtenerCursor()->getID() == registroModificado->getID()) {
+       while(this->getListaDeRegistros()->avanzarCursor())
+       {
+            if(this->getListaDeRegistros()->obtenerCursor()->getID() == registroModificado->getID())
+            {
                 return true;
             }
             posicionDeRegistro++;
        }
        return false;
     }
-    
 	Nodo::~Nodo(){
 	};
