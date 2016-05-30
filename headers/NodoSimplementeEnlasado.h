@@ -3,6 +3,8 @@
 
 template <class T>
 
+// Falta hacer el override del operador de igualdad y desigualdad.
+
 class NodoSimplementeEnlasado{
 
 	// Atributos

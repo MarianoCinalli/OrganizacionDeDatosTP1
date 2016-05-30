@@ -40,57 +40,62 @@ template <class T> Lista<T>::Lista(){
 }
 
 template <class T> unsigned int Lista<T>::getTamanio(){
+	
+	return ( this-> tamanio );
+	
 }
 
 template <class T> bool Lista<T>::estaVacia(){
+	
+	return ( this-> tamanio == 0 );
+	
 }
 
-template <class T> void Lista<T>::agregar(T elemento)
-{
+template <class T> void Lista<T>::agregar(T elemento){
+	
     NodoSimplementeEnlasado<T>* nuevoElemento = new NodoSimplementeEnlasado<T>(elemento);
     //agrega ordenado siempre de menor a mayor
     int posicion = 1;
-    if(tamanio == 0)
-    {
+    if(tamanio == 0){
+		
         primerElemento = nuevoElemento;
-    }
-    else
-    if(tamanio == 1)
-    {
-         if(primerElemento->getDato() > elemento)
-         {
+        
+    } else if(tamanio == 1) {
+		
+         if(primerElemento->getDato() > elemento){
+			 
             NodoSimplementeEnlasado<T>* primeroViejo = primerElemento;
             primerElemento = nuevoElemento;
             nuevoElemento->setSiguiente(primeroViejo);
-         }
-         else
-         {
+            
+         }else{
+			 
              primerElemento->setSiguiente(nuevoElemento);
+             
          }
-    }
-    else
-    {
+         
+    } else {
+		
         bool insertado = false;
-        while(!insertado & posicion < tamanio)
-        {
+        while(!insertado & posicion < tamanio){
+			
             NodoSimplementeEnlasado<T>* primero = obtenerNodo(posicion);
             NodoSimplementeEnlasado<T>* segundo = obtenerNodo(posicion+1);
 
-            if(primero->getDato() <= elemento
-               && segundo->getDato() >= elemento)
-            {
+            if(primero->getDato() <= elemento && segundo->getDato() >= elemento){
+				   
                 primero->setSiguiente(nuevoElemento);
                 nuevoElemento->setSiguiente(segundo);
                 insertado = true;
-            }
-            else
-            {
-                if(primero->getDato() >= elemento &&
-                    segundo->getDato() >= elemento )
-                {
+                
+            } else {
+                
+                if(primero->getDato() >= elemento && segundo->getDato() >= elemento ){
+                   
                    primerElemento = nuevoElemento;
                    primerElemento->setSiguiente(primero);
                    insertado = true;
+                
                 }
             }
             posicion++;
@@ -103,10 +108,9 @@ template <class T> void Lista<T>::agregar(T elemento)
     }
 }
 
-template <class T> void Lista<T>::remover(unsigned int posicion)
-{
-      if ((posicion > 0) && (posicion <= this->tamanio))
-        {
+template <class T> void Lista<T>::remover(unsigned int posicion){
+	
+      if ((posicion > 0) && (posicion <= this->tamanio)){
 
         NodoSimplementeEnlasado<T>* removido;
 
@@ -128,22 +132,32 @@ template <class T> void Lista<T>::remover(unsigned int posicion)
         /* cualquier recorrido actual queda invalidado */
         this->iniciarCursor();
     }
+    
 }
 
 template <class T> void Lista<T>::iniciarCursor(){
+	
+	cursor = primerElemento;
+	
 }
 
+// Cambia el cursor al elemento siguiente. 
+// Devuelve verdadero si el contador de elementos no supero el tamanio.
+// Lo ultimo es para no preguntar por nulo.
 template <class T> bool Lista<T>::avanzarCursor(){
 	return true;
 }
 
 template <class T> T Lista<T>::obtenerCursor(){
+	
+	return ( this-> cursor -> getDato() );
+	
 }
 
 // 1<=posicion<=tamanio
-template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned int posicion)
-{
-    NodoSimplementeEnlasado<T>* actual = this->primerElemento;
+template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned int posicion){
+	
+    NodoSimplementeEnlasado<T>* actual = this-> primerElemento;
     for (unsigned int i = 1; i < posicion; i++) {
 
         actual = actual->getSiguiente();
@@ -151,9 +165,11 @@ template <class T> NodoSimplementeEnlasado<T>* Lista<T>::obtenerNodo(unsigned in
 
     return actual;
 }
-template <class T> T Lista<T>::obtenerUltimo()
-{
+
+template <class T> T Lista<T>::obtenerUltimo(){
+	
     return obtenerNodo(tamanio-1)->getDato();
+    
 }
 
 

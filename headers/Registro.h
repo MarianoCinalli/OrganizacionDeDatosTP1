@@ -6,6 +6,8 @@ using namespace std;
 #ifndef _REGISTRO_H
 #define _REGISTRO_H
 
+// Falta hacer el override del operador de igualdad y desigualdad.
+
 class Registro{
 
 	// Atributos
