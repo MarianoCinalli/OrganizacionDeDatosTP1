@@ -6,13 +6,13 @@
 
 // Funcion publica.
 
-void biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz );
+Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz );
 
 // Funciones internas privadas.
 
-void rotacionDoble(Pila<Nodo*>* nodos, Pila<char>* movimientos);
+void rotacionDoble(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  nodosProcesados);
 
-void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos);
+void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  nodosProcesados);
 
 void rotarPadreADerechaDeHijo(Nodo* nodoPadre, Nodo* nodoHijo);
 

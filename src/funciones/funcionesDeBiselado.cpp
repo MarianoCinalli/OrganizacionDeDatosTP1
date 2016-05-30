@@ -26,7 +26,7 @@ Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
 
 		} else {
 			// Si hay dos, el unico caso restante, se rotan esos dos.
-			rotacionSimple(nodos, movimientos);
+			rotacionSimple(nodos, movimientos, nodosProcesados);
 
 		}
 		
@@ -36,6 +36,8 @@ Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
 	
 	// Ahora queda solo un nodo en la pila, el cual es la nueva raiz.
 	raiz = nodos -> desapilar();
+	
+	return nodosProcesados;
 
 }
 
@@ -84,12 +86,12 @@ void rotacionDoble(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  no
 	// De este modo llega a ser la raiz.
 	nodos -> apilar(hijo);
 	// Apilo el padre y al abuelo para luego persistir y liberar memoria.
-	nodosProcesado  -> apilar(padre);
-	nodosProcesado  -> apilar(abuelo);
+	nodosProcesados -> apilar(padre);
+	nodosProcesados -> apilar(abuelo);
 	
 };
 
-void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  nodosProcesados)){
+void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  nodosProcesados){
 	
 	// Dos nodos a rotar.
 	Nodo* hijo = nodos -> desapilar();
@@ -115,7 +117,8 @@ void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  n
 	// De este modo llega a ser la raiz.
 	nodos -> apilar(hijo);
 	// Apilo el padre para luego persistir y liberar memoria.
-	nodosProcesado  -> apilar(padre);
+	nodosProcesados  -> apilar(padre);
+	
 };
 	
 // 1

@@ -9,8 +9,7 @@
 
 		insertarRecursivo( registro, this->raiz);
 
-		//Pila<Nodo*>* nodosAliberar = this -> nodosARotar; // Auxiliar.
-		biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
+		Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		//liberarMemoria(nodosAliberar);
 
 	};
@@ -18,9 +17,8 @@
 	bool ArbolBiselado::modificar(Registro* registroAModificar){
 
 		return modificarRecursivo(raiz,registroAModificar);
-		
-		//Pila<Nodo*>* nodosAliberar = this -> nodosARotar; // Auxiliar.
-        biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
+
+		Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		//liberarMemoria(this -> registrosProcesados);
 
 	};
