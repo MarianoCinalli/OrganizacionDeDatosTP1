@@ -12,7 +12,7 @@ class Nodo{
 		int numeroDeBloqueHijoDerecho;
 		Lista<Registro*>* registros;
 		bool esNodoHoja;
-
+        void borrarNodoVacio();
 	// Metodos
 	public:
 		Nodo();

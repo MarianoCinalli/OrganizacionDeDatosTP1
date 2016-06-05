@@ -1,5 +1,7 @@
 #include "Nodo.h"
+#include "funcionesDePersistencia.h"
 //#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Nodo.h"
+//#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\funcionesDePersistencia.h"
 	// Metodos
 
 	// Constructores
@@ -24,7 +26,7 @@
 	};
 
 	// Operaciones con los hijos
-	
+
 	void Nodo::setNumeroDeBloqueHijoIzquierdo(int numero){
 
 		this -> esNodoHoja = false;
@@ -55,29 +57,29 @@
 	};
 
 	bool Nodo::esHoja(){
-		
+
 	    return esNodoHoja;
-	    
+
 	};
 
 	// Operaciones con registros
 	bool Nodo::esElMenor(Registro* registro){
-		
+
 	    registros-> iniciarCursor();
 	    registros-> avanzarCursor();
 	    Registro* primerRegistro = registros -> obtenerCursor();
-	    
-	    return ( registro-> getCampoIndexante() < primerRegistro -> getCampoIndexante() ); 
-	    
+
+	    return ( registro-> getCampoIndexante() < primerRegistro -> getCampoIndexante() );
+
 	};
 
 	bool Nodo::esElMayor(Registro* registro){
-		
+
 		registros-> iniciarCursor();
 		Registro* ultimoRegistro = registros -> obtenerUltimo();
-		
+
 	    return ( registro-> getCampoIndexante() > ultimoRegistro -> getCampoIndexante() );
-	    
+
 	};
 
 	bool Nodo::estaIncluido(Registro* registro){
@@ -88,30 +90,39 @@
         //persistir(this); ¿Esto habia que incluir? Es funcion del ArbolBiselado
 	};
     void Nodo::eliminarRegistro(Registro* registroEliminable){
-		
+
         registros -> iniciarCursor();
         int posicion = 1;
         bool encontrado = false;
-        
+
         while(registros->avanzarCursor() && !encontrado){
-			
+
             if(registroEliminable->getCampoIndexante() != registros->obtenerCursor()->getCampoIndexante()){
-				
+
                 posicion++;
                 encontrado = true;
-                
+
             }
-            
+
         }
-        
+
         registros -> remover(posicion);
-        
-        //persistir(this); ¿Esto habia que incluir? Es funcion del ArbolBiselado
+        //En el persistir se especifica la grabacion de modificar el bitmap
+        //con un nodo vacio? (es decir cambiar su estado de ocupado a libre)
+        persistir(this);
+        borrarNodoVacio();
     };
+    void Nodo::borrarNodoVacio()
+    {
+        if(registros->getTamanio() == 0)
+        {
+            delete this;
+        }
+    }
 	Lista<Registro*>* Nodo::getListaDeRegistros(){
-		
+
         return registros;
-        
+
 	};
 
 	// Devuelve una lista de registros que son menores, en clave,
@@ -122,14 +133,14 @@
         registros->iniciarCursor();
         int campoRegistroRecibido =  registro -> getCampoIndexante();
         int campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
-        
+
         while( ( registros->avanzarCursor() ) && ( campoRegistroActual < campoRegistroRecibido ) ){
-			
+
             registrosMenores->agregar(registros->obtenerCursor());
             campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
-            
+
         }
-        
+
         return registrosMenores;
 	};
 
@@ -141,31 +152,31 @@
         registros->iniciarCursor();
         int campoRegistroRecibido =  registro -> getCampoIndexante();
         int campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
-       
+
         while( ( registros->avanzarCursor() ) && ( campoRegistroActual > campoRegistroRecibido ) ){
-			
+
             registrosMayores->agregar(registros->obtenerCursor());
             campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
-            
+
         }
-        
+
         return registrosMayores;
 	};
 
     bool Nodo::encontrarRegistro(Registro* registroModificado,
                            int& posicionDeRegistro){
-							   
+
        this->getListaDeRegistros()->iniciarCursor();
-       
+
        while(this->getListaDeRegistros()->avanzarCursor()){
-		   
+
             if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registroModificado->getCampoIndexante()){
                 return true;
             }
-            
+
             posicionDeRegistro++;
        }
-       
+
        return false;
     }
 	Nodo::~Nodo(){

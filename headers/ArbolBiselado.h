@@ -26,24 +26,28 @@ class ArbolBiselado{
 
 		void insertar(Registro* registro);
 		bool modificar(Registro* registroAModificar);
-		void eliminar(Registro* registroAEliminar);
+		bool eliminar(Registro* registroAEliminar);
 
 		~ArbolBiselado();
 
 	private:
-		
+
 		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
-        
+        bool eliminarRecursivo(Nodo* nodoActual, Registro* registro);
+        void eliminarEnHoja(Registro* registro, Nodo* nodo);
         //bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
-        
+
         void insertarRecursivo(Registro* registro, Nodo* nodo);
 		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
 		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
-		
+
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);
         void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
         void insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo);
         void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar );
+        void desapilarSiNodoQuedaVacio(Nodo* nodoActual);
+        void eliminarEnNodoInterno(Registro* registro, Nodo* nodo);
+        Nodo* obtenerMenorDeLosMayores(Nodo* nodo);
 };
 
 #endif // ARBOLBISELADO_H
