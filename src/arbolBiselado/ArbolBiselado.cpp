@@ -98,6 +98,7 @@ void ArbolBiselado::eliminarEnNodoInterno(Registro* registroAEliminar,Nodo* nodo
         //Busco el nodo donde esta el registro menor de los mayores
         Nodo* menorDeLosMayores = obtenerMenorDeLosMayores(hijoDerecho);
         menorDeLosMayores->getListaDeRegistros()->iniciarCursor();
+        menorDeLosMayores->getListaDeRegistros()->avanzarCursor();
         //Inserto tal registro en el nodo interno que quedo vacio
         insetarEnNodoInterno(menorDeLosMayores->getListaDeRegistros()->obtenerCursor(),nodo);
         //En caso de que el nodo hoja que contenia el registro sustituto
@@ -159,13 +160,13 @@ Nodo* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
         {
             if(nodoActual->esHoja())
             {
-                //eliminarEnHoja(registroAModificar,nodoActual);
+                eliminarEnHoja(registroAModificar,nodoActual);
                 insertarEnHoja(registroAModificar,nodoActual);
             }
             //sino es hoja es nodo interno
             else
             {
-                //eliminarEnNodoInterno(registroAModificar,nodoActual);
+                eliminarEnNodoInterno(registroAModificar,nodoActual);
                 insetarEnNodoInterno(registroAModificar,nodoActual);
             }
             return true;

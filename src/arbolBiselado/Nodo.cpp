@@ -30,22 +30,29 @@
 	void Nodo::setNumeroDeBloqueHijoIzquierdo(int numero){
 
 		this -> esNodoHoja = false;
+		this ->numeroDeBloqueHijoIzquierdo = numero;
 
 	};
 
-	int Nodo::getNumeroDeBloqueHijoIzquierdo(){
+	int Nodo::getNumeroDeBloqueHijoIzquierdo()
+	{
+	    return this -> numeroDeBloqueHijoIzquierdo;
 	};
 
 	void Nodo::setNumeroDeBloqueHijoDerecho(int numero){
 
 		this -> esNodoHoja = false;
+		this -> numeroDeBloqueHijoDerecho = numero;
 
 	};
 
-	int Nodo::getNumeroDeBloqueHijoDerecho(){
+	int Nodo::getNumeroDeBloqueHijoDerecho()
+	{
+	    return this -> numeroDeBloqueHijoDerecho;
 	};
 
-	Nodo* Nodo::getHijoIzquierdo(){
+	Nodo* Nodo::getHijoIzquierdo()
+	{
 	};
 
 	Nodo* Nodo::getHijoDerecho(){
@@ -82,7 +89,18 @@
 
 	};
 
-	bool Nodo::estaIncluido(Registro* registro){
+	bool Nodo::estaIncluido(Registro* registro)
+	{
+        this->getListaDeRegistros()->iniciarCursor();
+
+       while(this->getListaDeRegistros()->avanzarCursor()){
+
+            if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
+                return true;
+            }
+       }
+
+       return false;
 	};
 
 	void Nodo::agregarRegistro(Registro* nuevoRegistro)	{
