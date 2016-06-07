@@ -12,6 +12,7 @@
 		this -> numeroDeBloqueHijoDerecho = 0;
 		this -> registros = new Lista<Registro*>;
 		this -> esNodoHoja = true;
+		// this -> numeroDeBloque = cargarNumeroDeBloque(this);
 
 	};
 
@@ -22,6 +23,7 @@
 		this -> numeroDeBloqueHijoDerecho = 0;
 		this -> registros = registros;
 		this -> esNodoHoja = true;
+		// this -> numeroDeBloque = cargarNumeroDeBloque(this);
 
 	};
 
@@ -53,14 +55,19 @@
 
 	Nodo* Nodo::getHijoIzquierdo()
 	{
+	    //return cargarHijoIzquierdo(this);
 	};
 
-	Nodo* Nodo::getHijoDerecho(){
+	Nodo* Nodo::getHijoDerecho()
+	{
+	    //return cargarHijoDerecho(this);
 	};
 
 	// Operaciones de informacion del nodo
 
-	int Nodo::getNumeroDeBloque(){
+	int Nodo::getNumeroDeBloque()
+	{
+	    return numeroDeBloque;
 	};
 
 	bool Nodo::esHoja(){

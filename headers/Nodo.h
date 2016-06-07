@@ -10,6 +10,7 @@ class Nodo{
 	private:
 		int numeroDeBloqueHijoIzquierdo;
 		int numeroDeBloqueHijoDerecho;
+		int numeroDeBloque;
 		Lista<Registro*>* registros;
 		bool esNodoHoja;
         void borrarNodoVacio();

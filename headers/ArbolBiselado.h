@@ -40,6 +40,8 @@ class ArbolBiselado{
         void insertarRecursivo(Registro* registro, Nodo* nodo);
 		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
 		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
+		void avanzarALaDerecha(Registro* registro, Nodo* nodo);
+		void avanzarALaIzquierda(Registro* registro, Nodo* nodo);
 
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);
         void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
