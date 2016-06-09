@@ -4,16 +4,34 @@
 using namespace std;
 	// Metodos
 		Registro::Registro(){};
-		Registro::Registro(string campoIndexante){};
+		Registro::Registro(int campoIndexante){};
 
-		unsigned int Registro::getID(){};
-		void Registro::setID(unsigned int nuevoID){};
+		unsigned int Registro::getID()
+		{
+		    return id;
+		};
+		void Registro::setID(unsigned int nuevoID)
+		{
+		    id = nuevoID;
+		};
 
-		int Registro::getCodigo(){};
-		void Registro::setCodigo(int nuevoCodigo){};
+		int Registro::getCodigo()
+		{
+		    return codigo;
+		};
+		void Registro::setCodigo(int nuevoCodigo)
+		{
+		    codigo = nuevoCodigo;
+		};
 
-		string Registro::getDescripcion(){};
-		void Registro::setDescripcion(string nuevaDescripcion){};
+		string Registro::getDescripcion()
+		{
+		    return descripcion;
+		};
+		void Registro::setDescripcion(string nuevaDescripcion)
+		{
+		    descripcion = nuevaDescripcion;
+		};
 
 		// Esto es poque al iniciar el arbol se elije el campo para usar como identificador.
 		// Si al principo te dicen que se ordena por ID aca devolves la ID, osea no usas el getID para recorrer el arbol.

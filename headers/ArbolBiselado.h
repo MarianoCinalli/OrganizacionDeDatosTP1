@@ -49,7 +49,8 @@ class ArbolBiselado{
         void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar );
         void desapilarSiNodoQuedaVacio(Nodo* nodoActual);
         void eliminarEnNodoInterno(Registro* registro, Nodo* nodo);
-        Nodo* obtenerMenorDeLosMayores(Nodo* nodo);
+        Registro* obtenerMenorDeLosMayores(Nodo* nodo);
+        Registro* obtenerMayorDeLosMenores(Nodo* nodo);
 };
 
 #endif // ARBOLBISELADO_H

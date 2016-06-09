@@ -37,9 +37,11 @@
 	    //se invoca la funcion justo antes de eliminar el
 	    //ultimo registro, por eso pregunto por 1 y no por 0.
 	    Nodo* nodoVacio;
+	    char m;
 	    if(nodoActual->getListaDeRegistros()->getTamanio() == 1)
         {
             nodoVacio = nodosARotar->desapilar();
+             m = movimientos->desapilar();
         }
 	}
 	bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAEliminar)
@@ -111,32 +113,82 @@ void ArbolBiselado::eliminarEnNodoInterno(Registro* registroAEliminar,Nodo* nodo
     {
         nodo->eliminarRegistro(registroAEliminar);
     }
-    //Si queda vacio hay que agregarle el menor de los mayores
+    //Si queda vacio hay que agregarle el menor de los mayores o el mayor de los menores
     else
     {
-        //en este punto ya se que el nodo tiene hijo derecho, porque sino
-        //seria una hoja
-        //vale aclarar que por como hicimos la particion de nodos, cada nodo interno
-        //tiene dos hijos, asi que siempre se podra conseguir el derecho
-        Nodo* hijoDerecho = nodo->getHijoDerecho();
-        nodosARotar->apilar(hijoDerecho);
-        movimientos->apilar('d');
-        //Elimino el registro
-        nodo->eliminarRegistro(registroAEliminar);
-        //Busco el nodo donde esta el registro menor de los mayores
-        Nodo* menorDeLosMayores = obtenerMenorDeLosMayores(hijoDerecho);
-        menorDeLosMayores->getListaDeRegistros()->iniciarCursor();
-        menorDeLosMayores->getListaDeRegistros()->avanzarCursor();
-        //Inserto tal registro en el nodo interno que quedo vacio
-        insetarEnNodoInterno(menorDeLosMayores->getListaDeRegistros()->obtenerCursor(),nodo);
-        //En caso de que el nodo hoja que contenia el registro sustituto
-        //haya quedado vacio, lo desapilo para el biselado y elimino la duplicacion
-        desapilarSiNodoQuedaVacio(menorDeLosMayores);
-        eliminarEnHoja(menorDeLosMayores->getListaDeRegistros()->obtenerCursor(),menorDeLosMayores);
+        try
+        {
+            Nodo* hijoDerecho = nodo->getHijoDerecho();
+            nodosARotar->apilar(hijoDerecho);
+            movimientos->apilar('d');
+            //Busco el nodo donde esta el registro menor de los mayores
+            Registro* menorDeLosMayores = obtenerMenorDeLosMayores(hijoDerecho);
+            //Inserto tal registro en el nodo que quedaria vacío
+            //ahora el nodo queda con 2 registros: el que se eliminara y
+            //el que se agrego para que no quede vacio
+            nodo->getListaDeRegistros()->agregar(menorDeLosMayores);
+            //Elimino el registro que se habia solicitado
+            nodo->eliminarRegistro(registroAEliminar);
+        }
+        //En caso que no haya hijo derecho
+        catch(ElNodoNoTieneHijoEnEsaDireccion e)
+        {
+            Nodo* hijoIzquierdo = nodo->getHijoIzquierdo();
+            nodosARotar->apilar(hijoIzquierdo);
+            movimientos->apilar('i');
+
+            Registro* mayorDeLosMenores = obtenerMayorDeLosMenores(hijoIzquierdo);
+            //Inserto tal registro en el nodo que quedaria vacío
+            //ahora el nodo queda con 2 registros: el que se eliminara y
+            //el que se agrego para que no quede vacio
+            nodo->getListaDeRegistros()->agregar(mayorDeLosMenores);
+            //Elimino el registro
+            nodo->eliminarRegistro(registroAEliminar);
+        }
     }
 }
 
-Nodo* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
+Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo)
+{
+    Nodo* nodoActual = nodo;
+    while(nodoActual->getHijoDerecho() != NULL)
+    {
+        nodoActual = nodoActual->getHijoDerecho();
+        nodosARotar->apilar(nodoActual);
+        movimientos->apilar('d');
+    }
+    //En caso de que el nodo hoja que contenia el registro sustituto
+    //haya quedado vacio, lo desapilo para el biselado y elimino la duplicacion
+    desapilarSiNodoQuedaVacio(nodoActual);
+
+    //obtengo el registro original a eliminar
+    Registro* original = nodoActual->getListaDeRegistros()->obtenerUltimo();
+
+    //duplico su informacion en el que se insertara en el nodo que quedo vacio
+    Registro* duplicado = new Registro(original->getCampoIndexante());
+    duplicado->setCodigo(original->getCodigo());
+    duplicado->setDescripcion(original->getDescripcion());
+    duplicado->setID(original->getID());
+
+    //elimino el original si no es el unico registro restante o es hoja
+    if(nodoActual->getListaDeRegistros()->getTamanio() > 1
+       || nodoActual->esHoja())
+    {
+         nodoActual->eliminarRegistro(original);
+    }
+    else //en caso de que no (esta es la recursion) y el nodo prestador a su vez
+        //queda vacio le aplico recursion para que busque otra vez el menor de los mayores
+        //o mayor de los menores y repita todo el proceso, mejor dicho.
+    {
+        //fijate que en el unico caso que hay que hacer recursion
+        //es si caemos en un nodo interno con un solo registro
+        // (A || B) == ¬A && ¬B.
+        eliminarEnNodoInterno(original,nodoActual);
+    }
+    return duplicado;
+}
+
+Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
 {
     Nodo* nodoActual = nodo;
     while(nodoActual->getHijoIzquierdo() != NULL)
@@ -145,7 +197,36 @@ Nodo* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
         nodosARotar->apilar(nodoActual);
         movimientos->apilar('i');
     }
-    return nodoActual;
+    //En caso de que el nodo hoja que contenia el registro sustituto
+    //haya quedado vacio, lo desapilo para el biselado y elimino la duplicacion
+    desapilarSiNodoQuedaVacio(nodoActual);
+
+      //obtengo el registro original a eliminar
+    nodoActual->getListaDeRegistros()->iniciarCursor();
+    nodoActual->getListaDeRegistros()->avanzarCursor();
+    Registro* original = nodoActual->getListaDeRegistros()->obtenerCursor();
+
+    //duplico su informacion en el que se insertara en el nodo que quedo vacio
+    Registro* duplicado = new Registro(original->getCampoIndexante());
+    duplicado->setCodigo(original->getCodigo());
+    duplicado->setDescripcion(original->getDescripcion());
+    duplicado->setID(original->getID());
+
+    if(nodoActual->getListaDeRegistros()->getTamanio() > 1
+       || nodoActual->esHoja())
+    {
+         nodoActual->eliminarRegistro(original);
+    }
+    else //en caso de que no (esta es la recursion) y el nodo prestador a su vez
+        //queda vacio le aplico recursion para que busque otra vez el menor de los mayores
+        //o mayor de los menores y repita todo el proceso, mejor dicho.
+    {
+        //fijate que en el unico caso que hay que hacer recursion
+        //es si caemos en un nodo interno con un solo registro
+        // (A || B) == ¬A && ¬B.
+        eliminarEnNodoInterno(original,nodoActual);
+    }
+    return duplicado;
 }
 
 	ArbolBiselado::~ArbolBiselado(){

@@ -21,7 +21,7 @@ class Registro{
 	// Metodos
 	public:
 		Registro();
-		Registro(string campoIndexante);
+		Registro(int campoIndexante);
 
 		unsigned int getID();
 		void setID(unsigned int nuevoID);
@@ -32,6 +32,7 @@ class Registro{
 		string getDescripcion();
 		void setDescripcion(string nuevaDescripcion);
 
+        //entonces devuelve un string el campo indexante?
 		int getCampoIndexante();
 
 };
