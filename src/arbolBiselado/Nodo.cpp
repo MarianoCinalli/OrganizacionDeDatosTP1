@@ -114,20 +114,19 @@
     void Nodo::eliminarRegistro(Registro* registroEliminable){
 
         registros -> iniciarCursor();
-        int posicion = 1;
+        int posicion = 0;
         bool encontrado = false;
 
         while(registros->avanzarCursor() && !encontrado){
 
-            if(registroEliminable->getCampoIndexante() != registros->obtenerCursor()->getCampoIndexante()){
+            if(registroEliminable->getCampoIndexante() == registros->obtenerCursor()->getCampoIndexante()){
 
-                posicion++;
                 encontrado = true;
 
             }
+            posicion++;
 
         }
-
         registros -> remover(posicion);
         //En el persistir se especifica la grabacion de modificar el bitmap
         //con un nodo vacio? (es decir cambiar su estado de ocupado a libre)

@@ -6,13 +6,24 @@ using namespace std;
 int main(int argc, const char* argv[])
 {
 cout << "hola mundo";
-Registro* unRegistro = new Registro();
-unRegistro ->setID(16);
+ArbolBiselado* unArbol = new ArbolBiselado();
+for(int i = 1; i < 4; i++)
+{
+    Registro* unRegistro = new Registro();
+    unRegistro->setID(i);
+    unArbol->insertar(unRegistro);
+}
 Registro* otroRegistro = new Registro();
 otroRegistro->setID(2);
-ArbolBiselado* unArbol = new ArbolBiselado();
-unArbol->insertar(unRegistro);
-unArbol->insertar(otroRegistro);
-	return 0;
-
+otroRegistro->setDescripcion("lolipop");
+unArbol->modificar(otroRegistro);
+/*
+Prueba eliminar
+Registro* otroRegistro = new Registro();
+otroRegistro->setID(3);
+unArbol->eliminar(otroRegistro);
+Registro* algunoMas = new Registro();
+algunoMas->setID(2);
+unArbol->eliminar(algunoMas);
+*/
 }

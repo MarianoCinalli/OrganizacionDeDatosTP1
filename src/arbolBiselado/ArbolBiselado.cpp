@@ -12,7 +12,7 @@
 	void ArbolBiselado::insertar(Registro* registro){
 
 		insertarRecursivo( registro, this->raiz);
-		cout << nodosARotar->getTamanio();
+		//cout << nodosARotar->getTamanio();
 		Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		//liberarMemoria(nodosAliberar);
 
@@ -23,7 +23,7 @@
         bool resultado = true;
 		resultado = modificarRecursivo(raiz,registroAModificar);
 
-		Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
+		//Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		//liberarMemoria(this -> registrosProcesados);
         return resultado;
 	};
@@ -52,35 +52,39 @@
 	{
 	    int posicionRegistro = 0;
 	    nodosARotar->apilar(nodoActual);
-        if(nodoActual->esHoja())
+        if(!nodoActual->encontrarRegistro(registroAEliminar,posicionRegistro))
         {
-            desapilarSiNodoQuedaVacio(nodoActual);
-            eliminarEnHoja(registroAEliminar,nodoActual);
-        }
-        else if(nodoActual->esElMayor(registroAEliminar))
-        {
-            movimientos->apilar('d');
-            avanzarALaDerecha(registroAEliminar,nodoActual);
-            eliminarRecursivo(nodoActual->getHijoDerecho(),registroAEliminar);
-        }
-        else if(nodoActual->esElMenor(registroAEliminar))
-        {
-            movimientos->apilar('i');
-            avanzarALaIzquierda(registroAEliminar,nodoActual);
-            eliminarRecursivo(nodoActual->getHijoIzquierdo(),registroAEliminar);
-        }
-        else
-        {
-            if(!nodoActual->encontrarRegistro(registroAEliminar,posicionRegistro))
+            if(nodoActual->esElMayor(registroAEliminar))
+            {
+                movimientos->apilar('d');
+                avanzarALaDerecha(registroAEliminar,nodoActual);
+                eliminarRecursivo(nodoActual->getHijoDerecho(),registroAEliminar);
+            }
+            else if(nodoActual->esElMenor(registroAEliminar))
+            {
+                movimientos->apilar('i');
+                avanzarALaIzquierda(registroAEliminar,nodoActual);
+                eliminarRecursivo(nodoActual->getHijoIzquierdo(),registroAEliminar);
+            }
+            else
             {
                 cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
                 return false;
+            }
+        }
+        else
+        {
+            if(nodoActual->esHoja())
+            {
+                desapilarSiNodoQuedaVacio(nodoActual);
+                eliminarEnHoja(registroAEliminar,nodoActual);
             }
             else
             {
                 eliminarEnNodoInterno(registroAEliminar,nodoActual);
             }
         }
+
 	}
 
 void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo)
@@ -90,7 +94,8 @@ void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo)
 
 			hijoDerecho = nodo -> getHijoDerecho();
 
-		} catch ( ElNodoNoTieneHijoEnEsaDireccion e)
+		}
+		catch ( ElNodoNoTieneHijoEnEsaDireccion e)
 		{
 		    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
 		}
@@ -249,25 +254,21 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
 		// Te cambie los metodos de los if's por los que van.
 		// Creo que necesitas ponerle else a los if's para no evaluar al pedo.
 		nodosARotar->apilar(nodoActual);
-		if (nodoActual -> esElMenor(registroAModificar))
-        {
-            movimientos->apilar('i');
-            avanzarALaIzquierda(registroAModificar,nodoActual);
-			modificarRecursivo(nodoActual->getHijoIzquierdo(),registroAModificar);
-		}
-
-		if(nodoActual-> esElMayor(registroAModificar))
-        {
-            movimientos->apilar('d');
-            avanzarALaDerecha(registroAModificar,nodoActual);
-			modificarRecursivo(nodoActual->getHijoDerecho(),registroAModificar);
-		}
-
         if(!nodoActual->encontrarRegistro(registroAModificar,posicionRegistro))
         {
-            cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
-            //biselar();
-            return false;
+            if (nodoActual -> esElMenor(registroAModificar))
+            {
+                movimientos->apilar('i');
+                avanzarALaIzquierda(registroAModificar,nodoActual);
+                modificarRecursivo(nodoActual->getHijoIzquierdo(),registroAModificar);
+            }
+
+            if(nodoActual-> esElMayor(registroAModificar))
+            {
+                movimientos->apilar('d');
+                avanzarALaDerecha(registroAModificar,nodoActual);
+                modificarRecursivo(nodoActual->getHijoDerecho(),registroAModificar);
+            }
         }
         else
         {
@@ -275,6 +276,8 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
             {
                 eliminarEnHoja(registroAModificar,nodoActual);
                 insertarEnHoja(registroAModificar,nodoActual);
+                nodoActual->getListaDeRegistros()->iniciarCursor();
+                nodoActual->getListaDeRegistros()->avanzarCursor();
             }
             //sino es hoja es nodo interno
             else
