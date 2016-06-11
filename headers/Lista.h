@@ -1,8 +1,9 @@
 #include "NodoSimplementeEnlasado.h"
 #include <cstddef>
+#include <iostream>
 #ifndef _LISTA_H
 #define _LISTA_H
-
+using namespace std;
 
 // La lista va a tener que dejar de ser generica, para que el agregar pueda ser un agregar ordenado.
 template <class T>
@@ -60,9 +61,7 @@ template <class T> void Lista<T>::agregar(T elemento){
     //agrega ordenado siempre de menor a mayor
     int posicion = 1;
     if(tamanio == 0){
-
         primerElemento = nuevoElemento;
-
     } else if(tamanio == 1) {
 
          if(primerElemento->getDato() > elemento){
@@ -78,7 +77,6 @@ template <class T> void Lista<T>::agregar(T elemento){
          }
 
     } else {
-
         bool insertado = false;
         while(!insertado & posicion < tamanio){
 
@@ -109,6 +107,7 @@ template <class T> void Lista<T>::agregar(T elemento){
         //significa que va al final
         obtenerNodo(tamanio)->setSiguiente(nuevoElemento);
     }
+    tamanio++;
 }
 
 template <class T> void Lista<T>::remover(unsigned int posicion){
@@ -150,14 +149,11 @@ template <class T> void Lista<T>::iniciarCursor(){
 // Lo ultimo es para no preguntar por nulo.
 template <class T> bool Lista<T>::avanzarCursor(){
 	  if (this->cursor == 0) {
-
         this->cursor = this->primerElemento;
 
     } else {
-
         this->cursor = this->cursor->getSiguiente();
     }
-
     /* pudo avanzar si el cursor ahora apunta a un nodo */
     return (this->cursor != NULL);
 }

@@ -99,14 +99,11 @@
 	bool Nodo::estaIncluido(Registro* registro)
 	{
         this->getListaDeRegistros()->iniciarCursor();
-
        while(this->getListaDeRegistros()->avanzarCursor()){
-
             if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
                 return true;
             }
        }
-
        return false;
 	};
 

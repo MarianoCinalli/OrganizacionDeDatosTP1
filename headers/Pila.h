@@ -26,22 +26,46 @@ class Pila{
 
 // Implementacion de metodos -----------------------------------------------------------------------
 
-template <class T> Pila<T>::Pila(){
+template <class T> Pila<T>::Pila()
+{
+    tope = 0;
+    tamanio = 0;
 }
 
-template <class T> unsigned int Pila<T>::getTamanio(){
+template <class T> unsigned int Pila<T>::getTamanio()
+{
+    return tamanio;
 }
 
-template <class T> bool Pila<T>::estaVacia(){
+template <class T> bool Pila<T>::estaVacia()
+{
+    return (tope == 0);
 }
 
-template <class T> T Pila<T>::desapilar(){
+template <class T> T Pila<T>::desapilar()
+{
+    NodoSimplementeEnlasado<T>* auxiliar = tope;
+    tope = auxiliar->getSiguiente();
+    T dato = auxiliar->getDato();
+    tamanio--;
+    delete auxiliar;
+    return dato;
 }
 
-template <class T> void Pila<T>::apilar(T elemento){
+template <class T> void Pila<T>::apilar(T elemento)
+{
+    NodoSimplementeEnlasado<T>* nuevoTope = new NodoSimplementeEnlasado<T>(elemento);
+    nuevoTope->setSiguiente(tope);
+    tope = nuevoTope;
+    tamanio++;
 }
 
-template <class T> Pila<T>::~Pila(){
+template <class T> Pila<T>::~Pila()
+{
+    while(!this->estaVacia())
+    {
+        desapilar();
+    }
 }
 
 #endif // PILA_H

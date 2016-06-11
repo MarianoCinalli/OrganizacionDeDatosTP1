@@ -37,5 +37,8 @@ using namespace std;
 		// Si al principo te dicen que se ordena por ID aca devolves la ID, osea no usas el getID para recorrer el arbol.
 		// Lo mismo si se elije codigo.
 		// Aca hay que setear la variable estatica. El lunes lo hablamos de ultima.
-		int Registro::getCampoIndexante(){};
+		int Registro::getCampoIndexante()
+		{
+		    return id;
+		};
 

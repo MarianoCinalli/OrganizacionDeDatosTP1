@@ -1,6 +1,6 @@
 #ifndef NODOSIMPLEMENTEENLASADO_H
 #define NODOSIMPLEMENTEENLASADO_H
-
+#include <cstddef>
 template <class T>
 
 // Falta hacer el override del operador de igualdad y desigualdad.
@@ -26,7 +26,7 @@ class NodoSimplementeEnlasado{
 
 template <class T> NodoSimplementeEnlasado<T>::NodoSimplementeEnlasado (T nuevoDato){
 	this->dato = nuevoDato;
-	//this->siguiente = NULL;
+	this->siguiente = NULL;
 }
 
 template <class T> T NodoSimplementeEnlasado<T>::getDato(){

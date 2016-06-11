@@ -2,13 +2,17 @@
 //#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
 // Metodos
 
-	ArbolBiselado::ArbolBiselado(){
+	ArbolBiselado::ArbolBiselado()
+	{
+	    raiz = new Nodo();
+	    nodosARotar = new Pila<Nodo*>;
+	    movimientos = new Pila<char>;
 	};
 
 	void ArbolBiselado::insertar(Registro* registro){
 
 		insertarRecursivo( registro, this->raiz);
-
+		cout << nodosARotar->getTamanio();
 		Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 		//liberarMemoria(nodosAliberar);
 
@@ -285,20 +289,15 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
 	// Funciones de insertar ---------------------------------------------------
 
 	void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
-
 			this -> nodosARotar -> apilar(nodo);
-
 			if (nodo -> estaIncluido(registro)){
-
 				// Excepcion
 				// throw elRegistroYaPerteneceAlArbol
 
 			} else if (nodo -> esHoja()){
-
 					insertarEnHoja(registro, nodo);
 
 				} else if ( nodo -> esElMayor(registro) ){
-
 						this -> movimientos -> apilar('d');
 						avanzarAlHijoDerecho(registro ,nodo);
 
@@ -367,12 +366,10 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
 	void ArbolBiselado::insertarEnHoja(Registro* registro ,Nodo* nodo){
 
 		try {
-
 			nodo -> agregarRegistro(registro);
 
 
 		} catch ( ElNodoExcedeElTamanioMaximo e) {
-
 			// Variables temporales.
 			Nodo* hijoIzquierdo;
 			Nodo* hijoDerecho;
