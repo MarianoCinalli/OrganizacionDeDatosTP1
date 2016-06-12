@@ -1,10 +1,10 @@
 #include<iostream>
-#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Nodo.h"
-#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\ArbolBiselado.h"
+//#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Nodo.h"
+//#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\ArbolBiselado.h"
 
 using namespace std;
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]){
+/*
 cout << "hola mundo";
 ArbolBiselado* unArbol = new ArbolBiselado();
 for(int i = 1; i < 4; i++)
@@ -17,7 +17,7 @@ Registro* otroRegistro = new Registro();
 otroRegistro->setID(2);
 otroRegistro->setDescripcion("lolipop");
 unArbol->modificar(otroRegistro);
-/*
+
 Prueba eliminar
 Registro* otroRegistro = new Registro();
 otroRegistro->setID(3);

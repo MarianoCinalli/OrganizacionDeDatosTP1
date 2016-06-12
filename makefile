@@ -3,8 +3,8 @@
  SOURCES := $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
  TEMP := $(subst src/,obj/,$(SOURCES))
  OBJECTS := $(subst .cpp,.o,$(TEMP))
- LINKING_FLAGS := -Wall -I headers/ -o
- COMPILING_FLAGS := -Wall -I headers/ -c -o
+ LINKING_FLAGS := -std=c++11 -Wall -I headers/ -o
+ COMPILING_FLAGS := -std=c++11 -Wall -I headers/ -c -o
  
  MKDIR_P := xargs mkdir -p <dirs.txt
 

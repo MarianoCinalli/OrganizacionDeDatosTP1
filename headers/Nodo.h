@@ -8,16 +8,18 @@ class Nodo{
 
 	// Atributos
 	private:
+	
 		int numeroDeBloqueHijoIzquierdo;
 		int numeroDeBloqueHijoDerecho;
 		int numeroDeBloque;
 		Lista<Registro*>* registros;
 		bool esNodoHoja;
-        void borrarNodoVacio();
+        
 	// Metodos
 	public:
 		Nodo();
 		Nodo(Lista<Registro*>* registros);
+		Nodo(int hijoDerecho, Lista<Registro*>* listaDeRegistros, int hijoIzquierdo, int numeroDeBloque, bool esHoja);
 
 		void setNumeroDeBloqueHijoIzquierdo(int numero);
 		int getNumeroDeBloqueHijoIzquierdo();
@@ -29,6 +31,7 @@ class Nodo{
 		Nodo* getHijoDerecho();
 
 		int getNumeroDeBloque();
+		void setNumeroDeBloque(int numeroDeBloque);
 
 		bool esElMenor(Registro* registro);
 		bool esElMayor(Registro* registro);
@@ -42,6 +45,11 @@ class Nodo{
 		void eliminarRegistro(Registro* registroEliminable);
 		bool encontrarRegistro(Registro* registroModificado,int& posicionDeRegistro);
 		~Nodo();
+		
+	private:
+	
+		void borrarNodoVacio();
+		
 };
 
 #endif // NODO_H

@@ -2,20 +2,25 @@
 #include <string>
 #include "Registro.h"
 #include "Nodo.h"
+#include "Bloque.h"
+#include "Archivo.h"
+#include "excepciones/ElNodoExcedeElTamanioMaximo.h"
 
 #ifndef FUNCIONESDEPERSISTENCIA_INCLUDED
 #define FUNCIONESDEPERSISTENCIA_INCLUDED
 
-// CONSTANTES
+void persistir(Nodo* nodo);
 
-#define TAMANIO_MAXIMO_BLOQUE = 2048;
-// Primer bloque = bit map. 1 ocupado. 0 libre.
-#define NUMERO_BLOQUE_BITMAP = 1;
-// Offset para el primer bloque donde se encuentra un nodo.
-#define OFFSET_PRIMER_NODO = 1;
-// Segundo bloque = numero de bloque de la raiz.
-#define NUMERO_BLOQUE_RAIZ = 2;
+Nodo* leer(unsigned int numeroDeBloque);
 
-void persistir( Nodo* nodo );
+void persistirRaiz(Nodo* nodo);
+
+Nodo* leerRaiz();
+
+// NO USAR! -------------------------------------------------------------------
+
+void verificarNumeroDeBloque(Nodo* nodo, Archivo* archivo);
+
+void asignarNumeroDeBloqueLibre(Nodo* nodo, Archivo* archivo);
 
 #endif // FUNCIONESDEPERSISTENCIA_INCLUDED
