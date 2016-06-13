@@ -54,16 +54,20 @@ template <class T> bool Lista<T>::estaVacia(){
 	return ( this-> tamanio == 0 );
 
 }
-
+//Agrega elemento, el contenido esta ordenado de menor a mayor.
 template <class T> void Lista<T>::agregar(T elemento){
 
     NodoSimplementeEnlasado<T>* nuevoElemento = new NodoSimplementeEnlasado<T>(elemento);
-    //agrega ordenado siempre de menor a mayor
+    
+    // Ahora podes hacer nuevoElemento < primerElemento
+    // Te deje un ejemplo abajo.
+    // No necesitas usar el getDato
+    
     int posicion = 1;
     if(tamanio == 0){
         primerElemento = nuevoElemento;
     } else if(tamanio == 1) {
-
+		// if (primerElemento > nuevoElemento)
          if(primerElemento->getDato() > elemento){
 
             NodoSimplementeEnlasado<T>* primeroViejo = primerElemento;
