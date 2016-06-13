@@ -10,16 +10,18 @@ class Registro{
 
 	// Atributos
 	private:
-
+		
+		static int campoIndexante;
+		
 		unsigned int id;
 		std::string codigo;
 		std::string descripcion;
-		static int* campoIndexante;
+		
 
 	// Metodos
 	public:
+	
 		Registro(int id, std::string codigo, std::string descripcion);
-		Registro(int campoIndexante);
 
 		unsigned int getID();
 		void setID(unsigned int nuevoID);
@@ -30,8 +32,20 @@ class Registro{
 		std::string getDescripcion();
 		void setDescripcion(std::string nuevaDescripcion);
 
-        //entonces devuelve un string el campo indexante?
-		int getCampoIndexante();
+		int getCampoIndexante(); // Vuela!
+		
+		static void setCampoIndexante(int campoIndexante);
+		
+		bool operator==(const Registro&);
+		bool operator!=(const Registro&);
+		
+		bool operator<(const Registro&);
+		bool operator>(const Registro&);
+		
+		bool operator<=(const Registro&);
+		bool operator>=(const Registro&);
+		
+		// (const Registro& registro, const Registro& otro)
 
 };
 

@@ -1,16 +1,15 @@
 #include <string>
 #include "Registro.h"
 //#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Registro.h"
+
+int Registro::campoIndexante = 0;
+
 // Metodos
 Registro::Registro(int id, std::string codigo, std::string descripcion){
 	
 	this -> id = id;
 	this -> codigo = codigo;
 	this -> descripcion = descripcion;
-	
-};
-
-Registro::Registro(int campoIndexante){
 	
 };
 
@@ -48,13 +47,58 @@ void Registro::setDescripcion(std::string nuevaDescripcion){
     descripcion = nuevaDescripcion;
 };
 
-// Esto es poque al iniciar el arbol se elije el campo para usar como identificador.
-// Si al principo te dicen que se ordena por ID aca devolves la ID, osea no usas el getID para recorrer el arbol.
-// Lo mismo si se elije codigo.
-// Aca hay que setear la variable estatica. El lunes lo hablamos de ultima.
+// Esto vuela al carajo.
 int Registro::getCampoIndexante(){
 	
     return id;
     
 };
 
+// si campoIndexante = 0 => el arbol se ordena por id
+// si campoIndexante = 1 => el arbol se ordena por codigo
+// El valor por defecto es 0.
+void Registro::setCampoIndexante(int campoIndexante){
+	
+	campoIndexante = campoIndexante;
+	
+};
+
+// Sobrecarga de operadores --------------------------------------------
+
+bool Registro::operator== (const Registro& otro){
+	
+	if ( this -> campoIndexante == 0 ) return (id == otro.id);
+	if ( this -> campoIndexante == 1 ) return (codigo == otro.codigo);
+    
+}
+
+bool Registro::operator< (const Registro& otro){
+	
+	if ( this -> campoIndexante == 0 ) return (id < otro.id);
+	if ( this -> campoIndexante == 1 ) return (codigo < otro.codigo);
+	
+}
+
+bool Registro::operator!= (const Registro& otro){
+
+    return !(*this == otro);
+    
+}
+
+bool Registro::operator> (const Registro& otro){
+	
+	return !(*this < otro) && (*this != otro);
+	
+}
+
+bool Registro::operator<= (const Registro& otro){
+	
+	return ( *this < otro || *this == otro);
+	
+}
+
+bool Registro::operator>= (const Registro& otro){
+
+	return ( *this > otro || *this == otro);
+	
+}

@@ -2,11 +2,12 @@
 //#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
 // Metodos
 
-	ArbolBiselado::ArbolBiselado()
-	{
+	ArbolBiselado::ArbolBiselado(){
+		
 	    raiz = new Nodo();
 	    nodosARotar = new Pila<Nodo*>;
 	    movimientos = new Pila<char>;
+	    
 	};
 
 	void ArbolBiselado::insertar(Registro* registro){
@@ -28,8 +29,7 @@
         return resultado;
 	};
 
-	bool ArbolBiselado::eliminar(Registro* registroAEliminar)
-	{
+	bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 	     bool resultado = true;
          resultado = eliminarRecursivo(raiz,registroAEliminar);
          Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
@@ -174,7 +174,14 @@ Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo)
     Registro* original = nodoActual->getListaDeRegistros()->obtenerUltimo();
 
     //duplico su informacion en el que se insertara en el nodo que quedo vacio
-    Registro* duplicado = new Registro(original->getCampoIndexante());
+    
+    // No se que intentaste hacer aca, pero no funciona esto asi.
+    // NUNCA cambies el campo indexante esto se hace SOLO en el main.
+    // Puse la linea de abajo para que compile.
+    // Registro* duplicado = new Registro(original->getCampoIndexante());
+    Registro* duplicado = new Registro(1,"BLABLA", "dec");
+    // Te puse el mismo comentario mas abajo no se cual veras primero.
+    
     duplicado->setCodigo(original->getCodigo());
     duplicado->setDescripcion(original->getDescripcion());
     duplicado->setID(original->getID());
@@ -216,7 +223,14 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo)
     Registro* original = nodoActual->getListaDeRegistros()->obtenerCursor();
 
     //duplico su informacion en el que se insertara en el nodo que quedo vacio
-    Registro* duplicado = new Registro(original->getCampoIndexante());
+    
+    // No se que intentaste hacer aca, pero no funciona esto asi.
+    // NUNCA cambies el campo indexante esto se hace SOLO en el main.
+    // Puse la linea de abajo para que compile.
+    // Registro* duplicado = new Registro(original->getCampoIndexante());
+    Registro* duplicado = new Registro(1,"BLABLA", "dec");
+    
+    
     duplicado->setCodigo(original->getCodigo());
     duplicado->setDescripcion(original->getDescripcion());
     duplicado->setID(original->getID());
