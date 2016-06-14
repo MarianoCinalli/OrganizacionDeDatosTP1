@@ -72,22 +72,22 @@ bool Registro::operator== (const Registro& otro){
     
 }
 
-bool Registro::operator< (const Registro& otro){
-	
-	if ( this -> campoIndexante == 0 ) return (id < otro.id);
-	if ( this -> campoIndexante == 1 ) return (codigo < otro.codigo);
-	
-}
-
 bool Registro::operator!= (const Registro& otro){
 
     return !(*this == otro);
     
 }
 
+bool Registro::operator< (const Registro& otro){
+	
+	if ( this -> campoIndexante == 0 ) return (id < otro.id) && (*this != otro);
+	if ( this -> campoIndexante == 1 ) return (codigo < otro.codigo) && (*this != otro);
+	
+}
+
 bool Registro::operator> (const Registro& otro){
 	
-	return !(*this < otro) && (*this != otro);
+	return !(*this < otro);
 	
 }
 

@@ -58,13 +58,13 @@ template <class T> void NodoSimplementeEnlasado<T>::setSiguiente(NodoSimplemente
 
 template <class T> bool NodoSimplementeEnlasado<T>::operator== (const NodoSimplementeEnlasado<T>& otro){
 	
-	return (dato == otro.dato);
+	return (*dato == *otro.dato);
 	    
 }
 
 template <class T> bool NodoSimplementeEnlasado<T>::operator< (const NodoSimplementeEnlasado<T>& otro){
 	
-	return (dato < otro.dato);
+	return (*dato < *otro.dato);
 	
 }
 
