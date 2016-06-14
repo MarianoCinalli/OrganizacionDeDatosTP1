@@ -4,7 +4,6 @@
 #ifndef _LISTA_H
 #define _LISTA_H
 using namespace std;
-
 // La lista va a tener que dejar de ser generica, para que el agregar pueda ser un agregar ordenado.
 template <class T>
 class Lista{
@@ -14,10 +13,11 @@ class Lista{
 		unsigned int tamanio;
 		NodoSimplementeEnlasado<T>* primerElemento;
 		NodoSimplementeEnlasado<T>* cursor;
-
+        void ordenar();
 	// Metodos
 	public:
         	Lista();
+            ~Lista();
         	unsigned int getTamanio();
         	bool estaVacia();
 
@@ -58,60 +58,66 @@ template <class T> bool Lista<T>::estaVacia(){
 template <class T> void Lista<T>::agregar(T elemento){
 
     NodoSimplementeEnlasado<T>* nuevoElemento = new NodoSimplementeEnlasado<T>(elemento);
-    
+   tamanio++;
+    if(tamanio > 1)
+    {
+        obtenerNodo(tamanio-1)->setSiguiente(nuevoElemento);
+        ordenar();
+    }
+    else
+    {
+        primerElemento = nuevoElemento;
+    }
     // Ahora podes hacer nuevoElemento < primerElemento
     // Te deje un ejemplo abajo.
     // No necesitas usar el getDato
-    
-    int posicion = 1;
-    if(tamanio == 0){
-        primerElemento = nuevoElemento;
-    } else if(tamanio == 1) {
-		// if (primerElemento > nuevoElemento)
-         if(primerElemento->getDato() > elemento){
 
-            NodoSimplementeEnlasado<T>* primeroViejo = primerElemento;
-            primerElemento = nuevoElemento;
-            nuevoElemento->setSiguiente(primeroViejo);
+}
 
-         }else{
 
-             primerElemento->setSiguiente(nuevoElemento);
+template <class T> void Lista<T>::ordenar()
+{
 
-         }
+    NodoSimplementeEnlasado<T> dumy_node(0);
+    NodoSimplementeEnlasado<T>* cur_node = primerElemento;
 
-    } else {
-        bool insertado = false;
-        while(!insertado & posicion < tamanio){
-
-            NodoSimplementeEnlasado<T>* primero = obtenerNodo(posicion);
-            NodoSimplementeEnlasado<T>* segundo = obtenerNodo(posicion+1);
-
-            if(primero->getDato() <= elemento && segundo->getDato() >= elemento){
-
-                primero->setSiguiente(nuevoElemento);
-                nuevoElemento->setSiguiente(segundo);
-                insertado = true;
-
-            } else {
-
-                if(primero->getDato() >= elemento && segundo->getDato() >= elemento ){
-
-                   primerElemento = nuevoElemento;
-                   primerElemento->setSiguiente(primero);
-                   insertado = true;
-
-                }
-            }
-            posicion++;
-        }
-    }
-    if(posicion == tamanio)
+    while (cur_node)
     {
-        //significa que va al final
-        obtenerNodo(tamanio)->setSiguiente(nuevoElemento);
+        NodoSimplementeEnlasado<T>* insert_cur_pos =  dumy_node.getSiguiente();
+        NodoSimplementeEnlasado<T>* insert_pre_pos = NULL;
+
+        while (insert_cur_pos)
+        {
+            if (insert_cur_pos->getDato() > cur_node->getDato())
+                break;
+
+            insert_pre_pos = insert_cur_pos;
+            insert_cur_pos = insert_cur_pos->getSiguiente();
+        }
+
+        if (!insert_pre_pos)
+            insert_pre_pos = &dumy_node;
+
+        NodoSimplementeEnlasado<T>* temp_node = cur_node->getSiguiente();
+
+        cur_node->setSiguiente(insert_pre_pos->getSiguiente());
+        insert_pre_pos->setSiguiente(cur_node);
+
+        cur_node = temp_node;
     }
-    tamanio++;
+    primerElemento= dumy_node.getSiguiente();
+}
+
+
+template<class T> Lista<T>::~Lista() {
+
+    while (this->primerElemento != 0) {
+
+        NodoSimplementeEnlasado<T>* aBorrar = this->primerElemento;
+        this->primerElemento = this->primerElemento->getSiguiente();
+
+        delete aBorrar;
+    }
 }
 
 template <class T> void Lista<T>::remover(unsigned int posicion){
