@@ -88,7 +88,7 @@ template <class T> void Lista<T>::ordenar()
 
         while (insert_cur_pos)
         {
-            if (insert_cur_pos->getDato() > cur_node->getDato())
+            if (*insert_cur_pos > *cur_node)
                 break;
 
             insert_pre_pos = insert_cur_pos;
