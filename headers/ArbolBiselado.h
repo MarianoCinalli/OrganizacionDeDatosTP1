@@ -27,6 +27,8 @@ class ArbolBiselado{
 		void insertar(Registro* registro);
 		bool modificar(Registro* registroAModificar);
 		bool eliminar(Registro* registroAEliminar);
+		
+		void liberarMemoria(Pila<Nodo*>* nodosAliberar);
 
 		~ArbolBiselado();
 
