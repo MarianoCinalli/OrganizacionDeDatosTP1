@@ -22,7 +22,7 @@ Nodo::Nodo(Lista<Registro*>* registros){
 	this -> registros = registros;
 	this -> esNodoHoja = true;
 	// La capa fisica le asigna el numero de bloque
-	persistir(this);
+	::persistir(this);
 
 };
 
@@ -57,17 +57,22 @@ void Nodo::setNumeroDeBloqueHijoDerecho(int numero){
 
 };
 
-int Nodo::getNumeroDeBloqueHijoDerecho()
-{
+int Nodo::getNumeroDeBloqueHijoDerecho(){
+	
     return this -> numeroDeBloqueHijoDerecho;
+    
 };
 
 Nodo* Nodo::getHijoIzquierdo(){
-    //return cargarHijoIzquierdo(this);
+	
+    return leer(numeroDeBloqueHijoIzquierdo);
 };
 
+
 Nodo* Nodo::getHijoDerecho(){
-    //return cargarHijoDerecho(this);
+	
+    return leer(numeroDeBloqueHijoDerecho);
+    
 };
 
 // Operaciones de informacion del nodo
@@ -97,7 +102,7 @@ bool Nodo::esElMenor(Registro* registro){
     registros-> avanzarCursor();
     Registro* primerRegistro = registros -> obtenerCursor();
 
-    return ( registro-> getCampoIndexante() < primerRegistro -> getCampoIndexante() );
+    return ( registro < primerRegistro );
 
 };
 
@@ -106,7 +111,7 @@ bool Nodo::esElMayor(Registro* registro){
 	registros-> iniciarCursor();
 	Registro* ultimoRegistro = registros -> obtenerUltimo();
 
-    return ( registro-> getCampoIndexante() > ultimoRegistro -> getCampoIndexante() );
+    return ( registro > ultimoRegistro);
 
 };
 
@@ -115,9 +120,13 @@ bool Nodo::estaIncluido(Registro* registro){
    this->getListaDeRegistros()->iniciarCursor();
 	
    while(this->getListaDeRegistros()->avanzarCursor()){
-		if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
+	   
+		if(this->getListaDeRegistros()->obtenerCursor() == registro){
+			
 			return true;
+			
 		}
+		
    }
    
    return false;
@@ -138,7 +147,7 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 
 	while(registros->avanzarCursor() && !encontrado){
 
-		if(registroEliminable->getCampoIndexante() == registros->obtenerCursor()->getCampoIndexante()){
+		if( registroEliminable == registros->obtenerCursor() ){
 
 			encontrado = true;
 
@@ -224,4 +233,7 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 }
 
 Nodo::~Nodo(){
+	
+	persistir(this);
+	
 };
