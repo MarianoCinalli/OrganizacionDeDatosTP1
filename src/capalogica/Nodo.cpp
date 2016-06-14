@@ -22,18 +22,18 @@ Nodo::Nodo(Lista<Registro*>* registros){
 	this -> registros = registros;
 	this -> esNodoHoja = true;
 	// La capa fisica le asigna el numero de bloque
-	::persistir(this);
+	persistir(this);
 
 };
 
 Nodo::Nodo(int hijoDerecho, Lista<Registro*>* listaDeRegistros, int hijoIzquierdo, int numeroDeBloque, bool esHoja){
-	
+
 	this -> numeroDeBloqueHijoIzquierdo = hijoIzquierdo;
 	this -> numeroDeBloqueHijoDerecho = hijoDerecho;
 	this -> registros = listaDeRegistros;
 	this -> esNodoHoja = esHoja;
 	this -> numeroDeBloque = numeroDeBloque;
-	
+
 };
 
 // Operaciones con los hijos
@@ -57,36 +57,31 @@ void Nodo::setNumeroDeBloqueHijoDerecho(int numero){
 
 };
 
-int Nodo::getNumeroDeBloqueHijoDerecho(){
-	
+int Nodo::getNumeroDeBloqueHijoDerecho()
+{
     return this -> numeroDeBloqueHijoDerecho;
-    
 };
 
 Nodo* Nodo::getHijoIzquierdo(){
-	
-    return leer(numeroDeBloqueHijoIzquierdo);
+    //return cargarHijoIzquierdo(this);
 };
 
-
 Nodo* Nodo::getHijoDerecho(){
-	
-    return leer(numeroDeBloqueHijoDerecho);
-    
+    //return cargarHijoDerecho(this);
 };
 
 // Operaciones de informacion del nodo
 
 int Nodo::getNumeroDeBloque(){
-	
+
     return numeroDeBloque;
-    
+
 };
 
 void Nodo::setNumeroDeBloque(int nuevoNumeroDeBloque){
-	
+
 	this -> numeroDeBloque = nuevoNumeroDeBloque;
-	
+
 };
 
 bool Nodo::esHoja(){
@@ -102,7 +97,7 @@ bool Nodo::esElMenor(Registro* registro){
     registros-> avanzarCursor();
     Registro* primerRegistro = registros -> obtenerCursor();
 
-    return ( registro < primerRegistro );
+    return ( registro-> getCampoIndexante() < primerRegistro -> getCampoIndexante() );
 
 };
 
@@ -111,32 +106,28 @@ bool Nodo::esElMayor(Registro* registro){
 	registros-> iniciarCursor();
 	Registro* ultimoRegistro = registros -> obtenerUltimo();
 
-    return ( registro > ultimoRegistro);
+    return ( registro-> getCampoIndexante() > ultimoRegistro -> getCampoIndexante() );
 
 };
 
 bool Nodo::estaIncluido(Registro* registro){
-	
+
    this->getListaDeRegistros()->iniciarCursor();
-	
+
    while(this->getListaDeRegistros()->avanzarCursor()){
-	   
-		if(this->getListaDeRegistros()->obtenerCursor() == registro){
-			
+		if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
 			return true;
-			
 		}
-		
    }
-   
+
    return false;
 };
 
 void Nodo::agregarRegistro(Registro* nuevoRegistro)	{
-	
+
 	registros->agregar(nuevoRegistro);
 	persistir(this);
-	
+
 };
 
 void Nodo::eliminarRegistro(Registro* registroEliminable){
@@ -147,7 +138,7 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 
 	while(registros->avanzarCursor() && !encontrado){
 
-		if( registroEliminable == registros->obtenerCursor() ){
+		if(registroEliminable->getCampoIndexante() == registros->obtenerCursor()->getCampoIndexante()){
 
 			encontrado = true;
 
@@ -163,13 +154,13 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 };
 
 void Nodo::borrarNodoVacio(){
-	
+
 	if(registros->getTamanio() == 0){
-		
+
 		delete this; // Esto esta feo.
-		
+
 	}
-	
+
 }
 
 Lista<Registro*>* Nodo::getListaDeRegistros(){
@@ -184,16 +175,11 @@ Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
 	Lista<Registro*>* registrosMenores = new Lista<Registro*>;
 	registros->iniciarCursor();
-	int campoRegistroRecibido =  registro -> getCampoIndexante();
-	int campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
-
-	while( ( registros->avanzarCursor() ) && ( campoRegistroActual < campoRegistroRecibido ) ){
+	while( ( registros->avanzarCursor() ) && ( *registros->obtenerCursor() < *registro ) ){
 
 		registrosMenores->agregar(registros->obtenerCursor());
-		campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
 
 	}
-
 	return registrosMenores;
 };
 
@@ -203,16 +189,12 @@ Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
 
 	Lista<Registro*>* registrosMayores = new Lista<Registro*>;
 	registros->iniciarCursor();
-	int campoRegistroRecibido =  registro -> getCampoIndexante();
-	int campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
 
-	while( ( registros->avanzarCursor() ) && ( campoRegistroActual > campoRegistroRecibido ) ){
+	while( ( registros->avanzarCursor() ) && ( *registros->obtenerCursor() > *registro ) ){
 
 		registrosMayores->agregar(registros->obtenerCursor());
-		campoRegistroActual = registros-> obtenerCursor()-> getCampoIndexante();
 
 	}
-
 	return registrosMayores;
 };
 
@@ -233,7 +215,4 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 }
 
 Nodo::~Nodo(){
-	
-	persistir(this);
-	
 };
