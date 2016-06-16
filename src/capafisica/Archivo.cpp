@@ -1,5 +1,5 @@
-#include "Archivo.h"
-
+//#include "Archivo.h"
+#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Archivo.h"
 std::fstream Archivo::archivo;
 
 Archivo::Archivo() {
@@ -14,6 +14,7 @@ Archivo::Archivo(std::string direccion) {
 
     // Si el archivo no existe lo crea.
     if ( ! archivo.is_open() ) {
+            cout << "paso por aca" << endl;
         crearArchivoNuevo(direccion);
     }
 
@@ -77,7 +78,7 @@ int Archivo::obtenerNumeroDeBloqueLibre() {
 int Archivo::obtenerPrimerBloqueRegistros(){
 
     return (OFFSET_PRIMER_NODO);
-    
+
 };
 
 void Archivo::escribirRaiz(Bloque* bloque) {
@@ -169,11 +170,12 @@ std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 void Archivo::crearArchivoNuevo(std::string direccion) {
 
     // Trunc crea siempre un archivo nuevo.
-    archivo.open(direccion, std::ios::trunc);
+    archivo.open(direccion, std::fstream::out);
+    //archivo.open(direccion, std::ios::trunc);
 
     // Lo cierro y lo abro con los parametros necesarios para su manipulacion.
     archivo.close();
-    archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+    //archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
 
     // Seteo las condiciones iniciales.
     // Bitmap todos ceros.
@@ -184,13 +186,13 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
 // Actualiza la posicion de la raiz.
 // Escribe en el bloque correspondiente el numero de bloque donde se encuentra la raiz.
 void Archivo::modificarPosicionRaiz(unsigned int posicion) {
-	
+
     // Estructura: cantidad de digitos del numero de la raiz + numero de la raiz
-    std::string posicionAString = std::to_string(posicion);
+    std::string posicionAString = to_string(posicion);
     int largo = posicionAString.length();
     // Concateno los campos.
-    std::string stringAEscribir = std::to_string(largo) + posicionAString;
+    std::string stringAEscribir = to_string(largo) + posicionAString;
     // Persistir.
     escribirString(stringAEscribir, NUMERO_BLOQUE_RAIZ);
-    
+
 };
