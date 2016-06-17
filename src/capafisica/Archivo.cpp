@@ -175,7 +175,7 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
 
     // Lo cierro y lo abro con los parametros necesarios para su manipulacion.
     archivo.close();
-    //archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+    archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
 
     // Seteo las condiciones iniciales.
     // Bitmap todos ceros.
