@@ -13,9 +13,9 @@ ArbolBiselado::ArbolBiselado(){
 void ArbolBiselado::insertar(Registro* registro){
 
 	insertarRecursivo( registro, this->raiz);
-	//cout << nodosARotar->getTamanio();
+	
 	Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	liberarMemoria(nodosAliberar);
+	delete nodosAliberar;
 
 };
 
@@ -25,7 +25,7 @@ bool ArbolBiselado::modificar(Registro* registroAModificar){
 	resultado = modificarRecursivo(raiz,registroAModificar);
 
 	Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	liberarMemoria(nodosAliberar);
+	delete nodosAliberar;
 	return resultado;
 };
 
@@ -35,23 +35,27 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
      
 	 resultado = eliminarRecursivo(raiz,registroAEliminar);
 	 Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	 liberarMemoria(nodosAliberar);
+	 delete nodosAliberar;
 	 
 	 return resultado;
 	 
 };
-void ArbolBiselado::desapilarSiNodoQuedaVacio(Nodo* nodoActual){
+
+ArbolBiselado::~ArbolBiselado(){
 	
-    //se invoca la funcion justo antes de eliminar el
-    //ultimo registro, por eso pregunto por 1 y no por 0.
-    Nodo* nodoVacio;
-    char m;
-    if(nodoActual->getListaDeRegistros()->getTamanio() == 1)
-	{
-		nodoVacio = nodosARotar->desapilar();
-		 m = movimientos->desapilar();
-	}
-}
+	// Este metodo lo pongo para que puedas hacer tests.
+	// Pero no va a estar mas.
+	persistirRaiz(raiz);
+	// Se reemplaza por:
+	// persistir(raiz);
+
+	delete nodosARotar;
+	delete movimientos;
+	
+};
+// Metodos privados ----------------------------------------------------
+
+// Metodos de eliminar -------------------------------------------------
 
 bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAEliminar){
 	
@@ -90,39 +94,6 @@ bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAElimi
 	}
 
 }
-
-void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo){
-	
-	Nodo* hijoDerecho;
-	
-	try {
-
-		hijoDerecho = nodo -> getHijoDerecho();
-
-	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-		
-	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
-	    
-	}
-	
-}
-
-void ArbolBiselado::avanzarALaIzquierda(Registro* registro, Nodo* nodo){
-	
-	Nodo* hijoIzquierdo;
-	
-	try {
-
-		hijoIzquierdo = nodo -> getHijoIzquierdo();
-
-	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-		
-	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
-	    
-	}
-	
-}
-
 
 void ArbolBiselado::eliminarEnNodoInterno(Registro* registroAEliminar,Nodo* nodo){
 //es decir, si no queda vacio el nodo
@@ -242,19 +213,52 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo){
 	return duplicado;
 }
 
-ArbolBiselado::~ArbolBiselado(){
+void ArbolBiselado::desapilarSiNodoQuedaVacio(Nodo* nodoActual){
 	
-	// Este metodo lo pongo para que puedas hacer tests.
-	// Pero no va a estar mas.
-	persistirRaiz(raiz);
-	// Se reemplaza por:
-	// persistir(raiz);
+    //se invoca la funcion justo antes de eliminar el
+    //ultimo registro, por eso pregunto por 1 y no por 0.
+    Nodo* nodoVacio;
+    char m;
+    if(nodoActual->getListaDeRegistros()->getTamanio() == 1)
+	{
+		nodoVacio = nodosARotar->desapilar();
+		 m = movimientos->desapilar();
+	}
+}
 
-	delete nodosARotar;
-	delete movimientos;
+void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo){
 	
-};
-// Metodos privados ------------------------------------------------
+	Nodo* hijoDerecho;
+	
+	try {
+
+		hijoDerecho = nodo -> getHijoDerecho();
+
+	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
+		
+	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
+	    
+	}
+	
+}
+
+void ArbolBiselado::avanzarALaIzquierda(Registro* registro, Nodo* nodo){
+	
+	Nodo* hijoIzquierdo;
+	
+	try {
+
+		hijoIzquierdo = nodo -> getHijoIzquierdo();
+
+	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
+		
+	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
+	    
+	}
+	
+}
+
+// Metodos de modificar ------------------------------------------------
 
 bool ArbolBiselado::modificarRecursivo(Nodo* nodoActual, Registro* registroAModificar)
 {
@@ -298,25 +302,34 @@ bool ArbolBiselado::modificarRecursivo(Nodo* nodoActual, Registro* registroAModi
 	}
 };
 
-// Funciones de insertar ---------------------------------------------------
+void ArbolBiselado::eliminarEnHoja(Registro* registro, Nodo* nodo){
+	nodo->eliminarRegistro(registro);
+}
+
+// Metodos de insertar ---------------------------------------------------
 
 void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
+
 		this -> nodosARotar -> apilar(nodo);
+
 		if (nodo -> estaIncluido(registro)){
+
 			// Excepcion
 			// throw elRegistroYaPerteneceAlArbol
 
 		} else if (nodo -> esHoja()){
+
 				insertarEnHoja(registro, nodo);
 
 			} else if ( nodo -> esElMayor(registro) ){
+
 					this -> movimientos -> apilar('d');
-					avanzarAlHijoDerecho(registro ,nodo);
+					insertarEnSubArbolDerecho(registro ,nodo);
 
 				} else if ( nodo -> esElMenor(registro) ){
 
 						this -> movimientos -> apilar('i');
-						avanzarAlHijoIzquierdo(registro ,nodo);
+						insertarEnSubArbolIzquierdo(registro ,nodo);
 
 					} else {
 
@@ -326,7 +339,7 @@ void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
 
 	};
 
-void ArbolBiselado::avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo){
+void ArbolBiselado::insertarEnSubArbolDerecho(Registro* registro ,Nodo* nodo){
 
 	Nodo* hijoDerecho;
 
@@ -345,11 +358,12 @@ void ArbolBiselado::avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo){
 		persistir(hijoDerecho);
 
 	}
-	insertarRecursivo(registro ,nodo->getHijoDerecho());
+
+		insertarRecursivo(registro ,hijoDerecho);
 
 };
 
-void ArbolBiselado::avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo){
+void ArbolBiselado::insertarEnSubArbolIzquierdo(Registro* registro ,Nodo* nodo){
 
 	Nodo* hijoIzquierdo;
 
@@ -368,20 +382,20 @@ void ArbolBiselado::avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo){
 		persistir(hijoIzquierdo);
 
 	}
-	insertarRecursivo(registro ,nodo->getHijoIzquierdo());
+
+	insertarRecursivo(registro ,hijoIzquierdo);
 
 };
-void ArbolBiselado::eliminarEnHoja(Registro* registro, Nodo* nodo)
-{
-	nodo->eliminarRegistro(registro);
-}
+
 void ArbolBiselado::insertarEnHoja(Registro* registro ,Nodo* nodo){
 
 	try {
+
 		nodo -> agregarRegistro(registro);
 
 
 	} catch ( ElNodoExcedeElTamanioMaximo e) {
+
 		// Variables temporales.
 		Nodo* hijoIzquierdo;
 		Nodo* hijoDerecho;
@@ -470,11 +484,11 @@ void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, 
 
 	} else if ( nodo -> esElMayor(registro) ){
 
-			avanzarAlHijoDerecho(registro ,nodo);
+			insertarEnSubArbolDerecho(registro ,nodo);
 
 		} else if ( nodo -> esElMenor(registro)){
 
-				avanzarAlHijoIzquierdo(registro ,nodo);
+				insertarEnSubArbolIzquierdo(registro ,nodo);
 
 			} else {
 
@@ -483,15 +497,3 @@ void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, 
 				}
 };
 
-// Libera todos nodos
-void ArbolBiselado::liberarMemoria(Pila<Nodo*>* nodosAliberar){
-	
-	Nodo* nodoAliberar;
-	while (! (nodosAliberar -> estaVacia()) ){
-		
-		nodoAliberar = nodosARotar -> desapilar();
-		delete (nodosAliberar);
-		
-	}
-	
-};

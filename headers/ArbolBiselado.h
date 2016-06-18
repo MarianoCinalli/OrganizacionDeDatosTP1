@@ -37,18 +37,17 @@ class ArbolBiselado{
 		bool modificarRecursivo(Nodo* nodoActual, Registro* registro);
         bool eliminarRecursivo(Nodo* nodoActual, Registro* registro);
         void eliminarEnHoja(Registro* registro, Nodo* nodo);
-        //bool encontrarRegistroEnNodo(Nodo* nodoActual, Registro* registroModificado, int& posicionDeRegistro);
-
-        void insertarRecursivo(Registro* registro, Nodo* nodo);
-		void avanzarAlHijoDerecho(Registro* registro ,Nodo* nodo);
-		void avanzarAlHijoIzquierdo(Registro* registro ,Nodo* nodo);
-		void avanzarALaDerecha(Registro* registro, Nodo* nodo);
+        void avanzarALaDerecha(Registro* registro, Nodo* nodo);
 		void avanzarALaIzquierda(Registro* registro, Nodo* nodo);
 
+        void insertarRecursivo(Registro* registro, Nodo* nodo);
+		void insertarEnSubArbolDerecho(Registro* registro ,Nodo* nodo);
+		void insertarEnSubArbolIzquierdo(Registro* registro ,Nodo* nodo);
 		void insertarEnHoja(Registro* registro ,Nodo* nodo);
         void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
         void insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo);
         void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar );
+        
         void desapilarSiNodoQuedaVacio(Nodo* nodoActual);
         void eliminarEnNodoInterno(Registro* registro, Nodo* nodo);
         Registro* obtenerMenorDeLosMayores(Nodo* nodo);
