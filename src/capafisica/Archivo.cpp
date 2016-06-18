@@ -101,9 +101,7 @@ Nodo* Archivo::leerRaiz() {
     int posicionDeLaRaiz;
 
     sscanf(bloque.substr(0, 1).c_str(), "%d", &cantidadDeDigitos);
-	std::cout << "CANTIDAD DE DIGITOS: " << cantidadDeDigitos << "\n";
     sscanf(bloque.substr(1, cantidadDeDigitos).c_str(), "%d", &posicionDeLaRaiz);
-	std::cout << "POSICION DE LA RAIZ: " << posicionDeLaRaiz << "\n";
     return (leer(posicionDeLaRaiz));
 
 };
@@ -118,13 +116,8 @@ void Archivo::escribirString(std::string datos, unsigned int posicionInicialRela
 	
 	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
 	
-	std::cout << "DATOS: " << datos << "\n";
-	std::cout << "POSICION RELATIVA: " << posicionInicialRelativa << "\n";
     unsigned int posicion = posicionInicialRelativa * TAMANIO_MAXIMO_BLOQUE;
-    std::cout << "POSICION ABSOLUTA: " << posicion << "\n";
     unsigned int longitudDatos = datos.length();
-    std::cout << "LONGITUD: " << longitudDatos << "\n";
-    std::cout << "\n";
     char caracter;
 	
     for (unsigned int i = 0; i < longitudDatos; i++) {
@@ -168,8 +161,6 @@ std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 
     }
     
-    //std::cout << cadenaLeida << "\n";
-    
 	this -> archivo.close();
 	
     return (cadenaLeida);
@@ -201,7 +192,6 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
     // Esta funcion va a poner un uno en la posicion 0 del bitmap.
     // Que corresponde a la posicion de la raiz.
     int entero = obtenerNumeroDeBloqueLibre();
-    //std::cout << entero << "\n";
     // Guardo la raiz.
     // La lista se libera en el destructor de la raiz.
     delete (raiz);
