@@ -175,11 +175,19 @@ Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
 	Lista<Registro*>* registrosMenores = new Lista<Registro*>;
 	registros->iniciarCursor();
+	int cantidadEliminados = 0;
 	while( ( registros->avanzarCursor() ) && ( *registros->obtenerCursor() < *registro ) ){
 
 		registrosMenores->agregar(registros->obtenerCursor());
+		cantidadEliminados++;
 
 	}
+	//Elimino los copiados
+	for(int i = 1; i <= cantidadEliminados;i++)
+    {
+        //siempre elimino el primero que se que es menor
+        registros->remover(1);
+    }
 	return registrosMenores;
 };
 
@@ -188,13 +196,31 @@ Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
 
 	Lista<Registro*>* registrosMayores = new Lista<Registro*>;
-	registros->iniciarCursor();
+    int cantidadEliminados = 1;
 
-	while( ( registros->avanzarCursor() ) && ( *registros->obtenerCursor() > *registro ) ){
+    registros->iniciarCursor();
+
+    //Busco el primer mayor
+    while(registros->avanzarCursor() && *registros->obtenerCursor() < *registro)
+    {
+    }
+    registrosMayores->agregar(registros->obtenerCursor());
+
+    //De ahi en adelante se que son todos mayores y los agrego
+	while(registros->avanzarCursor()){
 
 		registrosMayores->agregar(registros->obtenerCursor());
+		//voy contando los mayores para saber cuantos eliminar
+		cantidadEliminados++;
 
 	}
+
+	//Elimino los registros mayores
+    for(int i=1; i<= cantidadEliminados;i++)
+    {
+        //siempre borro el ultimo
+        registros->remover(registros->getTamanio());
+    }
 	return registrosMayores;
 };
 
