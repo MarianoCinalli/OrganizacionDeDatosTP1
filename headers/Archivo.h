@@ -13,7 +13,7 @@
 
 // CONSTANTES
 
-#define TAMANIO_MAXIMO_BLOQUE 1024
+#define TAMANIO_MAXIMO_BLOQUE 4096
 // Primer bloque = bit map.
 #define NUMERO_BLOQUE_BITMAP 0
 // Segundo bloque = numero de bloque de la raiz.

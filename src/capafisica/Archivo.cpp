@@ -179,23 +179,13 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
     // Lo cierro y lo abro con los parametros necesarios para su manipulacion.
     archivo.close();
     // Seteo las condiciones iniciales.
-    // Raiz sin hijos, sin registros, en el primer bloque libre el 3.
-    Lista<Registro*>* registros = new Lista<Registro*>;
-    Nodo* raiz = new Nodo(320, registros, 300, 2, true);
-    Registro* registro= new Registro(300,"a92","Buena Descripcion");
-    raiz -> agregarRegistro(registro);
     
-    //Bloque* bloque = new Bloque ( raiz );
     // Esto pone todos los bits anteriores al guardado en cero.
     //escribir(bloque);
     modificarPosicionRaiz(2);
     // Esta funcion va a poner un uno en la posicion 0 del bitmap.
     // Que corresponde a la posicion de la raiz.
     int entero = obtenerNumeroDeBloqueLibre();
-    // Guardo la raiz.
-    // La lista se libera en el destructor de la raiz.
-    delete (raiz);
-    //delete (bloque);
     
 };
 
