@@ -173,22 +173,7 @@ Lista<Registro*>* Nodo::getListaDeRegistros(){
 // al registro pasado por parametro. Los elimina de la lista. ¿Cuáles elimina?
 Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
-	Lista<Registro*>* registrosMenores = new Lista<Registro*>;
-	registros->iniciarCursor();
-	int cantidadEliminados = 0;
-	while( ( registros->avanzarCursor() ) && ( *registros->obtenerCursor() < *registro ) ){
-
-		registrosMenores->agregar(registros->obtenerCursor());
-		cantidadEliminados++;
-
-	}
-	//Elimino los copiados
-	for(int i = 1; i <= cantidadEliminados;i++)
-    {
-        //siempre elimino el primero que se que es menor
-        registros->remover(1);
-    }
-	return registrosMenores;
+	this -> registros -> obtenerRegistrosMenoresA(registro)
 };
 
 // Devuelve una lista de registros que son mayores, en clave,
