@@ -13,7 +13,7 @@
 
 // CONSTANTES
 
-#define TAMANIO_MAXIMO_BLOQUE 4096
+#define TAMANIO_MAXIMO_BLOQUE 1024
 // Primer bloque = bit map.
 #define NUMERO_BLOQUE_BITMAP 0
 // Segundo bloque = numero de bloque de la raiz.
@@ -24,8 +24,9 @@
 class Archivo {
 	
 private:
-
-    static std::fstream archivo;
+	
+	static std::string direccion;
+    std::fstream archivo;
 
 public:
 

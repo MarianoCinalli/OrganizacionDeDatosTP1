@@ -1,6 +1,6 @@
-//#include "Archivo.h"
-#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Archivo.h"
-std::fstream Archivo::archivo;
+#include "Archivo.h"
+
+std::string Archivo::direccion;
 
 Archivo::Archivo() {
 
@@ -9,19 +9,21 @@ Archivo::Archivo() {
 // Este constructor carga el path del archivo a escribir.
 
 Archivo::Archivo(std::string direccion) {
-
-    archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
-
+	
+	this -> direccion = direccion;
+    this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+    
     // Si el archivo no existe lo crea.
     if ( ! archivo.is_open() ) {
-            cout << "paso por aca" << endl;
         crearArchivoNuevo(direccion);
     }
+	archivo.close();
 
+	
 };
 
 void Archivo::escribir(Bloque* bloque) {
-
+	
     int posicion = bloque -> getNumeroDeBloque();
 
     std::string datos = bloque -> exportarParaEscritura();
@@ -45,32 +47,31 @@ Nodo* Archivo::leer(int numeroDeBloque) {
     nodo = bloque -> exportarComoNodo();
 
     delete bloque;
-    return ( nodo);
+    return (nodo);
 
 };
 
 int Archivo::obtenerNumeroDeBloqueLibre() {
 
     // Cargar bitmap
-    int posicion = 0;
+    int posicion = NUMERO_BLOQUE_BITMAP;
     std::string bitmapComoString;
     char caracter;
 
     for (unsigned int i = 0; i < TAMANIO_MAXIMO_BLOQUE; i++) {
-
+		
         archivo.clear();
-        archivo.seekp(NUMERO_BLOQUE_BITMAP);
+        archivo.seekp(posicion);
         archivo.read((char *) & caracter, sizeof (char));
         bitmapComoString += caracter;
         posicion++;
 
     }
-
+	
     Bitmap* bitmap = new Bitmap(bitmapComoString);
-    int posicionUno = bitmap -> obtenerPosicionDelPrimerUno();
-
+    int posicionUno = bitmap -> obtenerPosicionDelPrimerCero();
     escribirString( bitmap -> obtenerBitmap(), NUMERO_BLOQUE_BITMAP);
-
+	delete ( bitmap );
     return ( posicionUno + OFFSET_PRIMER_NODO);
 
 };
@@ -78,7 +79,7 @@ int Archivo::obtenerNumeroDeBloqueLibre() {
 int Archivo::obtenerPrimerBloqueRegistros(){
 
     return (OFFSET_PRIMER_NODO);
-
+    
 };
 
 void Archivo::escribirRaiz(Bloque* bloque) {
@@ -100,30 +101,36 @@ Nodo* Archivo::leerRaiz() {
     int posicionDeLaRaiz;
 
     sscanf(bloque.substr(0, 1).c_str(), "%d", &cantidadDeDigitos);
+	std::cout << "CANTIDAD DE DIGITOS: " << cantidadDeDigitos << "\n";
     sscanf(bloque.substr(1, cantidadDeDigitos).c_str(), "%d", &posicionDeLaRaiz);
-
+	std::cout << "POSICION DE LA RAIZ: " << posicionDeLaRaiz << "\n";
     return (leer(posicionDeLaRaiz));
 
 };
 
 Archivo::~Archivo() {
-
-	this -> archivo.close();
-
+	
 };
 
 // Metodos Privados ----------------------------------------------------
 
 void Archivo::escribirString(std::string datos, unsigned int posicionInicialRelativa) {
-
+	
+	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	
+	std::cout << "DATOS: " << datos << "\n";
+	std::cout << "POSICION RELATIVA: " << posicionInicialRelativa << "\n";
     unsigned int posicion = posicionInicialRelativa * TAMANIO_MAXIMO_BLOQUE;
+    std::cout << "POSICION ABSOLUTA: " << posicion << "\n";
     unsigned int longitudDatos = datos.length();
+    std::cout << "LONGITUD: " << longitudDatos << "\n";
+    std::cout << "\n";
     char caracter;
-
+	
     for (unsigned int i = 0; i < longitudDatos; i++) {
-
+		
+		archivo.clear();
         caracter = datos[i];
-        archivo.clear();
         archivo.seekp(posicion);
         archivo.write((char*) & caracter, sizeof (char));
         posicion++;
@@ -131,34 +138,40 @@ void Archivo::escribirString(std::string datos, unsigned int posicionInicialRela
     }
 
     // Completo con 0 desde el ultimo dato valido.
-    for (unsigned int i = posicion; i < TAMANIO_MAXIMO_BLOQUE; i++) {
+    
+    for (unsigned int i = posicion; i <  (posicionInicialRelativa + 1)*TAMANIO_MAXIMO_BLOQUE; i++) {
 
-        caracter = 0;
-        archivo.clear();
+        caracter = 0x00;
         archivo.seekp(posicion);
         archivo.write((char*) & caracter, sizeof (char));
         posicion++;
 
     }
-
+	
+	this -> archivo.close();
 };
 
 std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
-
+	
+	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	
     unsigned int posicion = posicionInicialRelativa * TAMANIO_MAXIMO_BLOQUE;
     char caracter;
     std::string cadenaLeida = "";
 
     for (unsigned int i = 0; i < TAMANIO_MAXIMO_BLOQUE; i++) {
 
-        archivo.clear();
         archivo.seekp(posicion);
         archivo.read((char *) & caracter, sizeof (char));
         cadenaLeida += caracter;
         posicion++;
 
     }
-
+    
+    //std::cout << cadenaLeida << "\n";
+    
+	this -> archivo.close();
+	
     return (cadenaLeida);
 
 };
@@ -168,31 +181,45 @@ std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 // Se coloca la raiz en el primer nodo libre.
 // La misma se encuentra sin registros, ni hijos.
 void Archivo::crearArchivoNuevo(std::string direccion) {
-
+	// NO TOQUES ESTO QUE LE ME FALTA HACER ALGO PARA QUE FUNCIONE BIEN.
     // Trunc crea siempre un archivo nuevo.
-    archivo.open(direccion, std::fstream::out);
-    //archivo.open(direccion, std::ios::trunc);
+    archivo.open(direccion, std::fstream::out | std::ios::trunc);
 
     // Lo cierro y lo abro con los parametros necesarios para su manipulacion.
     archivo.close();
-    archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
-
     // Seteo las condiciones iniciales.
-    // Bitmap todos ceros.
+    // Raiz sin hijos, sin registros, en el primer bloque libre el 3.
+    Lista<Registro*>* registros = new Lista<Registro*>;
+    Nodo* raiz = new Nodo(320, registros, 300, 2, true);
+    Registro* registro= new Registro(300,"a92","Buena Descripcion");
+    raiz -> agregarRegistro(registro);
+    
+    //Bloque* bloque = new Bloque ( raiz );
+    // Esto pone todos los bits anteriores al guardado en cero.
+    //escribir(bloque);
+    modificarPosicionRaiz(2);
+    // Esta funcion va a poner un uno en la posicion 0 del bitmap.
+    // Que corresponde a la posicion de la raiz.
+    int entero = obtenerNumeroDeBloqueLibre();
+    //std::cout << entero << "\n";
     // Guardo la raiz.
-
+    // La lista se libera en el destructor de la raiz.
+    delete (raiz);
+    //delete (bloque);
+    
 };
 
 // Actualiza la posicion de la raiz.
 // Escribe en el bloque correspondiente el numero de bloque donde se encuentra la raiz.
 void Archivo::modificarPosicionRaiz(unsigned int posicion) {
-
+	
+	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
     // Estructura: cantidad de digitos del numero de la raiz + numero de la raiz
-    std::string posicionAString = to_string(posicion);
+    std::string posicionAString = std::to_string(posicion);
     int largo = posicionAString.length();
     // Concateno los campos.
-    std::string stringAEscribir = to_string(largo) + posicionAString;
+    std::string stringAEscribir = std::to_string(largo) + posicionAString;
     // Persistir.
     escribirString(stringAEscribir, NUMERO_BLOQUE_RAIZ);
-
+    
 };

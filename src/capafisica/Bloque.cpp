@@ -65,7 +65,8 @@ int Bloque::getNumeroDeBloque() {
 // Coloca en un string el contenido de cada registro perteneciente a la lista.
 
 void Bloque::transformarRegistros(Lista<Registro*>* listaDeRegistros) {
-
+	std::cout << "NODO -> BLOQUE" << "\n";
+	std::cout << "Cantidad de registros: " << listaDeRegistros -> getTamanio() << "\n";
     listaDeRegistros -> iniciarCursor();
 
     // Lista de objectos registro -> string con registos
@@ -73,6 +74,7 @@ void Bloque::transformarRegistros(Lista<Registro*>* listaDeRegistros) {
 
         Registro* registroActual = listaDeRegistros -> obtenerCursor();
         std::string registroActualEnString = registroAString(registroActual);
+        std::cout << "Registro: " << registroActualEnString << "\n";
         registros += registroActualEnString;
 
     }
@@ -174,18 +176,29 @@ void Bloque::recuperarInformacion(std::string informacion) {
 
     // Recupero la longitud de la informacion del nodo en el string.
     int longitud = recuperarLongitud(informacion);
+    std::cout << "BLOQUE -> NODO" << "\n";
+    std::cout << "LONGITUD: " << longitud << "\n";
+    
     // Saco el campo con la longitud y la basura que queda luego
     // del ultimo dato valido del string, para dejar los datos.
     // Observar que longitud en este caso es el largo del string 
     // que voy a crear a continuacion.
     std::string datos = informacion.substr(2, longitud);
-
+	std::cout << "DATOS: " <<  datos << "\n";
+	
     // En las posiciones 0 y 1 esta el hijo izquierdo.
-    this -> hijoIzquierdo = datos.substr(0, 1);
+    this -> hijoIzquierdo = datos.substr(0, 2);
+    std::cout << "HIJO HIZQUIERDO: " <<  this -> hijoIzquierdo << "\n";
+    
     // En las posiciones 2 hasta (longitud - 2) estan los registros.
-    this -> registros = datos.substr(2, longitud - 2);
+    // Es -4 porque son longitud - 4 caracteres desde la posicion 2.
+    this -> registros = datos.substr(2, longitud - 4);
+    std::cout << "REGISTROS: " << this -> registros << "\n";
+    
     // En las posiciones (longitud - 1) y longitud estan los registros.
-    this -> hijoDerecho = datos.substr(longitud - 1, 1);
+    this -> hijoDerecho = datos.substr(longitud - 2, 2);
+    std::cout << "HIJO DERECHO: " << this -> hijoDerecho << "\n";
+    std::cout << "\n";
 
 }
 
@@ -237,17 +250,28 @@ Lista<Registro*>* Bloque::tansformarStringDeRegistrosAListaDeRegistros() {
     while (posicion < tamanioDelStringDeRegistros) {
 
         // Registro = Tamanio (ID + codigo + descripcion)- ID - Codigo - Descripcion
-        // En Bytes =    2                                 4      3     tamanio - 7
-        int finalDeRegistro = transformarStringAEntero(registros.substr(0, 1)); // Relativo a la posicion
-        int id = transformarStringAEntero(registros.substr(2, 3));
-        std::string codigo = registros.substr(6, 2);
-        std::string descripcion = registros.substr(9, finalDeRegistro);
+        // En Bytes =    1                                 4      3     tamanio - 7
+        int finalDeRegistro = transformarStringAEntero(registros.substr(posicion, 1));
+        std::cout << "FINAL: " << finalDeRegistro << "\n";
+        
+        std::string registroActual = registros.substr(posicion + 1, finalDeRegistro);
+        std::cout << "REGISTRO ACTUAL: " << registroActual << "\n";
+        
+        int id = transformarStringAEntero(registroActual.substr(0, 4));
+        std::cout << "ID: " << id << "\n";
+        
+        std::string codigo = registroActual.substr(4, 3);
+        std::cout << "CODIGO: " << codigo << "\n";
+        
+        std::string descripcion = registroActual.substr(7, (finalDeRegistro-7));
+        std::cout << "DESCRIPCION: " << descripcion << "\n";
+		std::cout << "\n";
 
         Registro* registro = new Registro(id, codigo, descripcion);
         listaDeRegistros -> agregar(registro);
-
+		
         // Sumo lo que ocupaba el tamanio y el finalDeRegistro.
-        posicion += 2;
+        posicion += 1;
         posicion += finalDeRegistro;
 
     }

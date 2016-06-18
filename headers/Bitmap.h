@@ -14,7 +14,7 @@ public:
 
     Bitmap(std::string bitmap);
 
-    int obtenerPosicionDelPrimerUno();
+    int obtenerPosicionDelPrimerCero();
 
     std::string obtenerBitmap();
 

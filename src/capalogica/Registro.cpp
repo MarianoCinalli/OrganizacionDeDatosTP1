@@ -67,8 +67,7 @@ void Registro::setCampoIndexante(int campoIndexante){
 
 bool Registro::operator== (const Registro& otro){
 	
-	if ( this -> campoIndexante == 0 ) return (id == otro.id);
-	if ( this -> campoIndexante == 1 ) return (codigo == otro.codigo);
+    return ( this -> campoIndexante == 0 ) ? (id == otro.id) : (codigo == otro.codigo);
     
 }
 
@@ -80,8 +79,7 @@ bool Registro::operator!= (const Registro& otro){
 
 bool Registro::operator< (const Registro& otro){
 	
-	if ( this -> campoIndexante == 0 ) return (id < otro.id) && (*this != otro);
-	if ( this -> campoIndexante == 1 ) return (codigo < otro.codigo) && (*this != otro);
+	return ( this -> campoIndexante == 0 ) ? (id < otro.id) && (*this != otro) : (codigo < otro.codigo) && (*this != otro);
 	
 }
 
