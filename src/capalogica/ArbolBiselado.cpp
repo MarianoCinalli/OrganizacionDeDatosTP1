@@ -219,10 +219,12 @@ void ArbolBiselado::desapilarSiNodoQuedaVacio(Nodo* nodoActual){
     //ultimo registro, por eso pregunto por 1 y no por 0.
     Nodo* nodoVacio;
     char m;
-    if(nodoActual->getListaDeRegistros()->getTamanio() == 1)
-	{
-		nodoVacio = nodosARotar->desapilar();
-		 m = movimientos->desapilar();
+    if(nodoActual-> getListaDeRegistros() ->getTamanio() == 1){
+		
+		nodoVacio = nodosARotar-> desapilar();
+		m = movimientos->desapilar();
+		delete nodoVacio; // perdia memoria.
+		 
 	}
 }
 

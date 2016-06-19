@@ -211,7 +211,7 @@ unsigned int Bloque::transformarStringAEntero(std::string cadena) {
     unsigned int transformado = 0;
     unsigned int valorActual;
     unsigned char caracterActual;
-    int longitudDeLaCadena = cadena.length();
+    unsigned int longitudDeLaCadena = cadena.length();
     // El primero del string es el LSB
     // La posicion en el array * 8 es la cantidad de shifts a hacer.
     for (unsigned int i = 0; longitudDeLaCadena > i; i++) {

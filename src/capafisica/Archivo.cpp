@@ -185,7 +185,7 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
     modificarPosicionRaiz(2);
     // Esta funcion va a poner un uno en la posicion 0 del bitmap.
     // Que corresponde a la posicion de la raiz.
-    int entero = obtenerNumeroDeBloqueLibre();
+    obtenerNumeroDeBloqueLibre();
     
 };
 

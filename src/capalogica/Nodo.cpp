@@ -64,13 +64,13 @@ int Nodo::getNumeroDeBloqueHijoDerecho()
 
 Nodo* Nodo::getHijoIzquierdo(){
 	
-    leer( this -> numeroDeBloqueHijoIzquierdo );
+    return ( leer( this -> numeroDeBloqueHijoIzquierdo ) );
     
 };
 
 Nodo* Nodo::getHijoDerecho(){
 	
-    leer( this -> numeroDeBloqueHijoDerecho);
+    return ( leer( this -> numeroDeBloqueHijoDerecho) );
     
 };
 
