@@ -174,40 +174,13 @@ Lista<Registro*>* Nodo::getListaDeRegistros(){
 Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
 	this -> registros -> obtenerMenoresA(registro);
-	
+
 };
 
 // Devuelve una lista de registros que son mayores, en clave,
 // al registro pasado por parametro. Los elimina de la lista. ¿Cuáles registros?
 Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
-
-	Lista<Registro*>* registrosMayores = new Lista<Registro*>;
-    int cantidadEliminados = 1;
-
-    registros->iniciarCursor();
-
-    //Busco el primer mayor
-    while(registros->avanzarCursor() && *registros->obtenerCursor() < *registro)
-    {
-    }
-    registrosMayores->agregar(registros->obtenerCursor());
-
-    //De ahi en adelante se que son todos mayores y los agrego
-	while(registros->avanzarCursor()){
-
-		registrosMayores->agregar(registros->obtenerCursor());
-		//voy contando los mayores para saber cuantos eliminar
-		cantidadEliminados++;
-
-	}
-
-	//Elimino los registros mayores
-    for(int i=1; i<= cantidadEliminados;i++)
-    {
-        //siempre borro el ultimo
-        registros->remover(registros->getTamanio());
-    }
-	return registrosMayores;
+    this -> registros -> obtenerMayoresA(registro);
 };
 
 bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegistro){
