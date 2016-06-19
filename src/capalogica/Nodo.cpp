@@ -63,11 +63,15 @@ int Nodo::getNumeroDeBloqueHijoDerecho()
 };
 
 Nodo* Nodo::getHijoIzquierdo(){
-    //return cargarHijoIzquierdo(this);
+	
+    leer( this -> numeroDeBloqueHijoIzquierdo );
+    
 };
 
 Nodo* Nodo::getHijoDerecho(){
-    //return cargarHijoDerecho(this);
+	
+    leer( this -> numeroDeBloqueHijoDerecho);
+    
 };
 
 // Operaciones de informacion del nodo
@@ -170,17 +174,19 @@ Lista<Registro*>* Nodo::getListaDeRegistros(){
 };
 
 // Devuelve una lista de registros que son menores, en clave,
-// al registro pasado por parametro. Los elimina de la lista. ¿Cuáles elimina?
+// al registro pasado por parametro. Los remueve del nodo.
 Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
-	this -> registros -> obtenerMenoresA(registro);
+	return ( this -> registros -> obtenerMenoresA(registro) );
 
 };
 
 // Devuelve una lista de registros que son mayores, en clave,
-// al registro pasado por parametro. Los elimina de la lista. ¿Cuáles registros?
+// al registro pasado por parametro. Los remueve del nodo.
 Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
-    this -> registros -> obtenerMayoresA(registro);
+	
+    return ( this -> registros -> obtenerMayoresA(registro) );
+    
 };
 
 bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegistro){

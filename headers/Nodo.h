@@ -9,9 +9,9 @@ class Nodo{
 	// Atributos
 	private:
 	
-		int numeroDeBloqueHijoIzquierdo;
-		int numeroDeBloqueHijoDerecho;
-		int numeroDeBloque;
+		unsigned int numeroDeBloqueHijoIzquierdo;
+		unsigned int numeroDeBloqueHijoDerecho;
+		unsigned int numeroDeBloque;
 		Lista<Registro*>* registros;
 		bool esNodoHoja;
         
