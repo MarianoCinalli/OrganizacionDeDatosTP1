@@ -3,17 +3,17 @@
 // Metodos
 
 ArbolBiselado::ArbolBiselado(Nodo* raiz){
-	
+
     raiz = raiz;
     nodosARotar = new Pila<Nodo*>;
     movimientos = new Pila<char>;
-    
+
 };
 
 void ArbolBiselado::insertar(Registro* registro){
 
 	insertarRecursivo( registro, this->raiz);
-	
+
 	Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 	delete nodosAliberar;
 
@@ -30,19 +30,19 @@ bool ArbolBiselado::modificar(Registro* registroAModificar){
 };
 
 bool ArbolBiselado::eliminar(Registro* registroAEliminar){
-	
+
      bool resultado = true;
-     
+
 	 resultado = eliminarRecursivo(raiz,registroAEliminar);
 	 Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
 	 delete nodosAliberar;
-	 
+
 	 return resultado;
-	 
+
 };
 
 ArbolBiselado::~ArbolBiselado(){
-	
+
 	// Este metodo lo pongo para que puedas hacer tests.
 	// Pero no va a estar mas.
 	persistirRaiz(raiz);
@@ -51,56 +51,60 @@ ArbolBiselado::~ArbolBiselado(){
 
 	delete nodosARotar;
 	delete movimientos;
-	
+
 };
 // Metodos privados ----------------------------------------------------
 
 // Metodos de eliminar -------------------------------------------------
 
 bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAEliminar){
-	
+
     int posicionRegistro = 0;
     nodosARotar->apilar(nodoActual);
 	if(!nodoActual->encontrarRegistro(registroAEliminar,posicionRegistro))	{
-		
+
 		if(nodoActual->esElMayor(registroAEliminar)){
-			
+
 			movimientos->apilar('d');
 			avanzarALaDerecha(registroAEliminar,nodoActual);
 			eliminarRecursivo(nodoActual->getHijoDerecho(),registroAEliminar);
-			
+
 		} else if(nodoActual->esElMenor(registroAEliminar)) {
-			
+
 				movimientos->apilar('i');
 				avanzarALaIzquierda(registroAEliminar,nodoActual);
 				eliminarRecursivo(nodoActual->getHijoIzquierdo(),registroAEliminar);
-				
+
 			}	else{
-				
+
 					cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
 					return false;
 		}
-		
+
 	} else{
-		
+
 		if(nodoActual->esHoja()) {
-			
+
 			desapilarSiNodoQuedaVacio(nodoActual);
 			eliminarEnHoja(registroAEliminar,nodoActual);
-			
+
 		} else {
 				eliminarEnNodoInterno(registroAEliminar,nodoActual);
 			}
 	}
+	if(nodoActual->estaVacio())
+    {
+        delete nodoActual;
+    }
 
 }
 
 void ArbolBiselado::eliminarEnNodoInterno(Registro* registroAEliminar,Nodo* nodo){
 //es decir, si no queda vacio el nodo
 if(nodo->getListaDeRegistros()->getTamanio() > 1){
-	
+
 	nodo->eliminarRegistro(registroAEliminar);
-	
+
 }
 //Si queda vacio hay que agregarle el menor de los mayores o el mayor de los menores
 else
@@ -138,30 +142,30 @@ else
 }
 
 Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo){
-	
+
 	Nodo* nodoActual = nodo;
 	while(nodoActual->getHijoDerecho() != NULL){
-		
+
 		nodoActual = nodoActual->getHijoDerecho();
 		nodosARotar->apilar(nodoActual);
 		movimientos->apilar('d');
-		
+
 	}
 	//En caso de que el nodo hoja que contenia el registro sustituto
 	//haya quedado vacio, lo desapilo para el biselado y elimino la duplicacion
 	desapilarSiNodoQuedaVacio(nodoActual);
-	
+
 	//obtengo el registro original a eliminar
 	Registro* original = nodoActual->getListaDeRegistros()->obtenerUltimo();
-	
+
 	//duplico su informacion en el que se insertara en el nodo que quedo vacio
 	Registro* duplicado = new Registro(original->getID(),original->getCodigo(), original->getDescripcion());
-	
+
 	//elimino el original si no es el unico registro restante o es hoja
 	if(nodoActual->getListaDeRegistros()->getTamanio() > 1 || nodoActual->esHoja()){
-		
+
 		 nodoActual->eliminarRegistro(original);
-		 
+
 	} else //en caso de que no (esta es la recursion) y el nodo prestador a su vez
 		//queda vacio le aplico recursion para que busque otra vez el menor de los mayores
 		//o mayor de los menores y repita todo el proceso, mejor dicho.
@@ -171,9 +175,9 @@ Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo){
 		// (A || B) == ¬A && ¬B.
 		eliminarEnNodoInterno(original,nodoActual);
 	}
-	
+
 	return duplicado;
-	
+
 }
 
 Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo){
@@ -187,15 +191,15 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo){
 	//En caso de que el nodo hoja que contenia el registro sustituto
 	//haya quedado vacio, lo desapilo para el biselado y elimino la duplicacion
 	desapilarSiNodoQuedaVacio(nodoActual);
-	
+
 	  //obtengo el registro original a eliminar
 	nodoActual->getListaDeRegistros()->iniciarCursor();
 	nodoActual->getListaDeRegistros()->avanzarCursor();
 	Registro* original = nodoActual->getListaDeRegistros()->obtenerCursor();
-	
+
 	//duplico su informacion en el que se insertara en el nodo que quedo vacio
 	Registro* duplicado = new Registro(original->getID(),original->getCodigo(), original->getDescripcion());
-	
+
 	if(nodoActual->getListaDeRegistros()->getTamanio() > 1
 	   || nodoActual->esHoja())
 	{
@@ -214,50 +218,50 @@ Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo){
 }
 
 void ArbolBiselado::desapilarSiNodoQuedaVacio(Nodo* nodoActual){
-	
+
     //se invoca la funcion justo antes de eliminar el
     //ultimo registro, por eso pregunto por 1 y no por 0.
     Nodo* nodoVacio;
     char m;
     if(nodoActual-> getListaDeRegistros() ->getTamanio() == 1){
-		
+
 		nodoVacio = nodosARotar-> desapilar();
 		m = movimientos->desapilar();
 		delete nodoVacio; // perdia memoria.
-		 
+
 	}
 }
 
 void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo){
-	
+
 	Nodo* hijoDerecho;
-	
+
 	try {
 
 		hijoDerecho = nodo -> getHijoDerecho();
 
 	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-		
+
 	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
-	    
+
 	}
-	
+
 }
 
 void ArbolBiselado::avanzarALaIzquierda(Registro* registro, Nodo* nodo){
-	
+
 	Nodo* hijoIzquierdo;
-	
+
 	try {
 
 		hijoIzquierdo = nodo -> getHijoIzquierdo();
 
 	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-		
+
 	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
-	    
+
 	}
-	
+
 }
 
 // Metodos de modificar ------------------------------------------------

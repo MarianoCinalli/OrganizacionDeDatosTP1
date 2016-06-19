@@ -8,13 +8,13 @@ class Nodo{
 
 	// Atributos
 	private:
-	
+
 		unsigned int numeroDeBloqueHijoIzquierdo;
 		unsigned int numeroDeBloqueHijoDerecho;
 		unsigned int numeroDeBloque;
 		Lista<Registro*>* registros;
 		bool esNodoHoja;
-        
+
 	// Metodos
 	public:
 		Nodo();
@@ -46,11 +46,7 @@ class Nodo{
 		void eliminarRegistro(Registro* registroEliminable);
 		bool encontrarRegistro(Registro* registroModificado,int& posicionDeRegistro);
 		~Nodo();
-		
-	private:
-	
-		void borrarNodoVacio();
-		
+
 };
 
 #endif // NODO_H

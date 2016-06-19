@@ -63,15 +63,15 @@ int Nodo::getNumeroDeBloqueHijoDerecho()
 };
 
 Nodo* Nodo::getHijoIzquierdo(){
-	
+
     return ( leer( this -> numeroDeBloqueHijoIzquierdo ) );
-    
+
 };
 
 Nodo* Nodo::getHijoDerecho(){
-	
+
     return ( leer( this -> numeroDeBloqueHijoDerecho) );
-    
+
 };
 
 // Operaciones de informacion del nodo
@@ -153,23 +153,17 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 	registros -> remover(posicion);
 	//En el persistir se especifica la grabacion de modificar el bitmap
 	//con un nodo vacio? (es decir cambiar su estado de ocupado a libre)
-	persistir(this);
-	borrarNodoVacio();
+	if(!estaVacio())
+    {
+        persistir(this);
+    }
 };
+
 
 // Esto no funciona tenes que borrrar el objeto afuera de la clase.
 // Podes usar el metodo que puse yo para saber si el nodo esta vacio.
 // nodo -> estaVacio();
 // Esto lo haces en el arbol.
-void Nodo::borrarNodoVacio(){
-
-	if(registros->getTamanio() == 0){
-
-		delete this; // Esto esta feo.
-
-	}
-
-}
 
 Lista<Registro*>* Nodo::getListaDeRegistros(){
 
@@ -188,9 +182,9 @@ Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 // Devuelve una lista de registros que son mayores, en clave,
 // al registro pasado por parametro. Los remueve del nodo.
 Lista<Registro*>* Nodo::obtenerRegistrosMayoresA(Registro* registro){
-	
+
     return ( this -> registros -> obtenerMayoresA(registro) );
-    
+
 };
 
 bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegistro){
@@ -210,11 +204,11 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 }
 
 bool Nodo::estaVacio(){
-	
+
 		return ( registros -> estaVacia() );
 };
 
 Nodo::~Nodo(){
-	
+
 	delete (this -> registros);
 };
