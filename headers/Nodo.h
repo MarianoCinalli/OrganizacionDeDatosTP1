@@ -37,6 +37,7 @@ class Nodo{
 		bool esElMayor(Registro* registro);
 		bool estaIncluido(Registro* registro);
 		bool esHoja();
+		bool estaVacio();
 
 		Lista<Registro*>* getListaDeRegistros();
 		Lista<Registro*>* obtenerRegistrosMayoresA(Registro* registro);

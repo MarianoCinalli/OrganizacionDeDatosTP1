@@ -157,6 +157,10 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 	borrarNodoVacio();
 };
 
+// Esto no funciona tenes que borrrar el objeto afuera de la clase.
+// Podes usar el metodo que puse yo para saber si el nodo esta vacio.
+// nodo -> estaVacio();
+// Esto lo haces en el arbol.
 void Nodo::borrarNodoVacio(){
 
 	if(registros->getTamanio() == 0){
@@ -205,5 +209,12 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
    return false;
 }
 
+bool Nodo::estaVacio(){
+	
+		return ( registros -> estaVacia() );
+};
+
 Nodo::~Nodo(){
+	
+	delete (this -> registros);
 };
