@@ -22,7 +22,7 @@ class ArbolBiselado{
 
 	// Metodos
 	public:
-		ArbolBiselado();
+		ArbolBiselado(Nodo* raiz);
 
 		void insertar(Registro* registro);
 		bool modificar(Registro* registroAModificar);

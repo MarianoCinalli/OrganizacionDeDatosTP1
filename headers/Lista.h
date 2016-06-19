@@ -203,16 +203,16 @@ template <class T> T Lista<T>::obtenerUltimo(){
 
 template <class T> Lista<T>* Lista<T>::obtenerMenoresA(T dato){
 	
-	Lista<T>* datosMenores = new Lista<*>;
-	NodoSimplementeEnlasado<T> mayor = new NodoSimplementeEnlasado<T>(dato);
-	NodoSimplementeEnlasado<T> actual;
-	NodoSimplementeEnlasado<T> siguiente;
+	Lista<T>* datosMenores = new Lista<T>;
+	NodoSimplementeEnlasado<T>* mayor = new NodoSimplementeEnlasado<T>(dato);
+	NodoSimplementeEnlasado<T>* actual;
+	NodoSimplementeEnlasado<T>* siguiente;
 	
 	datosMenores->iniciarCursor();
-	while( siguiente != NULL ) && ( actual < mayor ){
+	while(( siguiente != NULL ) && ( actual < mayor )){
 		
 		actual = siguiente;
-		datosMenores -> agregar( actual -> getDatos() );
+		datosMenores -> agregar( actual -> getDato() );
 		siguiente = actual -> getSiguiente();
 
 	}
@@ -221,7 +221,7 @@ template <class T> Lista<T>* Lista<T>::obtenerMenoresA(T dato){
 	primerElemento = siguiente;
 	actual -> setSiguiente(NULL);
 	
-	return registrosMenores;
+	return datosMenores;
 	
 }
 #endif // LISTA_H

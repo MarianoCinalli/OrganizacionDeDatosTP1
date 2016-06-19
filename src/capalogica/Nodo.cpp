@@ -173,7 +173,8 @@ Lista<Registro*>* Nodo::getListaDeRegistros(){
 // al registro pasado por parametro. Los elimina de la lista. ¿Cuáles elimina?
 Lista<Registro*>* Nodo::obtenerRegistrosMenoresA(Registro* registro){
 
-	this -> registros -> obtenerRegistrosMenoresA(registro)
+	this -> registros -> obtenerMenoresA(registro);
+	
 };
 
 // Devuelve una lista de registros que son mayores, en clave,

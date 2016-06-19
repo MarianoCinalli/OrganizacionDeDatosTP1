@@ -2,9 +2,9 @@
 //#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
 // Metodos
 
-ArbolBiselado::ArbolBiselado(){
+ArbolBiselado::ArbolBiselado(Nodo* raiz){
 	
-    raiz = new Nodo();
+    raiz = raiz;
     nodosARotar = new Pila<Nodo*>;
     movimientos = new Pila<char>;
     
