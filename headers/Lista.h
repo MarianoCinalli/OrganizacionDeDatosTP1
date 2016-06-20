@@ -203,16 +203,16 @@ template <class T> T Lista<T>::obtenerUltimo(){
 }
 
 template <class T> Lista<T>* Lista<T>::obtenerMayoresA(T dato){
-	
+
     Lista<T>* registrosMayores = new Lista<T>;
     NodoSimplementeEnlasado<T>* registroMedio = new NodoSimplementeEnlasado<T>(dato);
     NodoSimplementeEnlasado<T>* actual = primerElemento;
 
     //busco el registro medio
     while(*registroMedio != *actual){
-		
+
         actual = actual ->getSiguiente();
-        
+
     }
 
     //el primer while termina con actual guardando el registro buscado
@@ -221,10 +221,11 @@ template <class T> Lista<T>* Lista<T>::obtenerMayoresA(T dato){
     //a partir de ahi ya son todos mayores
     actual = actual -> getSiguiente();
     while(actual != NULL){
-		
+
         registrosMayores->agregar( actual->getDato() );
+        tamanio--;
         actual = actual->getSiguiente();
-        
+
     }
     //Desencadeno el puntero del siguiente del ultimo registro que seria
     //el registro del medio
@@ -239,17 +240,17 @@ template <class T> Lista<T>* Lista<T>::obtenerMenoresA(T dato){
 	Lista<T>* datosMenores = new Lista<T>;
 	NodoSimplementeEnlasado<T>* mayor = new NodoSimplementeEnlasado<T>(dato);
 	NodoSimplementeEnlasado<T>* actual = primerElemento;
-	
-	while( (actual!= NULL) && (*actual <= *mayor )){
-		
+
+
+	while( (actual!= NULL) && (*actual < *mayor )){
 		datosMenores -> agregar( actual -> getDato() );
+		tamanio--;
 		actual = actual -> getSiguiente();
 
 	}
-
 	// Desencadeno el ultimo de la lista y cambio el primerElemento.
 	primerElemento = actual;
-	datosMenores -> obtenerNodo(tamanio) -> setSiguiente(NULL);
+	datosMenores -> obtenerNodo(datosMenores->getTamanio()) -> setSiguiente(NULL);
 
 	return datosMenores;
 
