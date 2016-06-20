@@ -50,9 +50,12 @@ Nodo* leer(unsigned int numeroDeBloque) {
 // Guarda la nueva raiz, esta funcion no verifica el tamaño del nodo.
 
 void persistirRaiz(Nodo* nodo) {
-
+	
+	cout << "Persistir shaiz" << endl;
     Archivo* archivo = new Archivo();
+    cout << "Archivo" << endl;
     Bloque* bloque = new Bloque(nodo);
+    cout << "Bloque" << endl;
 
     archivo -> escribirRaiz(bloque);
 

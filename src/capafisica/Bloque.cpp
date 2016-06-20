@@ -2,14 +2,17 @@
 
 // Constructor para la escritura de un nodo en disco.
 Bloque::Bloque(Nodo* nodo) {
-
-    int hijoIzquierdo = nodo -> getNumeroDeBloqueHijoIzquierdo();
-    int hijoDerecho = nodo -> getNumeroDeBloqueHijoDerecho();
-
-    this -> hijoIzquierdo = transformarEnteroAString(hijoIzquierdo, 2);
-    this -> hijoDerecho = transformarEnteroAString(hijoDerecho, 2);
-    this -> numeroDeBloque = nodo ->getNumeroDeBloque();
-
+	cout << "Bloque" << endl;
+    int hijoIzquierdoEntero = nodo -> getNumeroDeBloqueHijoIzquierdo();
+    cout << "HI:" << hijoIzquierdoEntero << endl;
+    int hijoDerechoEntero = nodo -> getNumeroDeBloqueHijoDerecho();
+	cout << "HD:" << hijoDerechoEntero << endl;
+    this -> hijoIzquierdo = transformarEnteroAString(hijoIzquierdoEntero, 2);
+    cout << "HI C:" << hijoDerecho << endl;
+    this -> hijoDerecho = transformarEnteroAString(hijoDerechoEntero, 2);
+    cout << "HD C:" << hijoDerecho << endl;
+    this -> numeroDeBloque = nodo -> getNumeroDeBloque();
+	cout << "Numero de bloque:" << numeroDeBloque << endl;
     transformarRegistros( nodo -> getListaDeRegistros());
 
 };

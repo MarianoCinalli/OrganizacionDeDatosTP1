@@ -4,9 +4,9 @@
 
 ArbolBiselado::ArbolBiselado(Nodo* raiz){
 
-    raiz = raiz;
-    nodosARotar = new Pila<Nodo*>;
-    movimientos = new Pila<char>;
+    this ->raiz = raiz;
+    this -> nodosARotar = new Pila<Nodo*>;
+    this -> movimientos = new Pila<char>;
 
 };
 
@@ -42,7 +42,8 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 };
 
 ArbolBiselado::~ArbolBiselado(){
-
+	
+	std::cout << "Persistir" << "\n";
 	persistirRaiz(raiz);
 	std::cout << "Nodos a rotar" << "\n";
 	delete nodosARotar;
