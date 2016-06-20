@@ -25,14 +25,15 @@ class Archivo {
 	
 private:
 	
-	static std::string direccion;
+	static std::string DIRECCION;
     std::fstream archivo;
 
 public:
 
     Archivo();
-    Archivo(std::string direccion);
-
+    
+    static void setDireccion(std::string direccion);
+    
     void escribir(Bloque* bloque);
     void escribirRaiz(Bloque* bloque);
     Nodo* leer(int numeroDeBloque);
@@ -47,7 +48,7 @@ private:
 
     void escribirString( std::string datos, unsigned int posicionInicial );
     std::string leerString( unsigned int posicionInicial );
-    void crearArchivoNuevo( std::string direccion );
+    void crearArchivoNuevo();
     void modificarPosicionRaiz( unsigned int posicion );
     void marcarBloqueLibreEnBitmap( unsigned int posicion );
 

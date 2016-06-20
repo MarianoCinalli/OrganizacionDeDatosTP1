@@ -43,14 +43,13 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 
 ArbolBiselado::~ArbolBiselado(){
 
-	// Este metodo lo pongo para que puedas hacer tests.
-	// Pero no va a estar mas.
 	persistirRaiz(raiz);
-	// Se reemplaza por:
-	// persistir(raiz);
-
+	std::cout << "Nodos a rotar" << "\n";
 	delete nodosARotar;
+	std::cout << "Movimientos" << "\n";
 	delete movimientos;
+	std::cout << "Raiz" << "\n";
+	delete raiz;
 
 };
 // Metodos privados ----------------------------------------------------

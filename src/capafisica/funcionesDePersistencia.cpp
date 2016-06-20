@@ -67,7 +67,7 @@ Nodo* leerRaiz() {
     Nodo* nodo = archivo -> leerRaiz();
 
     delete archivo;
-    return ( nodo);
+    return ( nodo );
 
 }
 

@@ -38,8 +38,10 @@ void verificarEntrada( std::string codigo, std::string descripcion){
 void altaDeRegistro(unsigned int id, std::string codigo, std::string descripcion,std::string ruta){
 	
 	verificarEntrada( codigo, descripcion);
+
+	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
+	Archivo* archivo = new Archivo();
 	
-	Archivo* archivo = new Archivo(ruta);
 	Registro* registro = new Registro( id, codigo, descripcion );
 	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
 	
@@ -54,7 +56,9 @@ void bajaDeRegistro(unsigned int id, std::string codigo, std::string descripcion
 	
 	verificarEntrada( codigo, descripcion);
 	
-	Archivo* archivo = new Archivo(ruta);
+	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
+	Archivo* archivo = new Archivo();
+	
 	Registro* registro = new Registro( id, codigo, descripcion );
 	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
 	
@@ -69,7 +73,9 @@ void modificacionDeRegistro(unsigned int id, std::string codigo, std::string des
 	
 	verificarEntrada( codigo, descripcion);
 	
-	Archivo* archivo = new Archivo(ruta);
+	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
+	Archivo* archivo = new Archivo();
+	
 	Registro* registro = new Registro( id, codigo, descripcion );
 	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
 	

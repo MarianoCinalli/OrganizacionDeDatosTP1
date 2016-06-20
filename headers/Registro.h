@@ -44,8 +44,6 @@ class Registro{
 		
 		bool operator<=(const Registro&);
 		bool operator>=(const Registro&);
-		
-		// (const Registro& registro, const Registro& otro)
 
 };
 

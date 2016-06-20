@@ -220,10 +220,13 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 
 bool Nodo::estaVacio(){
 
-		return ( registros -> estaVacia() );
+	return ( registros -> estaVacia() );
+	
 };
 
 Nodo::~Nodo(){
-
+	
+	persistir (this);
 	delete (this -> registros);
+	
 };

@@ -1,21 +1,24 @@
 #include "Archivo.h"
 
-std::string Archivo::direccion;
+std::string Archivo::DIRECCION;
 
-Archivo::Archivo() {
-
+void Archivo::setDireccion(std::string direccion){
+	
+	std::cout << direccion << " \n ";
+	DIRECCION = direccion;
+	std::cout << DIRECCION << " \n ";
+	
 };
 
-// Este constructor carga el path del archivo a escribir.
 
-Archivo::Archivo(std::string direccion) {
+Archivo::Archivo() {
 	
-	this -> direccion = direccion;
-    this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	std::cout << DIRECCION << " \n ";
+    this -> archivo.open(DIRECCION, std::fstream::in | std::fstream::out | std::fstream::binary);
     
     // Si el archivo no existe lo crea.
     if ( ! archivo.is_open() ) {
-        crearArchivoNuevo(direccion);
+        crearArchivoNuevo();
     }
 	archivo.close();
 
@@ -112,7 +115,7 @@ Archivo::~Archivo() {
 
 void Archivo::escribirString(std::string datos, unsigned int posicionInicialRelativa) {
 	
-	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	this -> archivo.open(DIRECCION, std::fstream::in | std::fstream::out | std::fstream::binary);
 	
     unsigned int posicion = posicionInicialRelativa * TAMANIO_MAXIMO_BLOQUE;
     unsigned int longitudDatos = datos.length();
@@ -144,7 +147,7 @@ void Archivo::escribirString(std::string datos, unsigned int posicionInicialRela
 
 std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 	
-	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	this -> archivo.open(DIRECCION, std::fstream::in | std::fstream::out | std::fstream::binary);
 	
     unsigned int posicion = posicionInicialRelativa * TAMANIO_MAXIMO_BLOQUE;
     char caracter;
@@ -169,10 +172,10 @@ std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 // Se crea un nuevo archivo con el nombre especificado.
 // Se coloca la raiz en el primer nodo libre.
 // La misma se encuentra sin registros, ni hijos.
-void Archivo::crearArchivoNuevo(std::string direccion) {
+void Archivo::crearArchivoNuevo() {
 
     // Trunc crea siempre un archivo nuevo.
-    archivo.open(direccion, std::fstream::out | std::ios::trunc);
+    archivo.open(DIRECCION, std::fstream::out | std::ios::trunc);
 
     // Lo cierro y lo abro con los parametros necesarios para su manipulacion.
     archivo.close();
@@ -191,7 +194,7 @@ void Archivo::crearArchivoNuevo(std::string direccion) {
 // Escribe en el bloque correspondiente el numero de bloque donde se encuentra la raiz.
 void Archivo::modificarPosicionRaiz(unsigned int posicion) {
 	
-	this -> archivo.open(direccion, std::fstream::in | std::fstream::out | std::fstream::binary);
+	this -> archivo.open(DIRECCION, std::fstream::in | std::fstream::out | std::fstream::binary);
     // Estructura: cantidad de digitos del numero de la raiz + numero de la raiz
     std::string posicionAString = std::to_string(posicion);
     int largo = posicionAString.length();
