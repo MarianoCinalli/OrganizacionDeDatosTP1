@@ -26,7 +26,7 @@ Nodo::Nodo(Lista<Registro*>* registros){
 
 };
 
-Nodo::Nodo(int hijoDerecho, Lista<Registro*>* listaDeRegistros, int hijoIzquierdo, int numeroDeBloque, bool esHoja){
+Nodo::Nodo(unsigned int hijoDerecho, Lista<Registro*>* listaDeRegistros, unsigned int hijoIzquierdo, unsigned int numeroDeBloque, bool esHoja){
 
 	this -> numeroDeBloqueHijoIzquierdo = hijoIzquierdo;
 	this -> numeroDeBloqueHijoDerecho = hijoDerecho;
@@ -38,28 +38,30 @@ Nodo::Nodo(int hijoDerecho, Lista<Registro*>* listaDeRegistros, int hijoIzquierd
 
 // Operaciones con los hijos
 
-void Nodo::setNumeroDeBloqueHijoIzquierdo(int numero){
+void Nodo::setNumeroDeBloqueHijoIzquierdo(unsigned int  numero){
 
 	this -> esNodoHoja = false;
 	this ->numeroDeBloqueHijoIzquierdo = numero;
 
 };
 
-int Nodo::getNumeroDeBloqueHijoIzquierdo()
-{
+unsigned int  Nodo::getNumeroDeBloqueHijoIzquierdo(){
+	
     return this -> numeroDeBloqueHijoIzquierdo;
+    
 };
 
-void Nodo::setNumeroDeBloqueHijoDerecho(int numero){
+void Nodo::setNumeroDeBloqueHijoDerecho(unsigned int numero){
 
 	this -> esNodoHoja = false;
 	this -> numeroDeBloqueHijoDerecho = numero;
 
 };
 
-int Nodo::getNumeroDeBloqueHijoDerecho()
-{
+unsigned int Nodo::getNumeroDeBloqueHijoDerecho(){
+	
     return this -> numeroDeBloqueHijoDerecho;
+    
 };
 
 Nodo* Nodo::getHijoIzquierdo(){
@@ -76,13 +78,13 @@ Nodo* Nodo::getHijoDerecho(){
 
 // Operaciones de informacion del nodo
 
-int Nodo::getNumeroDeBloque(){
+unsigned int Nodo::getNumeroDeBloque(){
 
     return numeroDeBloque;
 
 };
 
-void Nodo::setNumeroDeBloque(int nuevoNumeroDeBloque){
+void Nodo::setNumeroDeBloque(unsigned int nuevoNumeroDeBloque){
 
 	this -> numeroDeBloque = nuevoNumeroDeBloque;
 
@@ -119,23 +121,42 @@ bool Nodo::estaIncluido(Registro* registro){
    this->getListaDeRegistros()->iniciarCursor();
 
    while(this->getListaDeRegistros()->avanzarCursor()){
+	   
 		if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
+			
 			return true;
+			
 		}
+		
    }
 
    return false;
+   
 };
 
 void Nodo::agregarRegistro(Registro* nuevoRegistro)	{
 
-	registros->agregar(nuevoRegistro);
+	registros -> agregar(nuevoRegistro);
 	persistir(this);
 
 };
 
 void Nodo::eliminarRegistro(Registro* registroEliminable){
 
+	remover( registroEliminable );
+    persistir(this);
+
+};
+
+void Nodo::modificarRegistro( Registro* registro ){
+
+	remover( registro );
+	agregarRegistro( registro );
+
+}
+
+void Nodo::remover( Registro* registroEliminable ){
+	
 	registros -> iniciarCursor();
 	int posicion = 0;
 	bool encontrado = false;
@@ -151,14 +172,8 @@ void Nodo::eliminarRegistro(Registro* registroEliminable){
 
 	}
 	registros -> remover(posicion);
-	//En el persistir se especifica la grabacion de modificar el bitmap
-	//con un nodo vacio? (es decir cambiar su estado de ocupado a libre)
-	if(!estaVacio())
-    {
-        persistir(this);
-    }
-};
-
+	
+}
 
 // Esto no funciona tenes que borrrar el objeto afuera de la clase.
 // Podes usar el metodo que puse yo para saber si el nodo esta vacio.

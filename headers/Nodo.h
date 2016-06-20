@@ -19,19 +19,19 @@ class Nodo{
 	public:
 		Nodo();
 		Nodo(Lista<Registro*>* registros);
-		Nodo(int hijoDerecho, Lista<Registro*>* listaDeRegistros, int hijoIzquierdo, int numeroDeBloque, bool esHoja);
+		Nodo(unsigned int hijoDerecho, Lista<Registro*>* listaDeRegistros, unsigned int hijoIzquierdo, unsigned int numeroDeBloque, bool esHoja);
 
-		void setNumeroDeBloqueHijoIzquierdo(int numero);
-		int getNumeroDeBloqueHijoIzquierdo();
+		void setNumeroDeBloqueHijoIzquierdo(unsigned int numero);
+		unsigned int getNumeroDeBloqueHijoIzquierdo();
 
-		void setNumeroDeBloqueHijoDerecho(int numero);
-		int getNumeroDeBloqueHijoDerecho();
+		void setNumeroDeBloqueHijoDerecho(unsigned int numero);
+		unsigned int getNumeroDeBloqueHijoDerecho();
 
 		Nodo* getHijoIzquierdo();
 		Nodo* getHijoDerecho();
 
-		int getNumeroDeBloque();
-		void setNumeroDeBloque(int numeroDeBloque);
+		unsigned int getNumeroDeBloque();
+		void setNumeroDeBloque(unsigned int numeroDeBloque);
 
 		bool esElMenor(Registro* registro);
 		bool esElMayor(Registro* registro);
@@ -44,8 +44,13 @@ class Nodo{
 		Lista<Registro*>* obtenerRegistrosMenoresA(Registro* registro);
 		void agregarRegistro(Registro* nuevoRegistro);
 		void eliminarRegistro(Registro* registroEliminable);
+		void modificarRegistro( Registro* registro );
 		bool encontrarRegistro(Registro* registroModificado,int& posicionDeRegistro);
 		~Nodo();
+		
+	private:
+	
+		void remover( Registro* registroEliminable );
 
 };
 
