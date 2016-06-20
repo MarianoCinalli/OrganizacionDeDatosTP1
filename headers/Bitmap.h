@@ -17,6 +17,8 @@ public:
     int obtenerPosicionDelPrimerCero();
 
     std::string obtenerBitmap();
+    
+    void marcarConCero( unsigned int posicion );
 
 };
 

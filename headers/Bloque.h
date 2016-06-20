@@ -29,6 +29,8 @@ public:
     std::string exportarParaEscritura();
 
     Nodo* exportarComoNodo();
+    
+    bool bloqueSinRegistros();
 
     int getNumeroDeBloque();
 

@@ -25,11 +25,18 @@ Archivo::Archivo(std::string direccion) {
 void Archivo::escribir(Bloque* bloque) {
 	
     int posicion = bloque -> getNumeroDeBloque();
+	
+	if ( bloque -> bloqueSinRegistros() ){
+		
+		marcarBloqueLibreEnBitmap( bloque -> getNumeroDeBloque() );
+		
+	} else {
+		
+			std::string datos = bloque -> exportarParaEscritura();
 
-    std::string datos = bloque -> exportarParaEscritura();
-
-
-    escribirString(datos, posicion);
+			escribirString(datos, posicion);
+		
+		}    
 
 };
 
@@ -52,26 +59,17 @@ Nodo* Archivo::leer(int numeroDeBloque) {
 };
 
 int Archivo::obtenerNumeroDeBloqueLibre() {
-
-    // Cargar bitmap
-    int posicion = NUMERO_BLOQUE_BITMAP;
-    std::string bitmapComoString;
-    char caracter;
-
-    for (unsigned int i = 0; i < TAMANIO_MAXIMO_BLOQUE; i++) {
-		
-        archivo.clear();
-        archivo.seekp(posicion);
-        archivo.read((char *) & caracter, sizeof (char));
-        bitmapComoString += caracter;
-        posicion++;
-
-    }
 	
+	// Cargo el bitmap.
+    std::string bitmapComoString = leerString(NUMERO_BLOQUE_BITMAP);
     Bitmap* bitmap = new Bitmap(bitmapComoString);
+    
+    // La siguiente funcion modifica el bitmap.
     int posicionUno = bitmap -> obtenerPosicionDelPrimerCero();
     escribirString( bitmap -> obtenerBitmap(), NUMERO_BLOQUE_BITMAP);
+    
 	delete ( bitmap );
+	
     return ( posicionUno + OFFSET_PRIMER_NODO);
 
 };
@@ -172,7 +170,7 @@ std::string Archivo::leerString(unsigned int posicionInicialRelativa) {
 // Se coloca la raiz en el primer nodo libre.
 // La misma se encuentra sin registros, ni hijos.
 void Archivo::crearArchivoNuevo(std::string direccion) {
-	// NO TOQUES ESTO QUE LE ME FALTA HACER ALGO PARA QUE FUNCIONE BIEN.
+
     // Trunc crea siempre un archivo nuevo.
     archivo.open(direccion, std::fstream::out | std::ios::trunc);
 
@@ -202,4 +200,17 @@ void Archivo::modificarPosicionRaiz(unsigned int posicion) {
     // Persistir.
     escribirString(stringAEscribir, NUMERO_BLOQUE_RAIZ);
     
+};
+
+// Modifica el bitmap para indicar que el bloque esta libre
+void Archivo::marcarBloqueLibreEnBitmap( unsigned int posicion ){
+	
+	std::string bitmapComoString = leerString(NUMERO_BLOQUE_BITMAP);
+    Bitmap* bitmap = new Bitmap(bitmapComoString);
+    
+	bitmap -> marcarConCero( posicion - OFFSET_PRIMER_NODO );
+	escribirString( bitmap -> obtenerBitmap(), NUMERO_BLOQUE_BITMAP);
+	
+	delete ( bitmap );
+	
 };

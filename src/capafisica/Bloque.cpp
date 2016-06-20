@@ -52,6 +52,14 @@ Nodo* Bloque::exportarComoNodo() {
 
 }
 
+// Si el bloque no tiene registros devuelve true.
+// False en caso contrario.
+bool Bloque::bloqueSinRegistros(){
+
+	return ( registros.length() == 0 );
+
+}
+
 int Bloque::getNumeroDeBloque() {
 
     return ( this -> numeroDeBloque);

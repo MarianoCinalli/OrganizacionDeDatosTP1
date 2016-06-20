@@ -45,10 +45,11 @@ public:
 
 private:
 
-    void escribirString(std::string datos, unsigned int posicionInicial);
-    std::string leerString(unsigned int posicionInicial);
-    void crearArchivoNuevo(std::string direccion);
-    void modificarPosicionRaiz(unsigned int posicion);
+    void escribirString( std::string datos, unsigned int posicionInicial );
+    std::string leerString( unsigned int posicionInicial );
+    void crearArchivoNuevo( std::string direccion );
+    void modificarPosicionRaiz( unsigned int posicion );
+    void marcarBloqueLibreEnBitmap( unsigned int posicion );
 
 };
 
