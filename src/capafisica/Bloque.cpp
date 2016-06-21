@@ -1,5 +1,5 @@
 #include "Bloque.h"
-
+//#include "C:\CSV\TpDatos\OrganizacionDeDatosTP1\headers\Bloque.h"
 // Constructor para la escritura de un nodo en disco.
 Bloque::Bloque(Nodo* nodo) {
 
@@ -42,7 +42,7 @@ Nodo* Bloque::exportarComoNodo() {
     int hijoIzquierdo = transformarStringAEntero( this -> hijoIzquierdo);
 
     Lista <Registro*>* listaDeRegistros = tansformarStringDeRegistrosAListaDeRegistros();
-	
+
 	// Veo si el nodo es hoja.
 	bool esHoja = false;
     if (hijoDerecho == 0 && hijoIzquierdo == 0) esHoja = true;
@@ -74,7 +74,7 @@ int Bloque::getNumeroDeBloque() {
 // Coloca en un string el contenido de cada registro perteneciente a la lista.
 
 void Bloque::transformarRegistros(Lista<Registro*>* listaDeRegistros) {
-	
+
     listaDeRegistros -> iniciarCursor();
 
     // Lista de objectos registro -> string con registos
@@ -107,16 +107,16 @@ std::string Bloque::registroAString(Registro* registro) {
 
     // Obtengo el tamanio de los campos concatenados.
     int tamanio = camposConcatenados.length();
-    // Con un byte alcanza.
+    // Con dos bytes alcanza.
     // Maximo = id + codigo + descripcion = 4 + 3 + 1000 = 1007
-    std::string stringTamanio = transformarEnteroAString(tamanio, 1);
+    std::string stringTamanio = transformarEnteroAString(tamanio, 2);
 
     // Concateno con el tamanio.
     return ( stringTamanio + camposConcatenados);
 
 };
 
-// Divide un numero en partes, los hace chars y los concatena 
+// Divide un numero en partes, los hace chars y los concatena
 // en un string que devuelve. En la posicion 0 el MSB.
 
 std::string Bloque::transformarEnteroAString(unsigned int entero,unsigned int cantidadDeBytes) {
@@ -183,20 +183,20 @@ void Bloque::recuperarInformacion(std::string informacion) {
 
     // Recupero la longitud de la informacion del nodo en el string.
     int longitud = recuperarLongitud(informacion);
-    
+
     // Saco el campo con la longitud y la basura que queda luego
     // del ultimo dato valido del string, para dejar los datos.
-    // Observar que longitud en este caso es el largo del string 
+    // Observar que longitud en este caso es el largo del string
     // que voy a crear a continuacion.
     std::string datos = informacion.substr(2, longitud);
-    
+
     // En las posiciones 0 y 1 esta el hijo izquierdo.
     this -> hijoIzquierdo = datos.substr(0, 2);
-    
+
     // En las posiciones 2 hasta (longitud - 2) estan los registros.
     // Es -4 porque son longitud - 4 caracteres desde la posicion 2.
     this -> registros = datos.substr(2, longitud - 4);
-    
+
     // En las posiciones (longitud - 1) y longitud estan los registros.
     this -> hijoDerecho = datos.substr(longitud - 2, 2);
 
@@ -207,7 +207,7 @@ void Bloque::recuperarInformacion(std::string informacion) {
 
 int Bloque::recuperarLongitud(std::string cadena) {
 
-    std::string longitudEnString = cadena.substr(0, 1);
+    std::string longitudEnString = cadena.substr(0, 2);
 
     return ( transformarStringAEntero(longitudEnString));
 
@@ -251,21 +251,21 @@ Lista<Registro*>* Bloque::tansformarStringDeRegistrosAListaDeRegistros() {
 
         // Registro = Tamanio (ID + codigo + descripcion)- ID - Codigo - Descripcion
         // En Bytes =    1                                 4      3     tamanio - 7
-        int finalDeRegistro = transformarStringAEntero(registros.substr(posicion, 1));
-        
-        std::string registroActual = registros.substr(posicion + 1, finalDeRegistro);
-        
+        int finalDeRegistro = transformarStringAEntero(registros.substr(posicion, 2));
+
+        std::string registroActual = registros.substr(posicion + 2, finalDeRegistro);
+
         int id = transformarStringAEntero(registroActual.substr(0, 4));
-        
+
         std::string codigo = registroActual.substr(4, 3);
-        
+
         std::string descripcion = registroActual.substr(7, (finalDeRegistro-7));
 
         Registro* registro = new Registro(id, codigo, descripcion);
         listaDeRegistros -> agregar(registro);
-		
+
         // Sumo lo que ocupaba el tamanio y el finalDeRegistro.
-        posicion += 1;
+        posicion += 2;
         posicion += finalDeRegistro;
 
     }
