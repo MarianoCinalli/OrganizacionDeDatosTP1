@@ -83,7 +83,7 @@ void modificacionDeRegistro(unsigned int id, std::string codigo, std::string des
 int main(int argc, char* argv[]){
 	
 	// Variables -------------------------------------------------------
-
+	
 	std::string ruta, codigo, descripcion;
 	bool alta, baja, modificacion;
 	alta = modificacion = baja = false;
@@ -171,18 +171,5 @@ int main(int argc, char* argv[]){
 	
 	}
 	return EXIT_SUCCESS;
-	
-	/*
-	
-	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
-	
-	Nodo* raiz = leerRaiz();
-	ArbolBiselado* arbol = new ArbolBiselado( raiz );
-	Registro* registro = new Registro (303,"aab","OPO");
-	
-	arbol -> insertar(registro);
-	
-	delete arbol; 
-	*/
 	
 }

@@ -11,18 +11,21 @@ Nodo::Nodo(){
 	this -> numeroDeBloqueHijoDerecho = 0;
 	this -> registros = new Lista<Registro*>;
 	this -> esNodoHoja = true;
-	persistir(this);
+	// Como es un registro nuevo le pido un numero de bloque libre
+	// a la capa fisica.
+	this -> numeroDeBloque = obtenerNumeroDeBloqueLibre();
 
 };
 
-Nodo::Nodo(Lista<Registro*>* registros){
+Nodo::Nodo( Lista<Registro*>* registros ){
 
 	this -> numeroDeBloqueHijoIzquierdo = 0;
 	this -> numeroDeBloqueHijoDerecho = 0;
 	this -> registros = registros;
 	this -> esNodoHoja = true;
-	// La capa fisica le asigna el numero de bloque
-	persistir(this);
+	// Como es un registro nuevo le pido un numero de bloque libre
+	// a la capa fisica.
+	this -> numeroDeBloque = obtenerNumeroDeBloqueLibre();
 
 };
 

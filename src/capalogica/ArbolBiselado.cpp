@@ -13,7 +13,7 @@ ArbolBiselado::ArbolBiselado(Nodo* raiz){
 void ArbolBiselado::insertar(Registro* registro){
 
 	insertarRecursivo( registro, this->raiz);
-	//this -> raiz = biselar(this -> nodosARotar ,this -> movimientos);
+	this -> raiz = biselar(this -> nodosARotar ,this -> movimientos);
 
 };
 
@@ -367,9 +367,6 @@ void ArbolBiselado::insertarEnSubArbolDerecho(Registro* registro ,Nodo* nodo){
 		hijoDerecho = new Nodo();
 		// Actualizo el numero de bloque.
 		nodo -> setNumeroDeBloqueHijoDerecho( hijoDerecho -> getNumeroDeBloque() );
-		// Persisto los cambios.
-		persistir(nodo);
-		persistir(hijoDerecho);
 
 	}
 

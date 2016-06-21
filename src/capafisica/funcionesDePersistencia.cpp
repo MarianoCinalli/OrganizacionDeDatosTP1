@@ -6,11 +6,8 @@
 // Si el nodo tiene un numero de bloque invalido se le asigna uno valido.
 
 void persistir(Nodo* nodo) {
-
-    Archivo* archivo = new Archivo();
+	
     Bloque* bloque;
-
-    verificarNumeroDeBloque(nodo, archivo);
 
     try {
 
@@ -19,11 +16,12 @@ void persistir(Nodo* nodo) {
     } catch (ElNodoExcedeElTamanioMaximo e) {
 
         // Libero recursos. Propago la excepcion.
-        delete archivo;
         delete bloque;
         throw ElNodoExcedeElTamanioMaximo();
 
     }
+    
+    Archivo* archivo = new Archivo();
 
     archivo -> escribir(bloque);
 
@@ -45,10 +43,7 @@ Nodo* leer(unsigned int numeroDeBloque) {
 
 }
 
-// Las dos funciones siguientes son para llamar en el main. NO USAR EN OTRO LADO.
-
 // Guarda la nueva raiz, esta funcion no verifica el tamaño del nodo.
-
 void persistirRaiz(Nodo* nodo) {
 	
     Archivo* archivo = new Archivo();
@@ -61,6 +56,7 @@ void persistirRaiz(Nodo* nodo) {
 
 }
 
+// Lee la raiz del archivo y devuelve una referencia a ella.
 Nodo* leerRaiz() {
 
     Archivo* archivo = new Archivo();
@@ -71,26 +67,13 @@ Nodo* leerRaiz() {
 
 }
 
-// Futuro refactor -----------------------------------------------------
+// Devuelve un numero de bloque libre.
+int obtenerNumeroDeBloqueLibre() {
 
-// Verifica que el numero de bloque sea valido.
-// Si no lo es le asigna el numero del primer bloque libre.
-// Esto ultimo solo pasa cuando se cree un nodo nuevo.
-
-void verificarNumeroDeBloque(Nodo* nodo, Archivo* archivo) {
-
-    int primerBloqueRegistros = archivo -> obtenerPrimerBloqueRegistros();
-    int numeroDeBloque = nodo -> getNumeroDeBloque();
-
-    if (numeroDeBloque < primerBloqueRegistros) asignarNumeroDeBloqueLibre(nodo, archivo);
-
-}
-
-// Asigna a un nodo un numero de bloque libre.
-
-void asignarNumeroDeBloqueLibre(Nodo* nodo, Archivo* archivo) {
-
+	Archivo* archivo = new Archivo();
     int numeroDeBloqueLibre = archivo -> obtenerNumeroDeBloqueLibre();
-    nodo -> setNumeroDeBloque(numeroDeBloqueLibre);
+    delete archivo;
+    
+    return ( numeroDeBloqueLibre );
 
 }

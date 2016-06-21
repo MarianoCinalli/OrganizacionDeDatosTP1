@@ -250,7 +250,7 @@ Lista<Registro*>* Bloque::tansformarStringDeRegistrosAListaDeRegistros() {
     while (posicion < tamanioDelStringDeRegistros) {
 
         // Registro = Tamanio (ID + codigo + descripcion)- ID - Codigo - Descripcion
-        // En Bytes =    1                                 4      3     tamanio - 7
+        // En Bytes =    2                                 4      3      tamanio - 7
         int finalDeRegistro = transformarStringAEntero(registros.substr(posicion, 2));
 
         std::string registroActual = registros.substr(posicion + 2, finalDeRegistro);

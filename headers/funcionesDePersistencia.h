@@ -17,10 +17,6 @@ void persistirRaiz(Nodo* nodo);
 
 Nodo* leerRaiz();
 
-// NO USAR! -------------------------------------------------------------------
-
-void verificarNumeroDeBloque(Nodo* nodo, Archivo* archivo);
-
-void asignarNumeroDeBloqueLibre(Nodo* nodo, Archivo* archivo);
+int obtenerNumeroDeBloqueLibre();
 
 #endif // FUNCIONESDEPERSISTENCIA_INCLUDED
