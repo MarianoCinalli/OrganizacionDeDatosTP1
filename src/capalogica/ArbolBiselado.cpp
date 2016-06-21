@@ -92,11 +92,7 @@ bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAElimi
 				eliminarEnNodoInterno(registroAEliminar,nodoActual);
 			}
 	}
-	if(nodoActual->estaVacio())
-    {
-        delete nodoActual;
-    }
-
+    eliminarReferenciaHojaVacia(nodoActual);
 }
 
 void ArbolBiselado::eliminarReferenciaHojaVacia(Nodo* nodoActual)
