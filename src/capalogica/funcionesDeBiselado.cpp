@@ -6,10 +6,9 @@
 // 9 de cada 10 doctores recomiendan ver la documentacion,
 // para entender como funciona esto.
 
-// Toma una lista de nodos y, segun los movimientos, los rota.
-// Al final cambia la raiz inicial por la nueva, devuelve ambas pilas vacias.
-Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
-	
+// Toma una pila de nodos y, segun los movimientos, los rota.
+// Al final devuelve la nueva raiz y las pilas de movimientos y nodos vuelven vacias.
+Nodo* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos ){
 	int cantidadDeNodos = nodos -> getTamanio();
 	// Esto es para un procesamiento posterior
 	// No importa en las rotaciones, ignorar.
@@ -29,15 +28,13 @@ Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
 			rotacionSimple(nodos, movimientos, nodosProcesados);
 
 		}
-
+		
 		cantidadDeNodos = nodos -> getTamanio();
 
 	}
-
 	// Ahora queda solo un nodo en la pila, el cual es la nueva raiz.
-	raiz = nodos -> desapilar();
 	
-	return nodosProcesados;
+	return nodos -> desapilar();
 
 }
 
@@ -94,11 +91,10 @@ void rotacionDoble(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  no
 };
 
 void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  nodosProcesados){
-
 	// Dos nodos a rotar.
 	Nodo* hijo = nodos -> desapilar();
 	Nodo* padre = nodos -> desapilar();
-
+	
 	// Movimientos.
 	char padreAHijo = movimientos -> desapilar();
 
@@ -111,15 +107,14 @@ void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  n
 
 			// Hijo izquierdo (ZIG)
 			rotarPadreADerechaDeHijo(padre, hijo);
-
+			
 		}
 
 	// Vuelvo a poner al hijo en la pila.
 	// La raiz vuelve a ser el hijo en las siguientes rotaciones.
 	// De este modo llega a ser la raiz.
 	nodos -> apilar(hijo);
-	// Apilo el padre para luego persistir y liberar memoria.
-	//nodosProcesados  -> apilar(padre);
+	
 	delete padre;
 
 };

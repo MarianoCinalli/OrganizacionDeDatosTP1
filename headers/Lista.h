@@ -110,9 +110,9 @@ template <class T> void Lista<T>::ordenar()
 
 
 template<class T> Lista<T>::~Lista() {
-
+	
     while (this -> tamanio != 0) {
-
+		
         NodoSimplementeEnlasado<T>* aBorrar = this -> primerElemento;
         this -> primerElemento = this -> primerElemento -> getSiguiente();
 

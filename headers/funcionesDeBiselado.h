@@ -6,7 +6,7 @@
 
 // Funcion publica.
 
-Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz );
+Nodo* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos );
 
 // Funciones internas privadas.
 

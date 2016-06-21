@@ -4,18 +4,16 @@
 
 ArbolBiselado::ArbolBiselado(Nodo* raiz){
 
-    this ->raiz = raiz;
+    this -> raiz = raiz;
     this -> nodosARotar = new Pila<Nodo*>;
     this -> movimientos = new Pila<char>;
 
 };
 
 void ArbolBiselado::insertar(Registro* registro){
-
+	
 	insertarRecursivo( registro, this->raiz);
-
-	Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	delete nodosAliberar;
+	this -> raiz = biselar(this -> nodosARotar ,this -> movimientos);	
 
 };
 
@@ -23,9 +21,8 @@ bool ArbolBiselado::modificar(Registro* registroAModificar){
 
 	bool resultado = true;
 	resultado = modificarRecursivo(raiz,registroAModificar);
-
-	Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	delete nodosAliberar;
+	
+	this -> raiz = biselar(this -> nodosARotar ,this -> movimientos);
 	return resultado;
 };
 
@@ -33,18 +30,15 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 
      bool resultado = true;
 
-	 resultado = eliminarRecursivo(raiz,registroAEliminar);
-	 Pila<Nodo*>* nodosAliberar = biselar(this -> nodosARotar ,this -> movimientos, this -> raiz);
-	 delete nodosAliberar;
-
+	 this -> raiz = biselar(this -> nodosARotar ,this -> movimientos);
 	 return resultado;
 
 };
 
 ArbolBiselado::~ArbolBiselado(){
-
 	
 	persistirRaiz(raiz);
+	
 	delete nodosARotar;
 	delete movimientos;
 	delete raiz;
@@ -330,6 +324,7 @@ void ArbolBiselado::eliminarEnHoja(Registro* registro, Nodo* nodo){
 // Metodos de insertar ---------------------------------------------------
 
 void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
+	
 		this -> nodosARotar -> apilar(nodo);
 		bool esMenor = nodo -> esElMenor(registro);
 		bool esMayor = nodo -> esElMayor(registro);
@@ -340,14 +335,15 @@ void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
 			// throw elRegistroYaPerteneceAlArbol
 
 		} else if (nodo -> esHoja()){
+			
 				this -> insertarEnHoja(registro, nodo);
 
 			} else if ( !esMenor && !esMayor ){
+				
 					this -> insetarEnNodoInterno(registro, nodo);
 
 				} else if ( esMenor ){
 					
-						
 						this -> movimientos -> apilar('i');
 						this -> insertarEnSubArbolIzquierdo(registro ,nodo);
 
@@ -365,11 +361,11 @@ void ArbolBiselado::insertarEnSubArbolDerecho(Registro* registro ,Nodo* nodo){
 	Nodo* hijoDerecho;
 
 	try {
-
+		
 		hijoDerecho = nodo -> getHijoDerecho();
 
 	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-
+		
 		// Creo el nuevo nodo.
 		hijoDerecho = new Nodo();
 		// Actualizo el numero de bloque.
@@ -380,12 +376,12 @@ void ArbolBiselado::insertarEnSubArbolDerecho(Registro* registro ,Nodo* nodo){
 
 	}
 
-		insertarRecursivo(registro ,hijoDerecho);
+	insertarRecursivo(registro ,hijoDerecho);
 
 };
 
 void ArbolBiselado::insertarEnSubArbolIzquierdo(Registro* registro ,Nodo* nodo){
-
+	
 	Nodo* hijoIzquierdo;
 
 	try {
@@ -393,20 +389,20 @@ void ArbolBiselado::insertarEnSubArbolIzquierdo(Registro* registro ,Nodo* nodo){
 		hijoIzquierdo = nodo -> getHijoIzquierdo();
 
 	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
-
+		
 		// Creo el nuevo nodo.
 		hijoIzquierdo = new Nodo();
 		// Actualizo el numero de bloque.
 		nodo -> setNumeroDeBloqueHijoIzquierdo( hijoIzquierdo -> getNumeroDeBloque() );
 
 	}
-
+	
 	insertarRecursivo(registro ,hijoIzquierdo);
 
 };
 
 void ArbolBiselado::insertarEnHoja(Registro* registro ,Nodo* nodo){
-
+	
 	try {
 
 		nodo -> agregarRegistro(registro);
@@ -470,7 +466,7 @@ void ArbolBiselado::insetarEnNodoInterno(Registro* registro ,Nodo* nodo){
 };
 
 void ArbolBiselado::insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo){
-
+	
 	Pila<Nodo*>* nodosALiberar = new Pila<Nodo*>;
 
 	while (registros -> avanzarCursor()){
@@ -478,13 +474,13 @@ void ArbolBiselado::insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo){
 		insetarSinBiselarRecursivo(registros -> obtenerCursor(), nodo, nodosALiberar);
 
 	}
-
+	
 	delete nodosALiberar;
 
 };
 
 void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar ){
-
+	
 	nodosALiberar -> apilar(nodo);
 	bool esMenor = nodo -> esElMenor(registro);
 	bool esMayor = nodo -> esElMayor(registro);

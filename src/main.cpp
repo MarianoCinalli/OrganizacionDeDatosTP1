@@ -39,16 +39,14 @@ void altaDeRegistro(unsigned int id, std::string codigo, std::string descripcion
 	
 	verificarEntrada( codigo, descripcion);
 
-	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
-	Archivo* archivo = new Archivo();
+	Archivo::setDireccion(ruta);
 	
 	Registro* registro = new Registro( id, codigo, descripcion );
-	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
+	ArbolBiselado* arbolBiselado = new ArbolBiselado( leerRaiz() );
 	
 	arbolBiselado -> insertar(registro);
 	
 	delete arbolBiselado;
-	delete archivo;
 	
 };
 
@@ -56,16 +54,14 @@ void bajaDeRegistro(unsigned int id, std::string codigo, std::string descripcion
 	
 	verificarEntrada( codigo, descripcion);
 	
-	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
-	Archivo* archivo = new Archivo();
+	Archivo::setDireccion(ruta);
 	
 	Registro* registro = new Registro( id, codigo, descripcion );
-	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
+	ArbolBiselado* arbolBiselado = new ArbolBiselado( leerRaiz() );
 	
 	arbolBiselado -> eliminar(registro);
 	
 	delete arbolBiselado;
-	delete archivo;
 	
 };
 
@@ -73,16 +69,14 @@ void modificacionDeRegistro(unsigned int id, std::string codigo, std::string des
 	
 	verificarEntrada( codigo, descripcion);
 	
-	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
-	Archivo* archivo = new Archivo();
+	Archivo::setDireccion(ruta);
 	
 	Registro* registro = new Registro( id, codigo, descripcion );
-	ArbolBiselado* arbolBiselado = new ArbolBiselado( archivo -> leerRaiz() );
+	ArbolBiselado* arbolBiselado = new ArbolBiselado( leerRaiz() );
 	
 	arbolBiselado -> modificar(registro);
 	
 	delete arbolBiselado;
-	delete archivo;
 	
 };
 
