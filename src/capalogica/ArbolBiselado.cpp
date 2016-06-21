@@ -1,5 +1,5 @@
-#include "ArbolBiselado.h"
-//#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
+//#include "ArbolBiselado.h"
+#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
 // Metodos
 
 ArbolBiselado::ArbolBiselado(Nodo* raiz){
@@ -42,7 +42,7 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 };
 
 ArbolBiselado::~ArbolBiselado(){
-	
+
 	std::cout << "Persistir" << "\n";
 	persistirRaiz(raiz);
 	std::cout << "Nodos a rotar" << "\n";
@@ -99,6 +99,27 @@ bool ArbolBiselado::eliminarRecursivo(Nodo* nodoActual, Registro* registroAElimi
 
 }
 
+void ArbolBiselado::eliminarReferenciaHojaVacia(Nodo* nodoActual)
+{
+    if(nodoActual->estaVacio() && nodoActual->esHoja())
+    {
+        Nodo* padreHuerfano = nodosARotar->desapilar();
+        char movimiento = movimientos->desapilar();
+        if(movimiento ='i')
+        {
+            padreHuerfano->setNumeroDeBloqueHijoIzquierdo(0);
+        }
+        else
+        {
+            padreHuerfano->setNumeroDeBloqueHijoDerecho(0);
+        }
+        nodosARotar->apilar(padreHuerfano);
+        movimientos->apilar(movimiento);
+        delete nodoActual;
+    }
+}
+
+
 void ArbolBiselado::eliminarEnNodoInterno(Registro* registroAEliminar,Nodo* nodo){
 //es decir, si no queda vacio el nodo
 if(nodo->getListaDeRegistros()->getTamanio() > 1){
@@ -109,7 +130,7 @@ if(nodo->getListaDeRegistros()->getTamanio() > 1){
 //Si queda vacio hay que agregarle el menor de los mayores o el mayor de los menores
 else
 {
-	try
+    try
 	{
 		Nodo* hijoDerecho = nodo->getHijoDerecho();
 		nodosARotar->apilar(hijoDerecho);
@@ -124,7 +145,7 @@ else
 		nodo->eliminarRegistro(registroAEliminar);
 	}
 	//En caso que no haya hijo derecho
-	catch(ElNodoNoTieneHijoEnEsaDireccion e)
+	catch(NumeroDeBloqueInvalido e)
 	{
 		Nodo* hijoIzquierdo = nodo->getHijoIzquierdo();
 		nodosARotar->apilar(hijoIzquierdo);
@@ -144,9 +165,16 @@ else
 Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo){
 
 	Nodo* nodoActual = nodo;
-	while(nodoActual->getHijoDerecho() != NULL){
-
-		nodoActual = nodoActual->getHijoDerecho();
+	while(true)
+    {
+        try
+        {
+            nodoActual = nodoActual->getHijoDerecho();
+        }
+		catch(NumeroDeBloqueInvalido e)
+		{
+		    break;
+		}
 		nodosARotar->apilar(nodoActual);
 		movimientos->apilar('d');
 
@@ -182,9 +210,16 @@ Registro* ArbolBiselado::obtenerMayorDeLosMenores(Nodo* nodo){
 
 Registro* ArbolBiselado::obtenerMenorDeLosMayores(Nodo* nodo){
 	Nodo* nodoActual = nodo;
-	while(nodoActual->getHijoIzquierdo() != NULL)
+	while(true)
 	{
-		nodoActual = nodoActual->getHijoIzquierdo();
+	    try
+	    {
+            nodoActual = nodoActual->getHijoIzquierdo();
+	    }
+	    catch(NumeroDeBloqueInvalido e)
+	    {
+	        break;
+	    }
 		nodosARotar->apilar(nodoActual);
 		movimientos->apilar('i');
 	}

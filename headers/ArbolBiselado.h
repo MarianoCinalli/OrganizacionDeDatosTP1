@@ -27,7 +27,7 @@ class ArbolBiselado{
 		void insertar(Registro* registro);
 		bool modificar(Registro* registroAModificar);
 		bool eliminar(Registro* registroAEliminar);
-		
+
 		void liberarMemoria(Pila<Nodo*>* nodosAliberar);
 
 		~ArbolBiselado();
@@ -47,9 +47,10 @@ class ArbolBiselado{
         void insetarEnNodoInterno(Registro* registro ,Nodo* nodo);
         void insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo);
         void insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar );
-        
+
         void desapilarSiNodoQuedaVacio(Nodo* nodoActual);
         void eliminarEnNodoInterno(Registro* registro, Nodo* nodo);
+        void eliminarReferenciaHojaVacia(Nodo* nodoActual);
         Registro* obtenerMenorDeLosMayores(Nodo* nodo);
         Registro* obtenerMayorDeLosMenores(Nodo* nodo);
 };
