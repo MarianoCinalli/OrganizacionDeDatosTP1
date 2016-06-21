@@ -119,7 +119,8 @@ void rotacionSimple(Pila<Nodo*>* nodos, Pila<char>* movimientos, Pila<Nodo*>*  n
 	// De este modo llega a ser la raiz.
 	nodos -> apilar(hijo);
 	// Apilo el padre para luego persistir y liberar memoria.
-	nodosProcesados  -> apilar(padre);
+	//nodosProcesados  -> apilar(padre);
+	delete padre;
 
 };
 

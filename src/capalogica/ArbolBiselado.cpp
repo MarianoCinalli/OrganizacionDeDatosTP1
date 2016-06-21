@@ -492,23 +492,26 @@ void ArbolBiselado::insertarSinBiselar(Lista<Registro*>* registros, Nodo* nodo){
 void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, Pila<Nodo*>* nodosALiberar ){
 
 	nodosALiberar -> apilar(nodo);
+	bool esMenor = nodo -> esElMenor(registro);
+	bool esMayor = nodo -> esElMayor(registro);
+
 
 	if (nodo -> esHoja()){
 
-		insertarEnHoja(registro, nodo);
+			this -> insertarEnHoja(registro, nodo);
 
-	} else if ( nodo -> esElMayor(registro) ){
+		} else if ( !esMenor && !esMayor ){
+				
+				this -> insetarEnNodoInterno(registro, nodo);
 
-			insertarEnSubArbolDerecho(registro ,nodo);
+			} else if ( esMenor ){
+				
+					this -> insertarEnSubArbolIzquierdo(registro ,nodo);
 
-		} else if ( nodo -> esElMenor(registro)){
-
-				insertarEnSubArbolIzquierdo(registro ,nodo);
-
-			} else {
-
-					insetarEnNodoInterno(registro, nodo);
-
-				}
+				} else {
+						
+						this -> insertarEnSubArbolDerecho(registro ,nodo);
+						
+					}
 };
 
