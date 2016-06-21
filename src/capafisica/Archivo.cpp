@@ -4,16 +4,13 @@ std::string Archivo::DIRECCION;
 
 void Archivo::setDireccion(std::string direccion){
 	
-	std::cout << direccion << "\n";
 	DIRECCION = direccion;
-	std::cout << DIRECCION << "\n";
-	
+
 };
 
 
 Archivo::Archivo() {
-	
-	std::cout << DIRECCION << "\n";
+
     this -> archivo.open(DIRECCION, std::fstream::in | std::fstream::out | std::fstream::binary);
     
     // Si el archivo no existe lo crea.
@@ -84,11 +81,9 @@ int Archivo::obtenerPrimerBloqueRegistros(){
 };
 
 void Archivo::escribirRaiz(Bloque* bloque) {
-	cout << "Escribir shaiz" << endl;
+	
     int posicion = bloque -> getNumeroDeBloque();
-    cout << "Posicion: " << posicion << endl;
     std::string datos = bloque -> exportarParaEscritura();
-	cout << "Datos: " << datos << endl;
     escribirString(datos, posicion);
 
     modificarPosicionRaiz(posicion);

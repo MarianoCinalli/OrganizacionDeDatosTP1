@@ -41,7 +41,7 @@ Nodo::Nodo(unsigned int hijoDerecho, Lista<Registro*>* listaDeRegistros, unsigne
 void Nodo::setNumeroDeBloqueHijoIzquierdo(unsigned int  numero){
 
 	this -> esNodoHoja = false;
-	this ->numeroDeBloqueHijoIzquierdo = numero;
+	this -> numeroDeBloqueHijoIzquierdo = numero;
 
 };
 
@@ -80,7 +80,7 @@ Nodo* Nodo::getHijoDerecho(){
 
 unsigned int Nodo::getNumeroDeBloque(){
 
-    return numeroDeBloque;
+    return ( this -> numeroDeBloque );
 
 };
 
@@ -92,37 +92,37 @@ void Nodo::setNumeroDeBloque(unsigned int nuevoNumeroDeBloque){
 
 bool Nodo::esHoja(){
 
-    return esNodoHoja;
+    return ( this -> esNodoHoja );
 
 };
 
 // Operaciones con registros
 bool Nodo::esElMenor(Registro* registro){
 
-    registros-> iniciarCursor();
-    registros-> avanzarCursor();
+    this -> registros-> iniciarCursor();
+    this -> registros-> avanzarCursor();
     Registro* primerRegistro = registros -> obtenerCursor();
 
-    return ( registro-> getCampoIndexante() < primerRegistro -> getCampoIndexante() );
+    return ( *registro < *primerRegistro);
 
 };
 
 bool Nodo::esElMayor(Registro* registro){
 
-	registros-> iniciarCursor();
+	this-> registros -> iniciarCursor();
 	Registro* ultimoRegistro = registros -> obtenerUltimo();
 
-    return ( registro-> getCampoIndexante() > ultimoRegistro -> getCampoIndexante() );
+    return ( *registro > *ultimoRegistro );
 
 };
 
 bool Nodo::estaIncluido(Registro* registro){
 
-   this->getListaDeRegistros()->iniciarCursor();
+   this-> registros ->iniciarCursor();
 
-   while(this->getListaDeRegistros()->avanzarCursor()){
+   while ( this-> registros -> avanzarCursor() ){
 	   
-		if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registro->getCampoIndexante()){
+		if( *(this-> registros -> obtenerCursor()) == *registro ){
 			
 			return true;
 			
@@ -157,13 +157,13 @@ void Nodo::modificarRegistro( Registro* registro ){
 
 void Nodo::remover( Registro* registroEliminable ){
 	
-	registros -> iniciarCursor();
+	this -> registros -> iniciarCursor();
 	int posicion = 0;
 	bool encontrado = false;
 
-	while(registros->avanzarCursor() && !encontrado){
+	while( registros -> avanzarCursor() && !encontrado ){
 
-		if(registroEliminable->getCampoIndexante() == registros->obtenerCursor()->getCampoIndexante()){
+		if( *registroEliminable == *(this -> registros -> obtenerCursor()) ){
 
 			encontrado = true;
 
@@ -171,7 +171,8 @@ void Nodo::remover( Registro* registroEliminable ){
 		posicion++;
 
 	}
-	registros -> remover(posicion);
+	
+	this -> registros -> remover(posicion);
 	
 }
 
@@ -206,9 +207,9 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 
    this->getListaDeRegistros()->iniciarCursor();
 
-   while(this->getListaDeRegistros()->avanzarCursor()){
+   while(this-> registros ->avanzarCursor()){
 
-		if(this->getListaDeRegistros()->obtenerCursor()->getCampoIndexante() == registroModificado->getCampoIndexante()){
+		if( *(this-> registros -> obtenerCursor()) == *registroModificado ){
 			return true;
 		}
 
@@ -220,7 +221,7 @@ bool Nodo::encontrarRegistro(Registro* registroModificado, int& posicionDeRegist
 
 bool Nodo::estaVacio(){
 
-	return ( registros -> estaVacia() );
+	return ( this -> registros -> estaVacia() );
 	
 };
 

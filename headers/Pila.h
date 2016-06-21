@@ -52,19 +52,22 @@ template <class T> T Pila<T>::desapilar()
     return dato;
 }
 
-template <class T> void Pila<T>::apilar(T elemento)
-{
+template <class T> void Pila<T>::apilar(T elemento){
+	
     NodoSimplementeEnlasado<T>* nuevoTope = new NodoSimplementeEnlasado<T>(elemento);
     nuevoTope->setSiguiente(tope);
     tope = nuevoTope;
     tamanio++;
+    
 }
 
-template <class T> Pila<T>::~Pila()
-{
-    while(!this->estaVacia())
-    {
+// No libera memoria.
+template <class T> Pila<T>::~Pila(){
+	
+    while(!this->estaVacia()){
+		
         desapilar();
+
     }
 }
 

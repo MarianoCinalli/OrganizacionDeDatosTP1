@@ -31,8 +31,6 @@ class Registro{
 
 		std::string getDescripcion();
 		void setDescripcion(std::string nuevaDescripcion);
-
-		int getCampoIndexante(); // Vuela!
 		
 		static void setCampoIndexante(int campoIndexante);
 		

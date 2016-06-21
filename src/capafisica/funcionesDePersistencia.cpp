@@ -51,11 +51,8 @@ Nodo* leer(unsigned int numeroDeBloque) {
 
 void persistirRaiz(Nodo* nodo) {
 	
-	cout << "Persistir shaiz" << endl;
     Archivo* archivo = new Archivo();
-    cout << "Archivo" << endl;
     Bloque* bloque = new Bloque(nodo);
-    cout << "Bloque" << endl;
 
     archivo -> escribirRaiz(bloque);
 

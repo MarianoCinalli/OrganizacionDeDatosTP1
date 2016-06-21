@@ -47,13 +47,6 @@ void Registro::setDescripcion(std::string nuevaDescripcion){
     descripcion = nuevaDescripcion;
 };
 
-// Esto vuela al carajo.
-int Registro::getCampoIndexante(){
-	
-    return id;
-    
-};
-
 // si campoIndexante = 0 => el arbol se ordena por id
 // si campoIndexante = 1 => el arbol se ordena por codigo
 // El valor por defecto es 0.
