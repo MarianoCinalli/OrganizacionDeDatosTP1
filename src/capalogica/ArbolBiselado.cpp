@@ -258,7 +258,6 @@ void ArbolBiselado::desapilarSiNodoQuedaVacio(Nodo* nodoActual){
 
 		nodoVacio = nodosARotar-> desapilar();
 		m = movimientos->desapilar();
-		delete nodoVacio; // perdia memoria.
 
 	}
 }
@@ -271,7 +270,7 @@ void ArbolBiselado::avanzarALaDerecha(Registro* registro, Nodo* nodo){
 
 		hijoDerecho = nodo -> getHijoDerecho();
 
-	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
+	} catch (NumeroDeBloqueInvalido e) {
 
 	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
 
@@ -287,7 +286,7 @@ void ArbolBiselado::avanzarALaIzquierda(Registro* registro, Nodo* nodo){
 
 		hijoIzquierdo = nodo -> getHijoIzquierdo();
 
-	} catch ( ElNodoNoTieneHijoEnEsaDireccion e) {
+	} catch (NumeroDeBloqueInvalido e) {
 
 	    cout << "El registro con el ID ingresado no se encuentra en el árbol." << endl;
 
@@ -322,19 +321,7 @@ bool ArbolBiselado::modificarRecursivo(Nodo* nodoActual, Registro* registroAModi
 	}
 	else
 	{
-		if(nodoActual->esHoja())
-		{
-			eliminarEnHoja(registroAModificar,nodoActual);
-			insertarEnHoja(registroAModificar,nodoActual);
-			nodoActual->getListaDeRegistros()->iniciarCursor();
-			nodoActual->getListaDeRegistros()->avanzarCursor();
-		}
-		//sino es hoja es nodo interno
-		else
-		{
-			eliminarEnNodoInterno(registroAModificar,nodoActual);
-			insetarEnNodoInterno(registroAModificar,nodoActual);
-		}
+	    nodoActual->modificarRegistro(registroAModificar);
 		return true;
 	}
 };
