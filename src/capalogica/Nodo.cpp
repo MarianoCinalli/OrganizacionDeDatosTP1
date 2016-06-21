@@ -135,7 +135,6 @@ bool Nodo::estaIncluido(Registro* registro){
 };
 
 void Nodo::agregarRegistro(Registro* nuevoRegistro)	{
-
 	registros -> agregar(nuevoRegistro);
 	persistir(this);
 

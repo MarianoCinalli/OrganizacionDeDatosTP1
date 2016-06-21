@@ -178,4 +178,17 @@ int main(int argc, char* argv[]){
 	}
 	return EXIT_SUCCESS;
 	
+	/*
+	
+	Archivo::setDireccion("ejemploDeArbolOrdenadoPorID.txt");
+	
+	Nodo* raiz = leerRaiz();
+	ArbolBiselado* arbol = new ArbolBiselado( raiz );
+	Registro* registro = new Registro (303,"aab","OPO");
+	
+	arbol -> insertar(registro);
+	
+	delete arbol; 
+	*/
+	
 }

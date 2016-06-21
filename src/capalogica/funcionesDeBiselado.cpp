@@ -9,17 +9,17 @@
 // Toma una lista de nodos y, segun los movimientos, los rota.
 // Al final cambia la raiz inicial por la nueva, devuelve ambas pilas vacias.
 Pila<Nodo*>* biselar( Pila<Nodo*>* nodos, Pila<char>* movimientos, Nodo* raiz ){
-
+	
 	int cantidadDeNodos = nodos -> getTamanio();
 	// Esto es para un procesamiento posterior
 	// No importa en las rotaciones, ignorar.
-	Pila<Nodo*>*  nodosProcesados;
+	Pila<Nodo*>*  nodosProcesados = new Pila<Nodo*>;
 
 	// ¿Como funciona?
 	// Tengo que llevar el ultimo nodo procesado, el ultimo de la pila, a la raiz.
 	// Para ello roto los nodos hasta que el unico elemento restante el la pila sea la nueva raiz.
 	while ( cantidadDeNodos != 1 ){
-
+		
 		if (cantidadDeNodos >= 3){
 			// Si hay tres o mas nodos tengo que rotar de a tres.
 			rotacionDoble(nodos, movimientos, nodosProcesados);

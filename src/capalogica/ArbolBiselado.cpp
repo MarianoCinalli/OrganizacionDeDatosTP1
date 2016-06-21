@@ -43,13 +43,10 @@ bool ArbolBiselado::eliminar(Registro* registroAEliminar){
 
 ArbolBiselado::~ArbolBiselado(){
 
-	std::cout << "Persistir" << "\n";
+	
 	persistirRaiz(raiz);
-	std::cout << "Nodos a rotar" << "\n";
 	delete nodosARotar;
-	std::cout << "Movimientos" << "\n";
 	delete movimientos;
-	std::cout << "Raiz" << "\n";
 	delete raiz;
 
 };
@@ -333,7 +330,6 @@ void ArbolBiselado::eliminarEnHoja(Registro* registro, Nodo* nodo){
 // Metodos de insertar ---------------------------------------------------
 
 void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
-		
 		this -> nodosARotar -> apilar(nodo);
 		bool esMenor = nodo -> esElMenor(registro);
 		bool esMayor = nodo -> esElMayor(registro);
@@ -344,11 +340,9 @@ void ArbolBiselado::insertarRecursivo( Registro* registro, Nodo* nodo){
 			// throw elRegistroYaPerteneceAlArbol
 
 		} else if (nodo -> esHoja()){
-
 				this -> insertarEnHoja(registro, nodo);
 
 			} else if ( !esMenor && !esMayor ){
-					
 					this -> insetarEnNodoInterno(registro, nodo);
 
 				} else if ( esMenor ){
@@ -494,7 +488,6 @@ void ArbolBiselado::insetarSinBiselarRecursivo( Registro* registro, Nodo* nodo, 
 	nodosALiberar -> apilar(nodo);
 	bool esMenor = nodo -> esElMenor(registro);
 	bool esMayor = nodo -> esElMayor(registro);
-
 
 	if (nodo -> esHoja()){
 

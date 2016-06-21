@@ -62,18 +62,15 @@ template <class T> void Lista<T>::agregar(T elemento){
 
     NodoSimplementeEnlasado<T>* nuevoElemento = new NodoSimplementeEnlasado<T>(elemento);
    tamanio++;
-    if(tamanio > 1)
-    {
+    if(tamanio > 1){
+		
         obtenerNodo(tamanio-1)->setSiguiente(nuevoElemento);
         ordenar();
-    }
-    else
-    {
+        
+    } else {
         primerElemento = nuevoElemento;
     }
-    // Ahora podes hacer nuevoElemento < primerElemento
-    // Te deje un ejemplo abajo.
-    // No necesitas usar el getDato
+
 
 }
 
