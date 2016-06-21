@@ -1,5 +1,5 @@
-//#include "ArbolBiselado.h"
-#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
+#include "ArbolBiselado.h"
+//#include "C:/CSV/TpDatos/OrganizacionDeDatosTP1/headers/ArbolBiselado.h"
 // Metodos
 
 ArbolBiselado::ArbolBiselado(Nodo* raiz){
